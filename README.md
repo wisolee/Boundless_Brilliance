@@ -1,4 +1,4 @@
-# Boundless_Brilliance
+# Boundless Brilliance Internal App
 
 ## About
 This is an internal scheduling iOS mobile app coded in Swift created for Boundless Brilliance, a 501(c)3 nonprofit based in Los Angeles that promotes the involvement of young girls in STEM education and careers by engaging college student volunteers to give exciting presentations and science experiments in public school classrooms.
@@ -13,7 +13,7 @@ This is an internal scheduling iOS mobile app coded in Swift created for Boundle
 |Cora Monokandilos     |*cmonokan@ucsc.edu*  |4th Year CS     |
 
 ## Technologies Used
-Swift
-Firebase
+*Swift
+*Firebase
 
 *This project was created for the course 115: Introduction to Software Engineering in the Fall 2018 Quarter at UCSC.*
