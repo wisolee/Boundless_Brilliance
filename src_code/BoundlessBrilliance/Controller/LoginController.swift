@@ -24,8 +24,20 @@ class LoginController: UIViewController {
     // subview - loginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
+        button.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         button.setTitle("Login", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        return button
+    }()
+    
+    // subview - registrationButton
+    let registrationButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        button.setTitle("Register", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
@@ -76,10 +88,13 @@ class LoginController: UIViewController {
         view.addSubview(inputsContainerView)
         view.addSubview(loginButton)
         view.addSubview(profileImageView)
+        view.addSubview(registrationButton)
         
         setUpInputsContainerView()
-        setupLoginRegisterButton()
+        setupLoginButton()
         setupProfileImageView()
+        setupRegisterButton()
+        
     }
     
     func setupProfileImageView() {
@@ -122,12 +137,20 @@ class LoginController: UIViewController {
         
     }
     
-    func setupLoginRegisterButton() {
+    func setupLoginButton() {
         /* need x, y, width, height contraints */
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
         loginButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    func setupRegisterButton() {
+        /* need x, y, width, height contraints */
+        registrationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        registrationButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor).isActive = true
+        registrationButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        registrationButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     // Make originally black status bar white
