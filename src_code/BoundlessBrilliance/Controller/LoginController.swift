@@ -11,6 +11,23 @@ import Firebase
 
 class LoginController: UIViewController {
     
+    // subview - profileImage
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        //imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    // subview- loginRegisterSegmentedControl
+    let logingRegisterSegmentControl: UISegmentedControl = {
+        let loginRegister = UISegmentedControl(items: ["Login Page", "Register Page"])
+        loginRegister.translatesAutoresizingMaskIntoConstraints = false
+        loginRegister.tintColor = UIColor.white
+        return loginRegister
+    }()
+    
     // subview - inputsContainerView
     let inputsView: UIView = {
         let view = UIView()
@@ -25,7 +42,7 @@ class LoginController: UIViewController {
     // subview - registerButton
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Register", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -113,42 +130,43 @@ class LoginController: UIViewController {
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
-    
-    // subview - profileImage
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
 
     // Main Display
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 61, g: 91, b: 151);
+        view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
         /* Add subviews */
+        view.addSubview(profileImageView)
+        view.addSubview(logingRegisterSegmentControl)
         view.addSubview(inputsView)
         view.addSubview(registerButton)
         view.addSubview(profileImageView)
         
-        setUpInputsContainerView()
-        setupRegisterButton()
         setupProfileImageView()
-        
+        setUplogingRegisterSegmentControl()
+        setUpInputsView()
+        setupRegisterButton()
     }
     
     func setupProfileImageView() {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: logingRegisterSegmentControl.topAnchor, constant: -12).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
-    func setUpInputsContainerView() {
+    func setUplogingRegisterSegmentControl() {
+        /* need x, y, width, height contraints */
+        logingRegisterSegmentControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logingRegisterSegmentControl.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true // -12 pushes segmentControl 12 above inputsView
+        logingRegisterSegmentControl.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        logingRegisterSegmentControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    func setUpInputsView() {
         /* need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
