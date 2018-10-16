@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FD7EF9E2175B1E60085874A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */; };
+		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
+		0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
+		0FE71C5E2175D0CE009C3C44 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* LoginController.swift */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
-		0FE9E0662174509D00B96476 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
 		0FE9E0692174509D00B96476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E0672174509D00B96476 /* Main.storyboard */; };
 		0FE9E06B2174509E00B96476 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E06A2174509E00B96476 /* Assets.xcassets */; };
 		0FE9E06E2174509E00B96476 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E06C2174509E00B96476 /* LaunchScreen.storyboard */; };
 		0FE9E0792174509E00B96476 /* BoundlessBrillianceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0782174509E00B96476 /* BoundlessBrillianceTests.swift */; };
 		0FE9E0842174509E00B96476 /* BoundlessBrillianceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */; };
-		0FE9E093217457E900B96476 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* LoginController.swift */; };
+		124256EAD093563BC1610AFB /* Pods_BoundlessBrilliance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */; };
+		774F8425C57F2B61F86A6EF4 /* Pods_BoundlessBrillianceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */; };
+		FAA19891C822ECFFA168EA4A /* Pods_BoundlessBrillianceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F1E75872175B59100276770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FE9E0602174509D00B96476 /* BoundlessBrilliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoundlessBrilliance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0632174509D00B96476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FE9E0652174509D00B96476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +54,15 @@
 		0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundlessBrillianceUITests.swift; sourceTree = "<group>"; };
 		0FE9E0852174509E00B96476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FE9E092217457E900B96476 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.release.xcconfig"; sourceTree = "<group>"; };
+		5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrillianceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68DB6213F78EDD6AB776C30F /* Pods-BoundlessBrilliance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.debug.xcconfig"; sourceTree = "<group>"; };
+		696641ACA5567F74133AA0EB /* Pods-BoundlessBrillianceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceTests/Pods-BoundlessBrillianceTests.release.xcconfig"; sourceTree = "<group>"; };
+		970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrilliance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3F54350D31F941DA9E88791 /* Pods-BoundlessBrillianceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceTests/Pods-BoundlessBrillianceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C1DF25405C4502F2CE1BB74C /* Pods-BoundlessBrillianceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrillianceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				124256EAD093563BC1610AFB /* Pods_BoundlessBrilliance.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA19891C822ECFFA168EA4A /* Pods_BoundlessBrillianceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774F8425C57F2B61F86A6EF4 /* Pods_BoundlessBrillianceUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +100,8 @@
 				0FE9E0772174509E00B96476 /* BoundlessBrillianceTests */,
 				0FE9E0822174509E00B96476 /* BoundlessBrillianceUITests */,
 				0FE9E0612174509D00B96476 /* Products */,
+				ADF26B44EAB287A805F73522 /* Pods */,
+				6C91DD06EA6B0441091920A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,7 +124,7 @@
 				0FE9E06A2174509E00B96476 /* Assets.xcassets */,
 				0FE9E06C2174509E00B96476 /* LaunchScreen.storyboard */,
 				0FE9E06F2174509E00B96476 /* Info.plist */,
-				0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */,
+				0F1E75872175B59100276770 /* GoogleService-Info.plist */,
 			);
 			path = BoundlessBrilliance;
 			sourceTree = "<group>";
@@ -139,6 +156,29 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		6C91DD06EA6B0441091920A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */,
+				63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */,
+				CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ADF26B44EAB287A805F73522 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68DB6213F78EDD6AB776C30F /* Pods-BoundlessBrilliance.debug.xcconfig */,
+				2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */,
+				B3F54350D31F941DA9E88791 /* Pods-BoundlessBrillianceTests.debug.xcconfig */,
+				696641ACA5567F74133AA0EB /* Pods-BoundlessBrillianceTests.release.xcconfig */,
+				C1DF25405C4502F2CE1BB74C /* Pods-BoundlessBrillianceUITests.debug.xcconfig */,
+				5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FE9E0882174509E00B96476 /* Build configuration list for PBXNativeTarget "BoundlessBrilliance" */;
 			buildPhases = (
+				288A614145675E98CBF8C522 /* [CP] Check Pods Manifest.lock */,
 				0FE9E05C2174509D00B96476 /* Sources */,
 				0FE9E05D2174509D00B96476 /* Frameworks */,
 				0FE9E05E2174509D00B96476 /* Resources */,
+				F5E8AE2174C55F1A22452013 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FE9E08B2174509E00B96476 /* Build configuration list for PBXNativeTarget "BoundlessBrillianceTests" */;
 			buildPhases = (
+				F2ED78042389CE67E1EB1CB4 /* [CP] Check Pods Manifest.lock */,
 				0FE9E0702174509E00B96476 /* Sources */,
 				0FE9E0712174509E00B96476 /* Frameworks */,
 				0FE9E0722174509E00B96476 /* Resources */,
@@ -181,6 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FE9E08E2174509E00B96476 /* Build configuration list for PBXNativeTarget "BoundlessBrillianceUITests" */;
 			buildPhases = (
+				E1D6AE90225DCB1473B24143 /* [CP] Check Pods Manifest.lock */,
 				0FE9E07B2174509E00B96476 /* Sources */,
 				0FE9E07C2174509E00B96476 /* Frameworks */,
 				0FE9E07D2174509E00B96476 /* Resources */,
@@ -247,7 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FE9E06E2174509E00B96476 /* LaunchScreen.storyboard in Resources */,
-				0FD7EF9E2175B1E60085874A /* GoogleService-Info.plist in Resources */,
+				0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */,
 				0FE9E06B2174509E00B96476 /* Assets.xcassets in Resources */,
 				0FE9E0692174509D00B96476 /* Main.storyboard in Resources */,
 			);
@@ -269,13 +313,110 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		288A614145675E98CBF8C522 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoundlessBrilliance-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1D6AE90225DCB1473B24143 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoundlessBrillianceUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2ED78042389CE67E1EB1CB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoundlessBrillianceTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5E8AE2174C55F1A22452013 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0FE9E05C2174509D00B96476 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FE9E0662174509D00B96476 /* ViewController.swift in Sources */,
-				0FE9E093217457E900B96476 /* LoginController.swift in Sources */,
+				0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */,
+				0FE71C5E2175D0CE009C3C44 /* LoginController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +589,7 @@
 		};
 		0FE9E0892174509E00B96476 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68DB6213F78EDD6AB776C30F /* Pods-BoundlessBrilliance.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -463,6 +605,7 @@
 		};
 		0FE9E08A2174509E00B96476 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -478,6 +621,7 @@
 		};
 		0FE9E08C2174509E00B96476 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3F54350D31F941DA9E88791 /* Pods-BoundlessBrillianceTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -495,6 +639,7 @@
 		};
 		0FE9E08D2174509E00B96476 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 696641ACA5567F74133AA0EB /* Pods-BoundlessBrillianceTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +657,7 @@
 		};
 		0FE9E08F2174509E00B96476 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1DF25405C4502F2CE1BB74C /* Pods-BoundlessBrillianceUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -528,6 +674,7 @@
 		};
 		0FE9E0902174509E00B96476 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
