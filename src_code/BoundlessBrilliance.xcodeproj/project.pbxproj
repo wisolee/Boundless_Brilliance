@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FD7EF9E2175B1E60085874A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
 		0FE9E0662174509D00B96476 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
 		0FE9E0692174509D00B96476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E0672174509D00B96476 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FE9E0602174509D00B96476 /* BoundlessBrilliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoundlessBrilliance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0632174509D00B96476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FE9E0652174509D00B96476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				0FE9E06A2174509E00B96476 /* Assets.xcassets */,
 				0FE9E06C2174509E00B96476 /* LaunchScreen.storyboard */,
 				0FE9E06F2174509E00B96476 /* Info.plist */,
+				0FD7EF9D2175B1E60085874A /* GoogleService-Info.plist */,
 			);
 			path = BoundlessBrilliance;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FE9E06E2174509E00B96476 /* LaunchScreen.storyboard in Resources */,
+				0FD7EF9E2175B1E60085874A /* GoogleService-Info.plist in Resources */,
 				0FE9E06B2174509E00B96476 /* Assets.xcassets in Resources */,
 				0FE9E0692174509D00B96476 /* Main.storyboard in Resources */,
 			);
@@ -450,7 +454,7 @@
 				INFOPLIST_FILE = BoundlessBrilliance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.BoundlessBrilliance.BoundlessBrilliance;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BoundlessBrilliance.BoundlessBrillianceInternalApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -465,7 +469,7 @@
 				INFOPLIST_FILE = BoundlessBrilliance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.BoundlessBrilliance.BoundlessBrilliance;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BoundlessBrilliance.BoundlessBrillianceInternalApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
