@@ -12,7 +12,7 @@ import Firebase
 class LoginController: UIViewController {
     
     // subview - inputsContainerView
-    let inputsContainerView: UIView = {
+    let inputsView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         // must set up this property otherwise, the specified anchors will not work
@@ -130,7 +130,7 @@ class LoginController: UIViewController {
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151);
         
         /* Add subviews */
-        view.addSubview(inputsContainerView)
+        view.addSubview(inputsView)
         view.addSubview(registerButton)
         view.addSubview(profileImageView)
         
@@ -143,76 +143,76 @@ class LoginController: UIViewController {
     func setupProfileImageView() {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
     func setUpInputsContainerView() {
         /* need x, y, width, height contraints */
-        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsContainerView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        inputsView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         /* adding placeholder subviews */
-        inputsContainerView.addSubview(nameTextField)
-        inputsContainerView.addSubview(nameSeparatorView)
-        inputsContainerView.addSubview(emailTextField)
-        inputsContainerView.addSubview(emailSeparatorView)
-        inputsContainerView.addSubview(passwordTextField)
-        inputsContainerView.addSubview(passwordSeparatorView)
-        inputsContainerView.addSubview(chapterTextField)
+        inputsView.addSubview(nameTextField)
+        inputsView.addSubview(nameSeparatorView)
+        inputsView.addSubview(emailTextField)
+        inputsView.addSubview(emailSeparatorView)
+        inputsView.addSubview(passwordTextField)
+        inputsView.addSubview(passwordSeparatorView)
+        inputsView.addSubview(chapterTextField)
         
         // nameTextField: need x, y, width, height contraints
-        nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
-        nameTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        nameTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
+        nameTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
         
         // nameSeparatorView: need x, y, width, height contraints
-        nameSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        nameSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         nameSeparatorView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
-        nameSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        nameSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         nameSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         // emailTextField: need x, y, width, height contraints
-        emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        emailTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        emailTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
         
         // emailSeparatorView: need x, y, width, height contraints
-        emailSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
-        emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         // passwordTextField: need x, y, width, height contraints
-        passwordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        passwordTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
-        passwordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        passwordTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
         
         // passwordSeparatorView need x, y, width, height contraints
-        passwordSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        passwordSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         passwordSeparatorView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        passwordSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        passwordSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         passwordSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         // chapterTextField need x, y, width, height contraints
-        chapterTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        chapterTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         chapterTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        chapterTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        chapterTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        chapterTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
         
     }
     
     func setupRegisterButton() {
         /* need x, y, width, height contraints */
         registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        registerButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true
-        registerButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        registerButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
+        registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
