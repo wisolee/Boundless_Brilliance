@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>415898926604-rs6q1thm13pkeb0p8o2arlscnbgndgl6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.415898926604-rs6q1thm13pkeb0p8o2arlscnbgndgl6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1Ur4i4b6LNrqUotqbSUns3dOns8QbGuk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>415898926604</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.BoundlessBrilliance.BoundlessBrillianceInternalApp</string>
+	<key>PROJECT_ID</key>
+	<string>boundless-brilliance-22fa0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>boundless-brilliance-22fa0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:415898926604:ios:4a4e403f1a795de2</string>
+	<key>DATABASE_URL</key>
+	<string>https://boundless-brilliance-22fa0.firebaseio.com</string>
+</dict>
+</plist>
