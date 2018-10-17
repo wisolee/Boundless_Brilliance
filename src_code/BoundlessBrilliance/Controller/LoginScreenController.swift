@@ -62,21 +62,21 @@ class LoginScreenController: UIViewController {
         return view
     }()
     
-    // subview - LoginButton
-//    let loginButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-//        button.setTitle("Login", for: .normal)
-//        // must set up this property otherwise, the specified anchors will not work
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-//
-//        // Add action to LoginButton
-//        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-//
-//        return button
-//    }()
+//     subview - LoginButton
+    let loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.setTitle("Login", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+
+        // Add action to LoginButton
+        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+
+        return button
+    }()
     
     // subview - registerButton
     let registerButton: UIButton = {
@@ -103,13 +103,13 @@ class LoginScreenController: UIViewController {
         /* Add subviews */
         view.addSubview(profileImageView)
         view.addSubview(inputsView)
-//        view.addSubview(loginButton)
+        view.addSubview(loginButton)
         view.addSubview(registerButton)
         view.addSubview(profileImageView)
         
         setUpProfileImageView()
         setUpInputsView()
-//        setUpLoginButton()
+        setUpLoginButton()
         setUpRegisterButton()
     }
     
@@ -160,18 +160,18 @@ class LoginScreenController: UIViewController {
         
     }
     
-//    func setUpLoginButton() {
-//        /* need x, y, width, height contraints */
-//        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
-//        loginButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-//        loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//    }
+    func setUpLoginButton() {
+        /* need x, y, width, height contraints */
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
+        loginButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
     
     func setUpRegisterButton() {
         /* need x, y, width, height contraints */
         registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        registerButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
+        registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 12).isActive = true
         registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
