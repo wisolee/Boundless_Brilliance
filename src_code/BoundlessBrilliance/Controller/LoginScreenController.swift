@@ -65,12 +65,13 @@ class LoginScreenController: UIViewController {
 //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("Login", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
 
         // Add action to LoginButton
         //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
@@ -82,7 +83,7 @@ class LoginScreenController: UIViewController {
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        button.setTitle("Register", for: .normal)
+        button.setTitle("New to the app? Register here", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
@@ -138,7 +139,7 @@ class LoginScreenController: UIViewController {
         emailTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/2).isActive = true // 1/4 of entire height
         
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -150,7 +151,7 @@ class LoginScreenController: UIViewController {
         passwordTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailSeparatorView.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/2).isActive = true // 1/4 of entire height
         
         // emailSeparatorView: need x, y, width, height contraints
         passwordSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
