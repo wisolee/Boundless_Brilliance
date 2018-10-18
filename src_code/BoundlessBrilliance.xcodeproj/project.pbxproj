@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
 		0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
-		0FE71C5E2175D0CE009C3C44 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* LoginController.swift */; };
+		0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* RegisterController.swift */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
 		0FE9E0692174509D00B96476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E0672174509D00B96476 /* Main.storyboard */; };
 		0FE9E06B2174509E00B96476 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E06A2174509E00B96476 /* Assets.xcassets */; };
@@ -18,6 +18,7 @@
 		0FE9E0842174509E00B96476 /* BoundlessBrillianceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */; };
 		124256EAD093563BC1610AFB /* Pods_BoundlessBrilliance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */; };
 		5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A8912176E28100B30810 /* LoginScreenController.swift */; };
+		1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F20F32177C2270070EAEB /* RegisterView.swift */; };
 		774F8425C57F2B61F86A6EF4 /* Pods_BoundlessBrillianceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */; };
 		FAA19891C822ECFFA168EA4A /* Pods_BoundlessBrillianceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */; };
 /* End PBXBuildFile section */
@@ -54,7 +55,8 @@
 		0FE9E07F2174509E00B96476 /* BoundlessBrillianceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoundlessBrillianceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundlessBrillianceUITests.swift; sourceTree = "<group>"; };
 		0FE9E0852174509E00B96476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0FE9E092217457E900B96476 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		0FE9E092217457E900B96476 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		1F4F20F32177C2270070EAEB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.release.xcconfig"; sourceTree = "<group>"; };
 		5236A8912176E28100B30810 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
 		5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		0FE9E0622174509D00B96476 /* BoundlessBrilliance */ = {
 			isa = PBXGroup;
 			children = (
+				1F4F20F22177B64F0070EAEB /* View */,
 				0FE9E091217457B400B96476 /* Controller */,
 				0FE9E0632174509D00B96476 /* AppDelegate.swift */,
 				0FE9E0672174509D00B96476 /* Main.storyboard */,
@@ -152,11 +155,19 @@
 		0FE9E091217457B400B96476 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0FE9E092217457E900B96476 /* LoginController.swift */,
+				0FE9E092217457E900B96476 /* RegisterController.swift */,
 				0FE9E0652174509D00B96476 /* ViewController.swift */,
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		1F4F20F22177B64F0070EAEB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F4F20F32177C2270070EAEB /* RegisterView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6C91DD06EA6B0441091920A4 /* Frameworks */ = {
@@ -419,7 +430,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */,
-				0FE71C5E2175D0CE009C3C44 /* LoginController.swift in Sources */,
+				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
+				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
 			);
