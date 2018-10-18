@@ -24,7 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         // Creates top navigation bar
-        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
+        
+        // Launches app directly to registerpage
+        window?.rootViewController = RegisterController()
 
         return true
     }

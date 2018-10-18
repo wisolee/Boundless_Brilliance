@@ -23,7 +23,6 @@ class RegisterController: UIViewController {
         
         //Get the variables from the registerView
         let profileImageView = registerView.profileImageView
-        let logingRegisterSegmentControl = registerView.logingRegisterSegmentControl
         let inputsView = registerView.inputsView
         let registerButton = registerView.registerButton
         
@@ -42,7 +41,6 @@ class RegisterController: UIViewController {
         
         /* Add subviews to the main vuew*/
         view.addSubview(profileImageView)
-        view.addSubview(logingRegisterSegmentControl)
         view.addSubview(inputsView)
         view.addSubview(registerButton)
         view.addSubview(profileImageView)
@@ -64,10 +62,7 @@ class RegisterController: UIViewController {
     //FORMAT VIEWS-----------------
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
-        setupProfileImageView(profileImageView: profileImageView,
-                                logingRegisterSegmentControl: logingRegisterSegmentControl)
-        setUplogingRegisterSegmentControl(logingRegisterSegmentControl: logingRegisterSegmentControl,
-                                inputsView: inputsView)
+        setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView,
                                 nameTextField: nameTextField,
                                 nameSeparatorView: nameSeparatorView,
@@ -85,20 +80,12 @@ class RegisterController: UIViewController {
     
 // HELPER FUNCTIONS FOR SETTING UP THE VIEWS---------------------------------------------------------------------------------
     
-    func setupProfileImageView(profileImageView: UIImageView, logingRegisterSegmentControl: UISegmentedControl) {
+    func setupProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: logingRegisterSegmentControl.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
-    }
-    
-    func setUplogingRegisterSegmentControl(logingRegisterSegmentControl: UISegmentedControl, inputsView: UIView) {
-        /* need x, y, width, height contraints */
-        logingRegisterSegmentControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logingRegisterSegmentControl.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true // -12 pushes segmentControl 12 above inputsView
-        logingRegisterSegmentControl.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        logingRegisterSegmentControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailTextField: UITextField, emailSeparatorView: UIView, passwordTextField: UITextField, passwordSeparatorView: UIView, chapterTextField: UITextField) {

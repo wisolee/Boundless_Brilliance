@@ -18,14 +18,6 @@ class RegisterView: UIView {
         return imageView
     }()
     
-    // subview- loginRegisterSegmentedControl
-    let logingRegisterSegmentControl: UISegmentedControl = {
-        let loginRegister = UISegmentedControl(items: ["Login Page", "Register Page"])
-        loginRegister.translatesAutoresizingMaskIntoConstraints = false
-        loginRegister.tintColor = UIColor.white
-        return loginRegister
-    }()
-    
     // subview - inputsContainerView
     let inputsView: UIView = {
         let view = UIView()
