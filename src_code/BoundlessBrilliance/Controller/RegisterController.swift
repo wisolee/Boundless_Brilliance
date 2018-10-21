@@ -70,14 +70,7 @@ class RegisterController: UIViewController {
                 print("Error in creating account")
                 return
             }
-            // Successful Authentication, now save user
-            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-//            var ref: DatabaseReference!
-//
-//            ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-//            let userRef = ref.child("users")
-//
-            //ref.updateChildValues(["someValue": 123])
+            
         })
         let newViewController = LoginScreenController()
         self.present(newViewController, animated: true)
@@ -100,12 +93,9 @@ class RegisterController: UIViewController {
         
         //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
         let nameTextField = registerView.nameTextField
-//        let emailTextField = registerView.emailTextField
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
-//        let passwordTextField = registerView.passwordTextField
         let passwordSeparatorView = registerView.passwordSeparatorView
-//        let chapterTextField = registerView.chapterTextField
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
 
         

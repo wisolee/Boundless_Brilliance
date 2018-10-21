@@ -48,14 +48,7 @@ class RegisterView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-//    // subview - emailTextField
-//    let emailTextField: UITextField = {
-//        let tf = UITextField()
-//        tf.placeholder = "email"
-//        tf.translatesAutoresizingMaskIntoConstraints = false
-//        return tf
-//    }()
+
     
     // subview - emailSeparatorView
     let emailSeparatorView: UIView = {
@@ -64,14 +57,7 @@ class RegisterView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-//    // subview - passwordTextField
-//    let passwordTextField: UITextField = {
-//        let tf = UITextField()
-//        tf.placeholder = "password"
-//        tf.translatesAutoresizingMaskIntoConstraints = false
-//        return tf
-//    }()
+
     
     // subview - passwordSeparatorView
     let passwordSeparatorView: UIView = {
@@ -81,13 +67,6 @@ class RegisterView: UIView {
         return view
     }()
     
-//    // subview - chapterTextField
-//    let chapterTextField: UITextField! = {
-//        let tf = UITextField()
-//        tf.placeholder = "chapter"
-//        tf.translatesAutoresizingMaskIntoConstraints = false
-//        return tf
-//    }()
     
 }
 
