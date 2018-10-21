@@ -10,9 +10,6 @@ import UIKit
 import Firebase
 
 class LoginScreenController: UIViewController {
-
-    
-
     
     // Main Display
     override func viewDidLoad() {
@@ -36,7 +33,7 @@ class LoginScreenController: UIViewController {
         view.addSubview(registerButton)
 //        view.addSubview(profileImageView)
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        view.backgroundColor = UIColor(r: 0, g: 0, b: 0)
         setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)

@@ -109,7 +109,7 @@ class RegisterController: UIViewController {
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
 
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
+        view.backgroundColor = UIColor(r: 255, g: 255, b: 255);
         
     //ADDING THE SUBVIEWS TO THE MAIN VIEW-------
         

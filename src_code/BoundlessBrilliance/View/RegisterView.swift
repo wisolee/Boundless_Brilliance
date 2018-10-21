@@ -14,7 +14,7 @@ class RegisterView: UIView {
 
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageView.contentMode = .scaleAspectFill
         return imageView
