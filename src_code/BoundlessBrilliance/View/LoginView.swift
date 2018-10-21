@@ -15,7 +15,7 @@ class LoginView: UIView{
         let imageView = UIImageView()
         imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -41,7 +41,7 @@ class LoginView: UIView{
     // subview - nameSeparatorView
     let emailSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -58,7 +58,7 @@ class LoginView: UIView{
     // subview - nameSeparatorView
     let passwordSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -66,11 +66,11 @@ class LoginView: UIView{
     //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Login", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
@@ -83,11 +83,11 @@ class LoginView: UIView{
     // subview - registerButton
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("New to the app? Register here", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         // Add action to registerButton

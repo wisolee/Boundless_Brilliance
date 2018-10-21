@@ -43,7 +43,7 @@ class LoginScreenController: UIViewController {
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -50).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }

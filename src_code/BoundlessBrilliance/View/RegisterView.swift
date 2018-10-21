@@ -17,8 +17,16 @@ class RegisterView: UIView {
         imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+//        imageView.imageEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         return imageView
     }()
+    
+//    let genSeparatorView: UIView = {
+//        let sepView = UIView()
+//        sepView.backgroundColor = UIColor(r: 0, g: 225, b: 225)
+//        sepView.translatesAutoresizingMaskIntoConstraints = false
+//        return sepView
+//    }()
     
     // subview - inputsContainerView
     let inputsView: UIView = {
