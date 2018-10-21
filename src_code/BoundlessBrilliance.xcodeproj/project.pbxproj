@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
+		0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B5D3217C3625000540E1 /* SpinnerView.swift */; };
 		0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
 		0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* RegisterController.swift */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		0F1E75872175B59100276770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0FB3B5D3217C3625000540E1 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		0FE9E0602174509D00B96476 /* BoundlessBrilliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoundlessBrilliance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0632174509D00B96476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FE9E0652174509D00B96476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			children = (
 				1F4F20F32177C2270070EAEB /* RegisterView.swift */,
 				666732C72179553700C68C0E /* LoginView.swift */,
+				0FB3B5D3217C3625000540E1 /* SpinnerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
+				0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

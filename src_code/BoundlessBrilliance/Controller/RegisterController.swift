@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 
 class RegisterController: UIViewController {
-    
+    // Spinner options for chapterTextField
+    let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
@@ -20,6 +21,7 @@ class RegisterController: UIViewController {
         
         //Get a reference to the RegisterView UIView
         let registerView = RegisterView()
+        
         
         //Get the variables from the registerView
         let profileImageView = registerView.profileImageView
@@ -34,6 +36,7 @@ class RegisterController: UIViewController {
         let passwordTextField = registerView.passwordTextField
         let passwordSeparatorView = registerView.passwordSeparatorView
         let chapterTextField = registerView.chapterTextField
+        chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
         
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
@@ -52,7 +55,7 @@ class RegisterController: UIViewController {
         inputsView.addSubview(emailSeparatorView)
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
-        inputsView.addSubview(chapterTextField)
+        inputsView.addSubview(chapterTextField!)
         
     //ADD ACTIONS TO VIEWS----------
         
@@ -70,7 +73,7 @@ class RegisterController: UIViewController {
                                 emailSeparatorView: emailSeparatorView,
                                 passwordTextField: passwordTextField,
                                 passwordSeparatorView: passwordSeparatorView,
-                                chapterTextField: chapterTextField
+                                chapterTextField: chapterTextField!
                                 )
         setupRegisterButton(registerButton: registerButton,
                                 inputsView: inputsView)
@@ -88,7 +91,7 @@ class RegisterController: UIViewController {
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
-    func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailTextField: UITextField, emailSeparatorView: UIView, passwordTextField: UITextField, passwordSeparatorView: UIView, chapterTextField: UITextField) {
+    func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailTextField: UITextField, emailSeparatorView: UIView, passwordTextField: UITextField, passwordSeparatorView: UIView, chapterTextField: UITextField!) {
         
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
