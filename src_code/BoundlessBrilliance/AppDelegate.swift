@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Creates top navigation bar
 //        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
         
-        // Launches app directly to registerpage
-        window?.rootViewController = RegisterController()
+        // Launches app directly to login page
+        window?.rootViewController = LoginScreenController()
 
         return true
     }
