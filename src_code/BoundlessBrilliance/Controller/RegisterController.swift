@@ -12,7 +12,7 @@ import Firebase
 class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
-    let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
+    let chapters = ["", "Azusa Pacific University", "L.A. Trade Tech College", "Occidental College"]
     
     // subview - nameTextField
     let nameTextField: UITextField = {
