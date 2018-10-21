@@ -10,8 +10,66 @@ import UIKit
 import Firebase
 
 class LoginScreenController: UIViewController {
+
     
-    // Main Display
+    //     subview - LoginButton
+    let loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+        button.setTitle("Login", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
+        
+        // Add action to LoginButton
+//                button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    // subview - registerButton
+    let registerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.setTitle("New to the app? Register here", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        // Add action to registerButton
+                button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    // subview - nameTextField
+    let passwordTextField: UITextField = {
+        let password_tf = UITextField()
+        password_tf.placeholder = "Password"
+        password_tf.translatesAutoresizingMaskIntoConstraints = false
+        password_tf.isSecureTextEntry = true
+        return password_tf
+    }()
+
+    // subview - nameTextField
+    let emailTextField: UITextField = {
+        let email_tf = UITextField()
+        email_tf.placeholder = "Email"
+        email_tf.translatesAutoresizingMaskIntoConstraints = false
+        return email_tf
+    }()
+    
+    // registerButton action starts the register activity
+    @objc func goToRegister() {
+        // Ensure email and password are valid values
+        let newViewController = RegisterController()
+        self.present(newViewController, animated: true)
+    }
+    
+    // Main Display---------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,11 +77,7 @@ class LoginScreenController: UIViewController {
         let loginView = LoginView()
         let profileImageView = loginView.profileImageView
         let inputsView = loginView.inputsView
-        let loginButton = loginView.loginButton
-        let registerButton = loginView.registerButton
-        let emailTextField = loginView.emailTextField
         let emailSeparatorView = loginView.emailSeparatorView
-        let passwordTextField = loginView.passwordTextField
         let passwordSeparatorView = loginView.passwordSeparatorView
         
         /* Add subviews */

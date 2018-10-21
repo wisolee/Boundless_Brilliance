@@ -30,29 +30,13 @@ class LoginView: UIView{
         return view
     }()
     
-    // subview - nameTextField
-    let emailTextField: UITextField = {
-        let email_tf = UITextField()
-        email_tf.placeholder = "Email"
-        email_tf.translatesAutoresizingMaskIntoConstraints = false
-        return email_tf
-    }()
-    
+
     // subview - nameSeparatorView
     let emailSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    // subview - nameTextField
-    let passwordTextField: UITextField = {
-        let password_tf = UITextField()
-        password_tf.placeholder = "Password"
-        password_tf.translatesAutoresizingMaskIntoConstraints = false
-        password_tf.isSecureTextEntry = true
-        return password_tf
     }()
     
     // subview - nameSeparatorView
@@ -62,6 +46,7 @@ class LoginView: UIView{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
     
     //     subview - LoginButton
     let loginButton: UIButton = {
@@ -97,4 +82,6 @@ class LoginView: UIView{
     }()
     
     
+
+
 }

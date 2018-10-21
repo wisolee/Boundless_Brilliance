@@ -8,11 +8,20 @@
 
 import UIKit
 import Firebase
+import Toast_Swift
 
 class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
-    let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
+    let chapters = ["", "Azusa Pacific University", "L.A. Trade Tech College", "Occidental College"]
+    
+    // subview - nameTextField
+    let nameTextField: UITextField = {
+        let name_tf = UITextField()
+        name_tf.placeholder = "name"
+        name_tf.translatesAutoresizingMaskIntoConstraints = false
+        return name_tf
+    }()
     
     // subview - emailTextField
     let emailTextField: UITextField = {
@@ -27,6 +36,9 @@ class RegisterController: UIViewController {
         let tf = UITextField()
         tf.placeholder = "Password"
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.isSecureTextEntry = true
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     
@@ -58,29 +70,49 @@ class RegisterController: UIViewController {
     // registerButton action
     @objc func handleRegister() {
         // Ensure email and password are valid values
-        guard let email = emailTextField.text, let password = passwordTextField.text
+        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text
             else {
                 print("Form input is not valid")
                 return
         }
-        
-        // Register User
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil {
-                print("Error in creating account")
-                return
-            }
-            // Successful Authentication, now save user
-            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-//            var ref: DatabaseReference!
-//
-//            ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-//            let userRef = ref.child("users")
-//
-            //ref.updateChildValues(["someValue": 123])
-        })
-        let newViewController = LoginScreenController()
-        self.present(newViewController, animated: true)
+        if password.count < 7 {
+            //print("Password must be at least 7 characters.")
+            self.view.makeToast("Password must be at least 7 characters.")
+            return
+        } else {
+            // Register User
+            Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+                if error != nil {
+                    //print("Error in creating account")
+                    self.view.makeToast("Error in creating account")
+                    return
+                } else {
+                    let newViewController = LoginScreenController()
+                    self.present(newViewController, animated: true)
+                }
+                // Successful Authentication, now save user
+                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+                var ref: DatabaseReference!
+
+                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                let userID = Auth.auth().currentUser!.uid
+                let userRef = ref.child("users").child(userID)
+                let userFields = ["name" : name,
+                                  "email" : email,
+                                  "password" : password,
+                                  "chapter" : chapter]
+
+                // updateChildValues with completion block
+                userRef.updateChildValues(userFields) {
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                    } else {
+                        print("Data saved successfully!")
+                    }
+                }                                                                      
+            })
+        }
     }
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
@@ -99,7 +131,7 @@ class RegisterController: UIViewController {
         let inputsView = registerView.inputsView
         
         //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
-        let nameTextField = registerView.nameTextField
+//        let nameTextField = registerView.nameTextField
 //        let emailTextField = registerView.emailTextField
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
@@ -133,8 +165,7 @@ class RegisterController: UIViewController {
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
-        setUpInputsView(inputsView: inputsView, nameTextField: nameTextField,
-                                nameSeparatorView: nameSeparatorView,
+        setUpInputsView(inputsView: inputsView, nameSeparatorView: nameSeparatorView,
                                 emailSeparatorView: emailSeparatorView,
                                 passwordSeparatorView: passwordSeparatorView)
         setupRegisterButton(inputsView: inputsView)
@@ -154,8 +185,7 @@ class RegisterController: UIViewController {
     }
     
 
-    
-    func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
+    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
         
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
