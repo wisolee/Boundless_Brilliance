@@ -15,20 +15,22 @@ class LoginScreenController: UIViewController {
     //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Login", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
         // Add action to LoginButton
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+
         
         return button
     }()
     
+
     //action for loginButton -- authenticates user
     @objc func handleLogin() {
         
@@ -50,18 +52,21 @@ class LoginScreenController: UIViewController {
         }
     }
     
+    
     // subview - registerButton
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("New to the app? Register here", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
         
         // Add action to registerButton
-        //button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+
         
         return button
     }()
@@ -74,8 +79,7 @@ class LoginScreenController: UIViewController {
         password_tf.isSecureTextEntry = true
         return password_tf
     }()
-    
-    
+
     // subview - nameTextField
     let emailTextField: UITextField = {
         let email_tf = UITextField()
@@ -83,8 +87,16 @@ class LoginScreenController: UIViewController {
         email_tf.translatesAutoresizingMaskIntoConstraints = false
         return email_tf
     }()
+
     
-    // Main Display
+    // registerButton action starts the register activity
+    @objc func goToRegister() {
+        // Ensure email and password are valid values
+        let newViewController = RegisterController()
+        self.present(newViewController, animated: true)
+    }
+  
+    // Main Display---------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,7 +114,7 @@ class LoginScreenController: UIViewController {
         view.addSubview(registerButton)
 //        view.addSubview(profileImageView)
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
@@ -114,7 +126,7 @@ class LoginScreenController: UIViewController {
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -50).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
@@ -164,7 +176,7 @@ class LoginScreenController: UIViewController {
     func setUpLoginButton(loginButton: UIButton, inputsView: UIView) {
         /* need x, y, width, height contraints */
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
+        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 30).isActive = true
         loginButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
