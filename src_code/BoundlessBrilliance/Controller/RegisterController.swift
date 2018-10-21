@@ -10,6 +10,32 @@ import UIKit
 import Firebase
 
 class RegisterController: UIViewController {
+    
+    // subview - emailTextField
+    let emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "email"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+   
+    // subview - passwordTextField
+    let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "password"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+   
+    // subview - chapterTextField
+    let chapterTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
     // Spinner options for chapterTextField
     let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
     
@@ -19,6 +45,7 @@ class RegisterController: UIViewController {
         
     //NAMING VARIABLES ----------
         
+
         //Get a reference to the RegisterView UIView
         let registerView = RegisterView()
         
@@ -30,13 +57,11 @@ class RegisterController: UIViewController {
         
         //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
         let nameTextField = registerView.nameTextField
-        let emailTextField = registerView.emailTextField
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
-        let passwordTextField = registerView.passwordTextField
         let passwordSeparatorView = registerView.passwordSeparatorView
-        let chapterTextField = registerView.chapterTextField
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
+
         
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
@@ -55,14 +80,15 @@ class RegisterController: UIViewController {
         inputsView.addSubview(emailSeparatorView)
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
+
         inputsView.addSubview(chapterTextField!)
         
     //ADD ACTIONS TO VIEWS----------
         
         // Add action to registerButton
-        registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
-    //FORMAT VIEWS-----------------
+        registerButton.addTarget(self, action: #selector(handleRegister), for: UIControl.Event.touchUpInside)
+    
+        //FORMAT VIEWS-----------------
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
@@ -154,16 +180,20 @@ class RegisterController: UIViewController {
     
 // HANDLE ACTIONS -- DOES THIS GO INTO MODEL???
     
+    
     // registerButton action
-    @objc func handleRegister(emailTextField: UITextView, passwordTextField: UITextView) {
+    @objc func handleRegister() {
+
+        //Able to run when it's just emailTextField but crashes when you try to access the .text field
+        print ("successfully entered handleRegister function")
+        
         // Ensure email and password are valid values
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
                 print("Form input is not valid")
                 return
         }
-        
-        // Register User
+
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
                 print("Error in creating account")
@@ -171,7 +201,14 @@ class RegisterController: UIViewController {
             }
             // Successful Authentication, now save user
             /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+
+
         })
+
+        //Switch the view to the login screen after the data has been sent
+        let newViewController = LoginScreenController()
+        self.present(newViewController, animated: true)
+
     }
     
 // Make originally black status bar white

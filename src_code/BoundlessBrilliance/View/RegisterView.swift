@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterView: UIView {
     
+
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -62,13 +64,7 @@ class RegisterView: UIView {
         return view
     }()
     
-    // subview - emailTextField
-    let emailTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "email"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
+    
     
     // subview - emailSeparatorView
     let emailSeparatorView: UIView = {
@@ -78,13 +74,7 @@ class RegisterView: UIView {
         return view
     }()
     
-    // subview - passwordTextField
-    let passwordTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "password"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
+    
     
     // subview - passwordSeparatorView
     let passwordSeparatorView: UIView = {
@@ -101,8 +91,9 @@ class RegisterView: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
+
     
-    
+
 }
 
 extension UITextField {
