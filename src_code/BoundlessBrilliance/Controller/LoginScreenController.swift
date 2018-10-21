@@ -77,6 +77,8 @@ class LoginScreenController: UIViewController {
         password_tf.placeholder = "Password"
         password_tf.translatesAutoresizingMaskIntoConstraints = false
         password_tf.isSecureTextEntry = true
+        password_tf.autocapitalizationType = .none
+        password_tf.autocorrectionType = .no
         return password_tf
     }()
 

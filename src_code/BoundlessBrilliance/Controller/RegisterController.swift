@@ -18,7 +18,7 @@ class RegisterController: UIViewController {
     // subview - nameTextField
     let nameTextField: UITextField = {
         let name_tf = UITextField()
-        name_tf.placeholder = "name"
+        name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
         return name_tf
     }()
@@ -67,6 +67,28 @@ class RegisterController: UIViewController {
         return button
     }()
     
+    // subview - returnButton
+    let returnButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+        button.setTitle("Return to Login", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
+        
+        // Add action to registerButton
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    @objc func goBack(){
+        //go back to login
+        let returnToLoginController = LoginScreenController()
+        self.present(returnToLoginController, animated: true)
+    }
     
     // registerButton action
     @objc func handleRegister() {
@@ -149,6 +171,7 @@ class RegisterController: UIViewController {
         view.addSubview(inputsView)
         view.addSubview(registerButton)
         view.addSubview(profileImageView)
+        view.addSubview(returnButton)
         
         /* Add additional input views to inputView*/
         inputsView.addSubview(nameTextField)
@@ -168,6 +191,7 @@ class RegisterController: UIViewController {
                                 emailSeparatorView: emailSeparatorView,
                                 passwordSeparatorView: passwordSeparatorView)
         setupRegisterButton(inputsView: inputsView)
+        setupReturnButton(inputsView: inputsView)
         
         
     }
@@ -243,6 +267,13 @@ class RegisterController: UIViewController {
         registerButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
         registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    func setupReturnButton(inputsView: UIView){
+        returnButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        returnButton.topAnchor.constraint(equalTo: registerButton.bottomAnchor, constant: 12).isActive = true
+        returnButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        returnButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 
 // Make originally black status bar white
