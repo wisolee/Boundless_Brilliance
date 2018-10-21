@@ -10,6 +10,32 @@ import UIKit
 import Firebase
 
 class RegisterController: UIViewController {
+    
+    // subview - emailTextField
+    let emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "email"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+   
+    // subview - passwordTextField
+    let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "password"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+   
+    // subview - chapterTextField
+    let chapterTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
     // Spinner options for chapterTextField
     let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
     
@@ -88,6 +114,7 @@ class RegisterController: UIViewController {
         
     //NAMING VARIABLES ----------
         
+
         //Get a reference to the RegisterView UIView
         let registerView = RegisterView()
         
@@ -105,6 +132,7 @@ class RegisterController: UIViewController {
         let passwordSeparatorView = registerView.passwordSeparatorView
 //        let chapterTextField = registerView.chapterTextField
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
+
         
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
@@ -123,6 +151,7 @@ class RegisterController: UIViewController {
         inputsView.addSubview(emailSeparatorView)
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
+
         inputsView.addSubview(chapterTextField!)
         
     //FORMAT VIEWS-----------------
@@ -208,7 +237,7 @@ class RegisterController: UIViewController {
         registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    
+
 // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
     

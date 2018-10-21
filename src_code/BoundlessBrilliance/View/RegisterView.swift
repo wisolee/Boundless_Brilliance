@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterView: UIView {
     
+
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -86,7 +88,6 @@ class RegisterView: UIView {
 //        tf.translatesAutoresizingMaskIntoConstraints = false
 //        return tf
 //    }()
-    
     
 }
 
