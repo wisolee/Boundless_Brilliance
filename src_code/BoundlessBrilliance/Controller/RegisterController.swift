@@ -26,7 +26,7 @@ class RegisterController: UIViewController {
     // subview - emailTextField
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "email"
+        tf.placeholder = "Email"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -34,7 +34,7 @@ class RegisterController: UIViewController {
     // subview - passwordTextField
     let passwordTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "password"
+        tf.placeholder = "Password"
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.isSecureTextEntry = true
         tf.autocapitalizationType = .none
@@ -45,7 +45,7 @@ class RegisterController: UIViewController {
     // subview - chapterTextField
     let chapterTextField: UITextField! = {
         let tf = UITextField()
-        tf.placeholder = "chapter"
+        tf.placeholder = "Chapter"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -141,7 +141,7 @@ class RegisterController: UIViewController {
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
 
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
+        view.backgroundColor = UIColor(r: 255, g: 255, b: 255);
         
     //ADDING THE SUBVIEWS TO THE MAIN VIEW-------
         
@@ -178,11 +178,13 @@ class RegisterController: UIViewController {
     func setupProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -50).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
+    
     }
     
+
     func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
         
         /* inputsView: need x, y, width, height contraints */

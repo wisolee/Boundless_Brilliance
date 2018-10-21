@@ -14,11 +14,19 @@ class RegisterView: UIView {
 
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFill
+//        imageView.imageEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         return imageView
     }()
+    
+//    let genSeparatorView: UIView = {
+//        let sepView = UIView()
+//        sepView.backgroundColor = UIColor(r: 0, g: 225, b: 225)
+//        sepView.translatesAutoresizingMaskIntoConstraints = false
+//        return sepView
+//    }()
     
     // subview - inputsContainerView
     let inputsView: UIView = {
@@ -33,13 +41,16 @@ class RegisterView: UIView {
     
     //SUBVIEWS BELOW ARE ADDED AS A SUBVIEW OF inputsView
     
-//    // subview - nameTextField
-//    let nameTextField: UITextField = {
-//        let name_tf = UITextField()
-//        name_tf.placeholder = "name"
-//        name_tf.translatesAutoresizingMaskIntoConstraints = false
-//        return name_tf
-//    }()
+
+    // subview - nameTextField
+    let nameTextField: UITextField = {
+        let name_tf = UITextField()
+        name_tf.placeholder = "Name"
+        name_tf.translatesAutoresizingMaskIntoConstraints = false
+        return name_tf
+    }()
+
+
     
     // subview - nameSeparatorView
     let nameSeparatorView: UIView = {

@@ -87,7 +87,7 @@ class LoginScreenController: UIViewController {
         view.addSubview(registerButton)
 //        view.addSubview(profileImageView)
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
@@ -97,7 +97,7 @@ class LoginScreenController: UIViewController {
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -50).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
