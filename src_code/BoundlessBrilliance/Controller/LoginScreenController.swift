@@ -15,11 +15,11 @@ class LoginScreenController: UIViewController {
     //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Login", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
@@ -32,12 +32,13 @@ class LoginScreenController: UIViewController {
     // subview - registerButton
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("New to the app? Register here", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
         
         // Add action to registerButton
                 button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
@@ -147,7 +148,7 @@ class LoginScreenController: UIViewController {
     func setUpLoginButton(loginButton: UIButton, inputsView: UIView) {
         /* need x, y, width, height contraints */
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
+        loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 30).isActive = true
         loginButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }

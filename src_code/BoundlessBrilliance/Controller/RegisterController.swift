@@ -59,6 +59,7 @@ class RegisterController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
         
         // Add action to registerButton
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
