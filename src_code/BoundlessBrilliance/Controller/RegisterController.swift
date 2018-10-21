@@ -13,6 +13,73 @@ class RegisterController: UIViewController {
     // Spinner options for chapterTextField
     let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
     
+    // subview - emailTextField
+    let emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "email"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - passwordTextField
+    let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "password"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - chapterTextField
+    let chapterTextField: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - registerButton
+    let registerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.setTitle("Register", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        // Add action to registerButton
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    
+    // registerButton action
+    @objc func handleRegister() {
+        // Ensure email and password are valid values
+        guard let email = emailTextField.text, let password = passwordTextField.text
+            else {
+                print("Form input is not valid")
+                return
+        }
+        
+        // Register User
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                print("Error in creating account")
+                return
+            }
+            // Successful Authentication, now save user
+            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+            // Allowing data to be saved
+//            var ref: DatabaseReference!
+//    
+//            ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+//            ref.updateChildValues(["someValue": 123])
+        })
+        
+    }
+    
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,16 +93,15 @@ class RegisterController: UIViewController {
         //Get the variables from the registerView
         let profileImageView = registerView.profileImageView
         let inputsView = registerView.inputsView
-        let registerButton = registerView.registerButton
         
         //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
         let nameTextField = registerView.nameTextField
-        let emailTextField = registerView.emailTextField
+//        let emailTextField = registerView.emailTextField
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
-        let passwordTextField = registerView.passwordTextField
+//        let passwordTextField = registerView.passwordTextField
         let passwordSeparatorView = registerView.passwordSeparatorView
-        let chapterTextField = registerView.chapterTextField
+//        let chapterTextField = registerView.chapterTextField
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
         
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
@@ -57,26 +123,15 @@ class RegisterController: UIViewController {
         inputsView.addSubview(passwordSeparatorView)
         inputsView.addSubview(chapterTextField!)
         
-    //ADD ACTIONS TO VIEWS----------
-        
-        // Add action to registerButton
-        registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
     //FORMAT VIEWS-----------------
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
-        setUpInputsView(inputsView: inputsView,
-                                nameTextField: nameTextField,
+        setUpInputsView(inputsView: inputsView, nameTextField: nameTextField,
                                 nameSeparatorView: nameSeparatorView,
-                                emailTextField: emailTextField,
                                 emailSeparatorView: emailSeparatorView,
-                                passwordTextField: passwordTextField,
-                                passwordSeparatorView: passwordSeparatorView,
-                                chapterTextField: chapterTextField!
-                                )
-        setupRegisterButton(registerButton: registerButton,
-                                inputsView: inputsView)
+                                passwordSeparatorView: passwordSeparatorView)
+        setupRegisterButton(inputsView: inputsView)
         
         
     }
@@ -91,7 +146,7 @@ class RegisterController: UIViewController {
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
-    func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailTextField: UITextField, emailSeparatorView: UIView, passwordTextField: UITextField, passwordSeparatorView: UIView, chapterTextField: UITextField!) {
+    func setUpInputsView(inputsView: UIView, nameTextField: UITextField, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
         
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -144,34 +199,12 @@ class RegisterController: UIViewController {
         
     }
     
-    func setupRegisterButton(registerButton: UIButton, inputsView: UIView) {
+    func setupRegisterButton(inputsView: UIView) {
         /* need x, y, width, height contraints */
         registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         registerButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
         registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-// HANDLE ACTIONS -- DOES THIS GO INTO MODEL???
-    
-    // registerButton action
-    @objc func handleRegister(emailTextField: UITextView, passwordTextField: UITextView) {
-        // Ensure email and password are valid values
-        guard let email = emailTextField.text, let password = passwordTextField.text
-            else {
-                print("Form input is not valid")
-                return
-        }
-        
-        // Register User
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil {
-                print("Error in creating account")
-                return
-            }
-            // Successful Authentication, now save user
-            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-        })
     }
     
 // Make originally black status bar white
