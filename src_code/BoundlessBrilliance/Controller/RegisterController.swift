@@ -71,13 +71,15 @@ class RegisterController: UIViewController {
             }
             // Successful Authentication, now save user
             /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-            // Allowing data to be saved
 //            var ref: DatabaseReference!
-//    
+//
 //            ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-//            ref.updateChildValues(["someValue": 123])
+//            let userRef = ref.child("users")
+//
+            //ref.updateChildValues(["someValue": 123])
         })
-        
+        let newViewController = LoginScreenController()
+        self.present(newViewController, animated: true)
     }
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
