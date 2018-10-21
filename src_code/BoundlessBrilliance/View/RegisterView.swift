@@ -36,7 +36,7 @@ class RegisterView: UIView {
     // subview - nameTextField
     let nameTextField: UITextField = {
         let name_tf = UITextField()
-        name_tf.placeholder = "name"
+        name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
         return name_tf
     }()
