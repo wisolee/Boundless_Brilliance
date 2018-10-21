@@ -35,6 +35,9 @@ class RegisterController: UIViewController {
         let passwordSeparatorView = registerView.passwordSeparatorView
         let chapterTextField = registerView.chapterTextField
         
+        
+        //let emailText:String = emailTextField.text!
+        
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
     //ADDING THE SUBVIEWS TO THE MAIN VIEW-------
@@ -53,13 +56,15 @@ class RegisterController: UIViewController {
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
         inputsView.addSubview(chapterTextField)
+    
         
     //ADD ACTIONS TO VIEWS----------
         
         // Add action to registerButton
-        registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
-    //FORMAT VIEWS-----------------
+        registerButton.addTarget(self, action: #selector(handleRegister), for: UIControl.Event.touchUpInside)
+        //registerButton.addTarget(self, action: #selector(handleRegister(sender:emailTextField:passwordTextField:)), for: UIControl.Event.touchUpInside)
+    
+        //FORMAT VIEWS-----------------
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
@@ -151,24 +156,46 @@ class RegisterController: UIViewController {
     
 // HANDLE ACTIONS -- DOES THIS GO INTO MODEL???
     
+    //ACTION: triggered by register button press
+    // JUST trying to switch to a new view rn without entering data into firebase
+
+    //    @objc func handleRegister(sender: UIButton!) {
+//        print ("successfully entered handleRegister function")
+//        let newViewController = LoginScreenController()
+//        self.present(newViewController, animated: true)
+//
+//    }
+    
     // registerButton action
     @objc func handleRegister(emailTextField: UITextView, passwordTextField: UITextView) {
-        // Ensure email and password are valid values
-        guard let email = emailTextField.text, let password = passwordTextField.text
-            else {
-                print("Form input is not valid")
-                return
-        }
+
+        //Able to run when it's just emailTextField but crashes when you try to access the .text field
+        print ("successfully entered handleRegister function")
+        //print (emailTextField.text)
         
+        // Ensure email and password are valid values
+//        guard let email = emailTextField.text, let password = passwordTextField.text
+//            else {
+//                print("Form input is not valid")
+//                return
+//        }
+
         // Register User
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil {
-                print("Error in creating account")
-                return
-            }
-            // Successful Authentication, now save user
-            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-        })
+//        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+//            if error != nil {
+//                print("Error in creating account")
+//                return
+//            }
+//            // Successful Authentication, now save user
+//            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+//
+//
+//        })
+
+        //Switch the view to the login screen after the data has been sent
+        let newViewController = LoginScreenController()
+        self.present(newViewController, animated: true)
+
     }
     
 // Make originally black status bar white
