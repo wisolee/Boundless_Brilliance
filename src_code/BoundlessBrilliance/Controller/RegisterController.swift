@@ -11,6 +11,98 @@ import Firebase
 
 class RegisterController: UIViewController {
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        //imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    // subview - inputsContainerView
+    let inputsView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        // must set up this property otherwise, the specified anchors will not work
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    // subview - registerButton
+    let registerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.setTitle("Register", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        
+        
+        return button
+    }()
+    
+    //SUBVIEWS BELOW ARE ADDED AS A SUBVIEW OF inputsView
+    
+    // subview - nameTextField
+    let nameTextField: UITextField = {
+        let name_tf = UITextField()
+        name_tf.placeholder = "name"
+        name_tf.translatesAutoresizingMaskIntoConstraints = false
+        return name_tf
+    }()
+    
+    // subview - nameSeparatorView
+    let nameSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // subview - emailTextField
+    let emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "email"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - emailSeparatorView
+    let emailSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // subview - passwordTextField
+    let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "password"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - passwordSeparatorView
+    let passwordSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // subview - chapterTextField
+    let chapterTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
@@ -18,25 +110,6 @@ class RegisterController: UIViewController {
         
     //NAMING VARIABLES ----------
         
-        //Get a reference to the RegisterView UIView
-        let registerView = RegisterView()
-        
-        //Get the variables from the registerView
-        let profileImageView = registerView.profileImageView
-        let inputsView = registerView.inputsView
-        let registerButton = registerView.registerButton
-        
-        //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
-        let nameTextField = registerView.nameTextField
-        let emailTextField = registerView.emailTextField
-        let nameSeparatorView = registerView.nameSeparatorView
-        let emailSeparatorView = registerView.emailSeparatorView
-        let passwordTextField = registerView.passwordTextField
-        let passwordSeparatorView = registerView.passwordSeparatorView
-        let chapterTextField = registerView.chapterTextField
-        
-        
-        //let emailText:String = emailTextField.text!
         
         view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
         
@@ -62,7 +135,6 @@ class RegisterController: UIViewController {
         
         // Add action to registerButton
         registerButton.addTarget(self, action: #selector(handleRegister), for: UIControl.Event.touchUpInside)
-        //registerButton.addTarget(self, action: #selector(handleRegister(sender:emailTextField:passwordTextField:)), for: UIControl.Event.touchUpInside)
     
         //FORMAT VIEWS-----------------
         
@@ -156,41 +228,30 @@ class RegisterController: UIViewController {
     
 // HANDLE ACTIONS -- DOES THIS GO INTO MODEL???
     
-    //ACTION: triggered by register button press
-    // JUST trying to switch to a new view rn without entering data into firebase
-
-    //    @objc func handleRegister(sender: UIButton!) {
-//        print ("successfully entered handleRegister function")
-//        let newViewController = LoginScreenController()
-//        self.present(newViewController, animated: true)
-//
-//    }
     
     // registerButton action
-    @objc func handleRegister(emailTextField: UITextView, passwordTextField: UITextView) {
+    @objc func handleRegister() {
 
         //Able to run when it's just emailTextField but crashes when you try to access the .text field
         print ("successfully entered handleRegister function")
-        //print (emailTextField.text)
         
         // Ensure email and password are valid values
-//        guard let email = emailTextField.text, let password = passwordTextField.text
-//            else {
-//                print("Form input is not valid")
-//                return
-//        }
+        guard let email = emailTextField.text, let password = passwordTextField.text
+            else {
+                print("Form input is not valid")
+                return
+        }
 
-        // Register User
-//        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-//            if error != nil {
-//                print("Error in creating account")
-//                return
-//            }
-//            // Successful Authentication, now save user
-//            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-//
-//
-//        })
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                print("Error in creating account")
+                return
+            }
+            // Successful Authentication, now save user
+            /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+
+
+        })
 
         //Switch the view to the login screen after the data has been sent
         let newViewController = LoginScreenController()
