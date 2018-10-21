@@ -39,6 +39,7 @@ class LoginView: UIView{
         return view
     }()
     
+
     // subview - nameSeparatorView
     let passwordSeparatorView: UIView = {
         let view = UIView()
@@ -48,6 +49,7 @@ class LoginView: UIView{
     }()
 
     
+
     //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -80,7 +82,6 @@ class LoginView: UIView{
         
         return button
     }()
-    
     
 
 

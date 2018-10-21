@@ -24,10 +24,34 @@ class LoginScreenController: UIViewController {
         button.layer.cornerRadius = 5
         
         // Add action to LoginButton
-//                button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+
         
         return button
     }()
+    
+
+    //action for loginButton -- authenticates user
+    @objc func handleLogin() {
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text
+            else {
+                print("Form input is not valid")
+                return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print("User or password not found")
+                print(error)
+                return
+            } else {
+                print("Successfully authenticated user")
+                print(user)
+            }
+        }
+    }
+    
     
     // subview - registerButton
     let registerButton: UIButton = {
@@ -41,7 +65,8 @@ class LoginScreenController: UIViewController {
         button.layer.cornerRadius = 5
         
         // Add action to registerButton
-                button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+
         
         return button
     }()
@@ -62,6 +87,7 @@ class LoginScreenController: UIViewController {
         email_tf.translatesAutoresizingMaskIntoConstraints = false
         return email_tf
     }()
+
     
     // registerButton action starts the register activity
     @objc func goToRegister() {
@@ -69,7 +95,7 @@ class LoginScreenController: UIViewController {
         let newViewController = RegisterController()
         self.present(newViewController, animated: true)
     }
-    
+  
     // Main Display---------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +119,8 @@ class LoginScreenController: UIViewController {
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
         setUpRegisterButton(registerButton: registerButton, inputsView: inputsView, loginButton: loginButton)
+        
+        
     }
     
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {

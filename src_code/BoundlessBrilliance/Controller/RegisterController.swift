@@ -76,6 +76,7 @@ class RegisterController: UIViewController {
                 print("Form input is not valid")
                 return
         }
+
         if password.count < 7 {
             //print("Password must be at least 7 characters.")
             self.view.makeToast("Password must be at least 7 characters.")
@@ -132,13 +133,10 @@ class RegisterController: UIViewController {
         let inputsView = registerView.inputsView
         
         //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
-//        let nameTextField = registerView.nameTextField
-//        let emailTextField = registerView.emailTextField
+
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
-//        let passwordTextField = registerView.passwordTextField
         let passwordSeparatorView = registerView.passwordSeparatorView
-//        let chapterTextField = registerView.chapterTextField
         chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
 
         
