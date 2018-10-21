@@ -10,111 +10,40 @@ import UIKit
 import Firebase
 
 class LoginScreenController: UIViewController {
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+
     
-    // subview - inputsContainerView
-    let inputsView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        // must set up this property otherwise, the specified anchors will not work
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 5
-        view.layer.masksToBounds = true
-        return view
-    }()
-    
-    // subview - nameTextField
-    let emailTextField: UITextField = {
-        let email_tf = UITextField()
-        email_tf.placeholder = "Email"
-        email_tf.translatesAutoresizingMaskIntoConstraints = false
-        return email_tf
-    }()
-    
-    // subview - nameSeparatorView
-    let emailSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    // subview - nameTextField
-    let passwordTextField: UITextField = {
-        let password_tf = UITextField()
-        password_tf.placeholder = "Password"
-        password_tf.translatesAutoresizingMaskIntoConstraints = false
-        password_tf.isSecureTextEntry = true
-        return password_tf
-    }()
-    
-    // subview - nameSeparatorView
-    let passwordSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    //     subview - LoginButton
-    let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
-        button.setTitle("Login", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 5
-        
-        // Add action to LoginButton
-        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    // subview - registerButton
-    let registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        button.setTitle("New to the app? Register here", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        // Add action to registerButton
-        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
-        return button
-    }()
+
     
     // Main Display
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 0, g: 128, b: 128);
+        //create variables
+        let loginView = LoginView()
+        let profileImageView = loginView.profileImageView
+        let inputsView = loginView.inputsView
+        let loginButton = loginView.loginButton
+        let registerButton = loginView.registerButton
+        let emailTextField = loginView.emailTextField
+        let emailSeparatorView = loginView.emailSeparatorView
+        let passwordTextField = loginView.passwordTextField
+        let passwordSeparatorView = loginView.passwordSeparatorView
         
         /* Add subviews */
         view.addSubview(profileImageView)
         view.addSubview(inputsView)
         view.addSubview(loginButton)
         view.addSubview(registerButton)
-        view.addSubview(profileImageView)
+//        view.addSubview(profileImageView)
         
-        setUpProfileImageView()
-        setUpInputsView()
-        setUpLoginButton()
-        setUpRegisterButton()
+        view.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
+        setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
+        setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
+        setUpRegisterButton(registerButton: registerButton, inputsView: inputsView, loginButton: loginButton)
     }
     
-    func setUpProfileImageView() {
+    func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -12).isActive = true
@@ -122,7 +51,10 @@ class LoginScreenController: UIViewController {
         profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
-    func setUpInputsView() {
+    func setUpInputsView(inputsView: UIView, emailTextField: UITextField,
+                        emailSeparatorView: UIView,
+                        passwordTextField: UITextField,
+                        passwordSeparatorView: UIView) {
         /* need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -161,7 +93,7 @@ class LoginScreenController: UIViewController {
         
     }
     
-    func setUpLoginButton() {
+    func setUpLoginButton(loginButton: UIButton, inputsView: UIView) {
         /* need x, y, width, height contraints */
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
@@ -169,7 +101,7 @@ class LoginScreenController: UIViewController {
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    func setUpRegisterButton() {
+    func setUpRegisterButton(registerButton: UIButton, inputsView: UIView, loginButton: UIButton) {
         /* need x, y, width, height contraints */
         registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 12).isActive = true

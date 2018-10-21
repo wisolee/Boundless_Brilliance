@@ -26,12 +26,11 @@ class ViewController: UITableViewController {
     
     // launch LoginController whenever "Logout" button is pressed
     @objc func handleLogout() {
-        //login-screen-1
-//        let loginScreenController = LoginScreenController()
-//        present(loginScreenController, animated: true, completion: nil)
-//        //might need to delete one of these
-//        let loginController = RegisterController()
-//        present(loginController, animated: true, completion: nil)
+        let loginScreenController = LoginScreenController()
+        present(loginScreenController, animated: true, completion: nil)
+        //might need to delete one of these
+        let loginController = RegisterController()
+        present(loginController, animated: true, completion: nil)
     }
 
 
