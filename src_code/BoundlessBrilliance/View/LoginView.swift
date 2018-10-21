@@ -38,7 +38,6 @@ class LoginView: UIView{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
     
     // subview - nameSeparatorView
     let passwordSeparatorView: UIView = {
@@ -47,7 +46,4 @@ class LoginView: UIView{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
-    
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Toast_Swift
 
 class RegisterController: UIViewController {
     
@@ -35,6 +36,9 @@ class RegisterController: UIViewController {
         let tf = UITextField()
         tf.placeholder = "password"
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.isSecureTextEntry = true
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     
@@ -71,39 +75,44 @@ class RegisterController: UIViewController {
                 print("Form input is not valid")
                 return
         }
-        
-        // Register User
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil {
-                print("Error in creating account")
-                return
-            }
-            // Successful Authentication, now save user
-            /*Store user info, temporarily set fire db rules to true, by default both set to false*/
-            var ref: DatabaseReference!
-
-            ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-            let userID = Auth.auth().currentUser!.uid
-            let userRef = ref.child("users").child(userID)
-            let userFields = ["name" : name,
-                              "email" : email,
-                              "password" : password,
-                              "chapter" : chapter]
-            
-            // updateChildValues with completion block
-            userRef.updateChildValues(userFields) {
-                (error:Error?, ref:DatabaseReference) in
-                if let error = error {
-                    print("Data could not be saved: \(error).")
+        if password.count < 7 {
+            //print("Password must be at least 7 characters.")
+            self.view.makeToast("Password must be at least 7 characters.")
+            return
+        } else {
+            // Register User
+            Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+                if error != nil {
+                    //print("Error in creating account")
+                    self.view.makeToast("Error in creating account")
+                    return
                 } else {
-                    print("Data saved successfully!")
+                    let newViewController = LoginScreenController()
+                    self.present(newViewController, animated: true)
                 }
-            }
-            
-        })
-        
-        let newViewController = LoginScreenController()
-        self.present(newViewController, animated: true)
+                // Successful Authentication, now save user
+                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+                var ref: DatabaseReference!
+
+                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                let userID = Auth.auth().currentUser!.uid
+                let userRef = ref.child("users").child(userID)
+                let userFields = ["name" : name,
+                                  "email" : email,
+                                  "password" : password,
+                                  "chapter" : chapter]
+
+                // updateChildValues with completion block
+                userRef.updateChildValues(userFields) {
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                    } else {
+                        print("Data saved successfully!")
+                    }
+                }                                                                      
+            })
+        }
     }
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
