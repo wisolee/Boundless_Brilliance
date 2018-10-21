@@ -31,21 +31,6 @@ class RegisterView: UIView {
         return view
     }()
     
-    // subview - registerButton
-    let registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        button.setTitle("Register", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        
-        
-        return button
-    }()
-    
     //SUBVIEWS BELOW ARE ADDED AS A SUBVIEW OF inputsView
     
     // subview - nameTextField
@@ -64,7 +49,13 @@ class RegisterView: UIView {
         return view
     }()
     
-    
+//    // subview - emailTextField
+//    let emailTextField: UITextField = {
+//        let tf = UITextField()
+//        tf.placeholder = "email"
+//        tf.translatesAutoresizingMaskIntoConstraints = false
+//        return tf
+//    }()
     
     // subview - emailSeparatorView
     let emailSeparatorView: UIView = {
@@ -74,7 +65,13 @@ class RegisterView: UIView {
         return view
     }()
     
-    
+//    // subview - passwordTextField
+//    let passwordTextField: UITextField = {
+//        let tf = UITextField()
+//        tf.placeholder = "password"
+//        tf.translatesAutoresizingMaskIntoConstraints = false
+//        return tf
+//    }()
     
     // subview - passwordSeparatorView
     let passwordSeparatorView: UIView = {
@@ -84,16 +81,14 @@ class RegisterView: UIView {
         return view
     }()
     
-    // subview - chapterTextField
-    let chapterTextField: UITextField! = {
-        let tf = UITextField()
-        tf.placeholder = "chapter"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
-
+//    // subview - chapterTextField
+//    let chapterTextField: UITextField! = {
+//        let tf = UITextField()
+//        tf.placeholder = "chapter"
+//        tf.translatesAutoresizingMaskIntoConstraints = false
+//        return tf
+//    }()
     
-
 }
 
 extension UITextField {
