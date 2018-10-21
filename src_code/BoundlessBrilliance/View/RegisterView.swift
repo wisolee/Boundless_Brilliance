@@ -33,13 +33,13 @@ class RegisterView: UIView {
     
     //SUBVIEWS BELOW ARE ADDED AS A SUBVIEW OF inputsView
     
-    // subview - nameTextField
-    let nameTextField: UITextField = {
-        let name_tf = UITextField()
-        name_tf.placeholder = "name"
-        name_tf.translatesAutoresizingMaskIntoConstraints = false
-        return name_tf
-    }()
+//    // subview - nameTextField
+//    let nameTextField: UITextField = {
+//        let name_tf = UITextField()
+//        name_tf.placeholder = "name"
+//        name_tf.translatesAutoresizingMaskIntoConstraints = false
+//        return name_tf
+//    }()
     
     // subview - nameSeparatorView
     let nameSeparatorView: UIView = {
