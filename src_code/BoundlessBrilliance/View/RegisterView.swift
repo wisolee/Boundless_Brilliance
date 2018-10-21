@@ -16,7 +16,7 @@ class RegisterView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -36,7 +36,7 @@ class RegisterView: UIView {
     // subview - nameTextField
     let nameTextField: UITextField = {
         let name_tf = UITextField()
-        name_tf.placeholder = "name"
+        name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
         return name_tf
     }()

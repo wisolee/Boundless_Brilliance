@@ -17,7 +17,7 @@ class RegisterController: UIViewController {
     // subview - emailTextField
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "email"
+        tf.placeholder = "Email"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -25,7 +25,7 @@ class RegisterController: UIViewController {
     // subview - passwordTextField
     let passwordTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "password"
+        tf.placeholder = "Password"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -33,7 +33,7 @@ class RegisterController: UIViewController {
     // subview - chapterTextField
     let chapterTextField: UITextField! = {
         let tf = UITextField()
-        tf.placeholder = "chapter"
+        tf.placeholder = "Chapter"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()

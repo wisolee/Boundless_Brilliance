@@ -33,7 +33,7 @@ class LoginScreenController: UIViewController {
         view.addSubview(registerButton)
 //        view.addSubview(profileImageView)
         
-        view.backgroundColor = UIColor(r: 0, g: 0, b: 0)
+        view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
