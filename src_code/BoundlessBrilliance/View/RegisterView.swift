@@ -95,7 +95,7 @@ class RegisterView: UIView {
     }()
     
     // subview - chapterTextField
-    let chapterTextField: UITextField = {
+    let chapterTextField: UITextField! = {
         let tf = UITextField()
         tf.placeholder = "chapter"
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -103,4 +103,10 @@ class RegisterView: UIView {
     }()
     
     
+}
+
+extension UITextField {
+    func loadSpinnerOptions(spinnerOptions: [String]) {
+        self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
+    }
 }
