@@ -11,31 +11,6 @@ import Firebase
 
 class RegisterController: UIViewController {
     
-    // subview - emailTextField
-    let emailTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "email"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
-    
-   
-    // subview - passwordTextField
-    let passwordTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "password"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
-   
-    // subview - chapterTextField
-    let chapterTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "chapter"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
-    
     // Spinner options for chapterTextField
     let chapters = ["", "Chapter 1", "Chapter 2", "Chapter 3"]
     
