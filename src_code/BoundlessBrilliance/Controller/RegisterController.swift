@@ -102,7 +102,7 @@ class RegisterController: UIViewController {
     // registerButton action -- Send data to Firebase
     @objc func handleRegister() {
         // Ensure email and password are valid values
-        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text
+        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text, let memberType = memberTypeTextField.text
             else {
                 print("Form input is not valid")
                 return
@@ -133,7 +133,8 @@ class RegisterController: UIViewController {
                 let userFields = ["name" : name,
                                   "email" : email,
                                   "password" : password,
-                                  "chapter" : chapter]
+                                  "chapter" : chapter,
+                                  "memberType" : memberType]
 
                 // updateChildValues with completion block
                 userRef.updateChildValues(userFields) {
