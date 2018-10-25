@@ -13,6 +13,7 @@ import Toast_Swift
 class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
+    //TODO: in the future, we should pull chapter names from the database in case there are new chapters
     let chapters = ["", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
     let memberTypes = ["", "Presenter", "Outreach Coordinator", "Management"]
     
@@ -112,6 +113,12 @@ class RegisterController: UIViewController {
             //print("Password must be at least 7 characters.")
             self.view.makeToast("Password must be at least 7 characters.")
             return
+        } else if chapter == "" {
+            self.view.makeToast("Please choose a chapter.")
+            return
+        } else if memberType == "" {
+            self.view.makeToast("Please choose a member type.")
+            return
         } else {
             // Register User
             Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
@@ -170,8 +177,6 @@ class RegisterController: UIViewController {
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //updateChapterOptions()
         
     //NAMING VARIABLES ----------
         
@@ -322,27 +327,6 @@ class RegisterController: UIViewController {
         returnButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-//    func updateChapterOptions() {
-//        var ref: DatabaseReference!
-//
-//        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-//
-//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-//
-//            //if the chapters table exists, pull the data from from the chapters table and load it into the ChapterSpinner Array
-//            if snapshot.hasChild("chapters"){
-//                print("chapters exist")
-//            }
-//            //if the chapters table doesn't exist, create it, add the chapters manually into the db, then populate the array from the db
-//            else{
-//                ref.child("chapters").child("Azusa Pacific University")
-//                print("chapters doesn't exist")
-//            }
-//
-//
-//        })
-//
-//    }
 
 // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
