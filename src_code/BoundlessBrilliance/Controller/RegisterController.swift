@@ -13,7 +13,7 @@ import Toast_Swift
 class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
-    let chapters = ["", "Azusa Pacific University", "L.A. Trade Tech College", "Occidental College"]
+    let chapters = ["", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
     let memberTypes = ["", "Presenter", "Outreach Coordinator", "Management"]
     
     // subview - nameTextField
@@ -120,31 +120,49 @@ class RegisterController: UIViewController {
                     self.view.makeToast("Error in creating account")
                     return
                 } else {
+                    // Successful Authentication, now save user
+                    /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+                    var ref: DatabaseReference!
+                    
+                    //save user to users table
+                    ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                    let userID = Auth.auth().currentUser!.uid
+                    
+                    let userRef = ref.child("users").child(userID)
+                    let userFields = ["name" : name,
+                                      "email" : email,
+                                      "chapter" : chapter,
+                                      "memberType" : memberType]
+                    
+                    // updateChildValues with completion block
+                    userRef.updateChildValues(userFields) {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
+                    
+                    
+                    //Now save the user under the appropriate chapter table
+                    let chapterRef = ref.child("chapters").child(chapter)
+                    let member = [userID : name]
+
+                    chapterRef.updateChildValues(member) {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
+
+                    //after saving all the data successfully, navigate back to login screen
                     let newViewController = LoginScreenController()
                     self.present(newViewController, animated: true)
                 }
-                // Successful Authentication, now save user
-                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-                var ref: DatabaseReference!
-
-                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-                let userID = Auth.auth().currentUser!.uid
-                let userRef = ref.child("users").child(userID)
-                let userFields = ["name" : name,
-                                  "email" : email,
-                                  "password" : password,
-                                  "chapter" : chapter,
-                                  "memberType" : memberType]
-
-                // updateChildValues with completion block
-                userRef.updateChildValues(userFields) {
-                    (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                        print("Data could not be saved: \(error).")
-                    } else {
-                        print("Data saved successfully!")
-                    }
-                }                                                                      
+               
             })
         }
     }
@@ -152,6 +170,8 @@ class RegisterController: UIViewController {
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //updateChapterOptions()
         
     //NAMING VARIABLES ----------
         
@@ -301,6 +321,28 @@ class RegisterController: UIViewController {
         returnButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         returnButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+    
+//    func updateChapterOptions() {
+//        var ref: DatabaseReference!
+//
+//        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+//
+//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//            //if the chapters table exists, pull the data from from the chapters table and load it into the ChapterSpinner Array
+//            if snapshot.hasChild("chapters"){
+//                print("chapters exist")
+//            }
+//            //if the chapters table doesn't exist, create it, add the chapters manually into the db, then populate the array from the db
+//            else{
+//                ref.child("chapters").child("Azusa Pacific University")
+//                print("chapters doesn't exist")
+//            }
+//
+//
+//        })
+//
+//    }
 
 // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
