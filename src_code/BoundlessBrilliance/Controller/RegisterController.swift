@@ -14,6 +14,7 @@ class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
     let chapters = ["", "Azusa Pacific University", "L.A. Trade Tech College", "Occidental College"]
+    let memberTypes = ["", "Presenter", "Outreach Coordinator", "Management"]
     
     // subview - nameTextField
     let nameTextField: UITextField = {
@@ -46,6 +47,14 @@ class RegisterController: UIViewController {
     let chapterTextField: UITextField! = {
         let tf = UITextField()
         tf.placeholder = "Chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - chapterTextField
+    let memberTypeTextField: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "Member Type"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -90,7 +99,7 @@ class RegisterController: UIViewController {
         self.present(returnToLoginController, animated: true)
     }
     
-    // registerButton action
+    // registerButton action -- Send data to Firebase
     @objc func handleRegister() {
         // Ensure email and password are valid values
         guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text
@@ -159,8 +168,9 @@ class RegisterController: UIViewController {
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
         let passwordSeparatorView = registerView.passwordSeparatorView
-        chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
-
+        let chapterSeparatorView = registerView.chapterSeparatorView
+        chapterTextField?.loadChapterOptions(spinnerOptions: chapters)
+        memberTypeTextField?.loadMemberTypeOptions(spinnerOptions: memberTypes)
         
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255);
         
@@ -180,8 +190,10 @@ class RegisterController: UIViewController {
         inputsView.addSubview(emailSeparatorView)
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
-
+        
         inputsView.addSubview(chapterTextField!)
+        inputsView.addSubview(chapterSeparatorView)
+        inputsView.addSubview(memberTypeTextField!)
         
     //FORMAT VIEWS-----------------
         
@@ -189,7 +201,8 @@ class RegisterController: UIViewController {
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, nameSeparatorView: nameSeparatorView,
                                 emailSeparatorView: emailSeparatorView,
-                                passwordSeparatorView: passwordSeparatorView)
+                                passwordSeparatorView: passwordSeparatorView,
+                                chapterSeparatorView: chapterSeparatorView)
         setupRegisterButton(inputsView: inputsView)
         setupReturnButton(inputsView: inputsView)
         
@@ -208,20 +221,20 @@ class RegisterController: UIViewController {
     }
     
 
-    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
+    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView, chapterSeparatorView: UIView) {
         
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        inputsView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         
         // nameTextField: need x, y, width, height contraints
         nameTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // nameSeparatorView: need x, y, width, height contraints
         nameSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -233,7 +246,7 @@ class RegisterController: UIViewController {
         emailTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // emailSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -245,7 +258,7 @@ class RegisterController: UIViewController {
         passwordTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // passwordSeparatorView need x, y, width, height contraints
         passwordSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -257,7 +270,19 @@ class RegisterController: UIViewController {
         chapterTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         chapterTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
         chapterTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        
+        // chapterSeparatorView need x, y, width, height contraints
+        chapterSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
+        chapterSeparatorView.topAnchor.constraint(equalTo: chapterTextField.bottomAnchor).isActive = true
+        chapterSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        chapterSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        // memberTypeTextField need x, y, width, height constraints
+        memberTypeTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
+        memberTypeTextField.topAnchor.constraint(equalTo:chapterTextField.bottomAnchor).isActive = true
+        memberTypeTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        memberTypeTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
     }
     

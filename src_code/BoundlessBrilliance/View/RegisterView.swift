@@ -78,11 +78,23 @@ class RegisterView: UIView {
         return view
     }()
     
-    
+    // subview - passwordSeparatorView
+    let chapterSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }
 
 extension UITextField {
-    func loadSpinnerOptions(spinnerOptions: [String]) {
+    func loadChapterOptions(spinnerOptions: [String]) {
+        self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
+    }
+}
+
+extension UITextField {
+    func loadMemberTypeOptions(spinnerOptions: [String]) {
         self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
     }
 }
