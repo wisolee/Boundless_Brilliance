@@ -22,7 +22,7 @@
 		5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A8912176E28100B30810 /* LoginScreenController.swift */; };
 		666732C82179553700C68C0E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666732C72179553700C68C0E /* LoginView.swift */; };
 		774F8425C57F2B61F86A6EF4 /* Pods_BoundlessBrillianceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */; };
-		F12E2C6F218668D60012F981 /* PresentationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E2C6E218668D60012F981 /* PresentationListViewController.swift */; };
+		F12E2C71218674EC0012F981 /* PresentationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E2C70218674EC0012F981 /* PresentationListViewController.swift */; };
 		FAA19891C822ECFFA168EA4A /* Pods_BoundlessBrillianceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 		B3F54350D31F941DA9E88791 /* Pods-BoundlessBrillianceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceTests/Pods-BoundlessBrillianceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C1DF25405C4502F2CE1BB74C /* Pods-BoundlessBrillianceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrillianceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F12E2C6E218668D60012F981 /* PresentationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListViewController.swift; sourceTree = "<group>"; };
+		F12E2C70218674EC0012F981 /* PresentationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,10 +161,10 @@
 		0FE9E091217457B400B96476 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F12E2C70218674EC0012F981 /* PresentationListViewController.swift */,
 				0FE9E092217457E900B96476 /* RegisterController.swift */,
 				0FE9E0652174509D00B96476 /* ViewController.swift */,
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
-				F12E2C6E218668D60012F981 /* PresentationListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -450,7 +450,7 @@
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
-				F12E2C6F218668D60012F981 /* PresentationListViewController.swift in Sources */,
+				F12E2C71218674EC0012F981 /* PresentationListViewController.swift in Sources */,
 				0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
