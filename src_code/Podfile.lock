@@ -72,6 +72,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SwiftyJSON (4.2.0)
   - Toast-Swift (4.0.0)
 
 DEPENDENCIES:
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 4.0.0)
 
 SPEC REPOS:
@@ -96,6 +98,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - SwiftyJSON
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -112,8 +115,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
 
-PODFILE CHECKSUM: 440232bfc481a907171b334397f0df450b4e95a5
+PODFILE CHECKSUM: 9fecb9c1c2d184ca8dddd6052dada16e0f1397e3
 
 COCOAPODS: 1.5.3

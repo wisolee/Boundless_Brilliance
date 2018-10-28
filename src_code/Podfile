@@ -12,6 +12,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Storage'
 pod 'Firebase/Core'
 pod 'Toast-Swift', '~> 4.0.0'
+pod 'SwiftyJSON', '~> 4.0'
 
   target 'BoundlessBrillianceTests' do
     inherit! :search_paths
