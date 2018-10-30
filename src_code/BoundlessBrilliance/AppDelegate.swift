@@ -27,7 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
         
         // Launches app directly to login page
-        window?.rootViewController = LoginScreenController()
+        //window?.rootViewController = LoginScreenController()
+        
+        window?.rootViewController = PresentationListViewController()
 
         return true
     }

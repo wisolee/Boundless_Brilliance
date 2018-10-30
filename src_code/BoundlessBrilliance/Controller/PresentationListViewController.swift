@@ -7,11 +7,36 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+//import requests
+
+public typealias HTTPHeaders = [String: String]
 
 class PresentationListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let apiEndpoint: String = "https://10to8.com/api/booking/v2/service/?format=json"
+        
+        //let auth_headers = ["Authorization": "Token <gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf>"]
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"
+            //,
+//            "Accept": "application/json",
+//            "Content-Type": "application/json"
+        ]
+        
+        let request = Alamofire.request(apiEndpoint, headers: headers)
+            .responseJSON { response in
+                //print(response.result.value!)
+                debugPrint(response)
+        }
+        debugPrint(request)
+        
+        
 
         // Do any additional setup after loading the view.
     }
