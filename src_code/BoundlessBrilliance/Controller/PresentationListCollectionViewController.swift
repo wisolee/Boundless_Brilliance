@@ -12,13 +12,13 @@ private let reuseIdentifier = "Cell"
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    // To-be-added an array PresentationObjs
+    // Added an array PresentationObjs
     let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(name: "Presentation1"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation4")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // What we are seeing instead of view by default
+        // Change the background color of the PresentationListView
         collectionView?.backgroundColor = UIColor(r: 0, g: 128, b: 128)
 
         // Uncomment the following line to preserve selection between presentations

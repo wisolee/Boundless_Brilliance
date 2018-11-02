@@ -13,6 +13,8 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         // Called when collection view dequeues itself
         super.init(frame: frame)
+        // Change the background color of the cell
+        self.backgroundColor = UIColor(r: 128, g: 128, b: 128)
         setupViews()
     }
     
@@ -28,9 +30,9 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     func setupViews() {
         addSubview(presentationName)
         // Horizontal Contraint
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-50-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
         // Vertical Constraint
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options:
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[v0]|", options:
             NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
     }
     
