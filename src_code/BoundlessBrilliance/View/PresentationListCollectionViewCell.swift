@@ -16,6 +16,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         setupViews()
     }
     
+    
     let presentationName: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
@@ -31,6 +32,15 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         // Vertical Constraint
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options:
             NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initilization Code
+    }
+    
+    public func configure(with model: PresentationListItemModel) {
+        presentationName.text = model.name
     }
     
     required init?(coder aDecoder: NSCoder) {

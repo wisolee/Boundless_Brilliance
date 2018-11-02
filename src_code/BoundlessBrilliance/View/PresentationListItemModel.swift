@@ -9,7 +9,7 @@
 import Foundation
 
 struct PresentationListItemModel {
-    let presentationName: String
-    
+    let name: String
+//    let location: String
     // Custom Cell to be added
 }
