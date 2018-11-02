@@ -18,7 +18,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         setupViews()
     }
     
-    
+    // Name Label
     let presentationName: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
@@ -27,6 +27,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // Setup() for Name Label
     func setupViews() {
         addSubview(presentationName)
         // Horizontal Contraint
@@ -41,6 +42,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         // Initilization Code
     }
     
+    // Called in PresentationListViewController when configuring custom view cells
     public func configure(with model: PresentationListItemModel) {
         presentationName.text = model.name
     }
