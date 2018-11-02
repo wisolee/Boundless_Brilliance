@@ -22,12 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Replace what the story board uses, creating story board manually
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        // Creates top navigation bar
-//        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
-        
         // Launches app directly to login page
         window?.rootViewController = LoginScreenController()
+        
+        // Creates top navigation bar
+//        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//        window?.rootViewController = UINavigationController(rootViewController: presentationListVC)
 
         return true
     }

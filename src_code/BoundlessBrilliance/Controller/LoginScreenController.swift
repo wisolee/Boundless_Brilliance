@@ -48,8 +48,13 @@ class LoginScreenController: UIViewController {
             } else {
                 print("Successfully authenticated user")
                 print(user)
+                
+                // After succesfully logging-in go to presentationList
+                let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+                self.present(presentationListVC, animated: true)
             }
         }
+
     }
     
     
