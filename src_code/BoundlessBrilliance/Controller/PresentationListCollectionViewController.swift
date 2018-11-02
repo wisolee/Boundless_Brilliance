@@ -46,7 +46,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
 
@@ -66,7 +66,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Custimizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+//        let padding: CGFloat = 15
+//        let collectionViewSize = collectionView.frame.size.width - padding
+        return CGSize(width: view.frame.width, height: 125)
     }
 
     // MARK: UICollectionViewDelegate
