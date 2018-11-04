@@ -20,14 +20,9 @@ class PresentationListViewController: UIViewController {
         
         let apiEndpoint: String = "https://10to8.com/api/booking/v2/service/?format=json"
         
-        //let auth_headers = ["Authorization": "Token <gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf>"]
+        let auth_headers: HTTPHeaders = ["Authorization": "Token <fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3>"]
         
-        let headers: HTTPHeaders = [
-            "Authorization": "gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"
-            //,
-//            "Accept": "application/json",
-//            "Content-Type": "application/json"
-        ]
+        let headers: HTTPHeaders = ["Authorization": "fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3"]
         
         let request = Alamofire.request(apiEndpoint, headers: headers)
             .responseJSON { response in
