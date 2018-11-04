@@ -15,6 +15,11 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // Added an array PresentationObjs
     let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(name: "Presentation1"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation4")]
 
+    
+    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,7 +71,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Custimizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+//        let padding: CGFloat = 15
+//        let collectionViewSize = collectionView.frame.size.width - padding
+        return CGSize(width: view.frame.width, height: 125)
     }
 
     // MARK: UICollectionViewDelegate

@@ -34,6 +34,9 @@ class LoginScreenController: UIViewController {
     //action for loginButton -- authenticates user
     @objc func handleLogin() {
         
+        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        self.present(presentationListVC, animated: true)
+        
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
                 print("Form input is not valid")
