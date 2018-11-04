@@ -54,13 +54,13 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     //end examples from the alerts and pickers app cell file-----------------------------
     
     // Name Label
-    let presentationName: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .red
-        label.text = "Presentation1"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    let presentationName: UILabel = {
+//        let label = UILabel()
+//        label.backgroundColor = .red
+//        label.text = "Presentation1"
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -73,7 +73,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     }
     
     fileprivate func setup(){
-        backgroundColor = UIColor(r: 128, g: 128, b: 128)
+        backgroundColor = UIColor.white
         addSubview(date)
         addSubview(time)
         addSubview(location)
@@ -145,18 +145,12 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     // Called in PresentationListViewController when configuring custom view cells
     public func configure(with model: PresentationListItemModel) {
-        presentationName.text = model.name
+        location.text = model.location
+        presenterNames.text = model.names
     }
     
 //    required init?(coder aDecoder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
 //    }
-    
-    
-
-    
-    
-    
-    
     
 }

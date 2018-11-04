@@ -13,18 +13,17 @@ private let reuseIdentifier = "Cell"
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // Added an array PresentationObjs
-    let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(name: "Presentation1"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation4")]
+    let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
 
-    
-    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
-    
-    }
+//    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
+//
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Change the background color of the PresentationListView
-        collectionView?.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        collectionView?.backgroundColor = UIColor.white
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -73,7 +72,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let padding: CGFloat = 15
 //        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: view.frame.width, height: 125)
+        return CGSize(width: view.frame.width, height: 100)
     }
 
     // MARK: UICollectionViewDelegate
