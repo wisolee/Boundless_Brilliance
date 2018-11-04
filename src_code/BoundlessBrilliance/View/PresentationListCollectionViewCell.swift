@@ -19,23 +19,32 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
 //    }
     
     //examples from the alerts and pickers app cell file-----------------------------
-    public lazy var date: UIImageView = {
-        $0.contentMode = .center
-        $0.backgroundColor = .yellow
+    public lazy var date: UILabel = {
+        $0.textAlignment = NSTextAlignment.center
+//        $0.backgroundColor = .yellow
+        $0.numberOfLines = 0
+        $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
+        $0.text = "Nov\n02"
         return $0
-    }(UIImageView())
+    }(UILabel())
     
-    public lazy var time: UIImageView = {
-        $0.contentMode = .center
-        $0.backgroundColor = .orange
+    public lazy var time: UILabel = {
+        $0.textAlignment = NSTextAlignment.center
+//        $0.backgroundColor = .orange
+        $0.numberOfLines = 0
+        $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
+        $0.text = "3:00"
         return $0
-    }(UIImageView())
+    }(UILabel())
     
     public lazy var location: UILabel = {
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 17)
         $0.textColor = .black
+        $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
+        $0.adjustsFontSizeToFitWidth = true
         $0.text = "Valley Oak Elementary"
-        $0.backgroundColor = .green
+        $0.textAlignment = NSTextAlignment.center
+//        $0.backgroundColor = .green
         $0.numberOfLines = 1
         return $0
     }(UILabel())
@@ -44,9 +53,10 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     public lazy var presenterNames: UILabel = {
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        $0.backgroundColor = .blue
+//        $0.backgroundColor = .blue
         $0.textColor = .gray
         $0.text = "Dweezel the Dragon"
+        $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 1
         return $0
     }(UILabel())
@@ -86,22 +96,28 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         layout()
     }
     
+//    layoutMargins.top +
+    
     //layout function from alerts and pickers
     func layout(){
+        //set constants for constraints
         let timeWidthRelativeToDate = CGFloat(0.75)
         let vTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
         let hTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 12 : 8
         let dateViewHeight: CGFloat = self.bounds.size.height - (layoutMargins.top + layoutMargins.bottom)
         date.frame = CGRect(x: layoutMargins.left + 3, y: layoutMargins.top, width: 0.8 * dateViewHeight, height: dateViewHeight)
+        //more constants
         let textViewWidth: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * hTextInset
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
-        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: layoutMargins.top), size: CGSize(width: textViewWidth, height: locationSize.height))
+        //create frames for objects
+        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 4)), size: CGSize(width: textViewWidth, height: locationSize.height))
         presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
         time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
-        textView.bounds.size = CGSize(width: textViewWidth, height: presenterNames.frame.maxY)
-        textView.frame.origin.x = date.frame.maxX + hTextInset
-        textView.center.y = date.center.y
+        //not sure what this stuff is for
+//        textView.bounds.size = CGSize(width: textViewWidth, height: presenterNames.frame.maxY)
+//        textView.frame.origin.x = date.frame.maxX + hTextInset
+//        textView.center.y = date.center.y
         
         style(view: contentView)
     }
@@ -113,7 +129,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         view.layer.shadowColor = UIColor(r: 0, g: 0, b: 0).cgColor
         view.layer.shadowOffset = CGSize(width: 1, height: 5)
         view.layer.shadowRadius = 8
-        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOpacity = 0.5
         view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 14, height: 14)).cgPath
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale
