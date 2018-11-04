@@ -34,8 +34,8 @@ class LoginScreenController: UIViewController {
     //action for loginButton -- authenticates user
     @objc func handleLogin() {
         
-        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        self.present(presentationListVC, animated: true)
+//        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//        self.present(presentationListVC, animated: true)
         
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
@@ -53,8 +53,7 @@ class LoginScreenController: UIViewController {
                 print(user)
                 
                 // After succesfully logging-in go to presentationList
-                let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-                self.present(presentationListVC, animated: true)
+                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
             }
         }
 

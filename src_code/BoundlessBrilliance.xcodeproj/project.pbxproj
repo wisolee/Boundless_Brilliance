@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05280C218FA5D900635790 /* TabBarViewController.swift */; };
 		0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */; };
 		0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */; };
 		0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F05280C218FA5D900635790 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewController.swift; sourceTree = "<group>"; };
 		0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListItemModel.swift; sourceTree = "<group>"; };
 		0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */,
+				0F05280C218FA5D900635790 /* TabBarViewController.swift */,
 				0FE9E092217457E900B96476 /* RegisterController.swift */,
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 			);
@@ -460,6 +463,7 @@
 			files = (
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
+				0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */,
 				0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */,
 				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
 				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,

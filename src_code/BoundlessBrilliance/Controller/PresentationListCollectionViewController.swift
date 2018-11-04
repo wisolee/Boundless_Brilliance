@@ -11,17 +11,12 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
     // Added an array PresentationObjs
     let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
-
-//    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
-//
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //createTabBarController()
         // Change the background color of the PresentationListView
         collectionView?.backgroundColor = UIColor.white
 
