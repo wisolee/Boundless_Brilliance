@@ -15,6 +15,11 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // Added an array PresentationObjs
     let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(name: "Presentation1"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation2"), PresentationListItemModel(name: "Presentation4")]
 
+    
+    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +51,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
 
 

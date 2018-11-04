@@ -88,16 +88,17 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     //layout function from alerts and pickers
     func layout(){
+        let timeWidthRelativeToDate = CGFloat(0.75)
         let vTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
         let hTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 12 : 8
-        let imageViewHeight: CGFloat = self.bounds.size.height - (layoutMargins.top + layoutMargins.bottom) - 15
-        date.frame = CGRect(x: layoutMargins.left + 4, y: layoutMargins.top, width: imageViewHeight, height: imageViewHeight)
-        let textViewWidth: CGFloat = self.bounds.size.width - 1.5 * date.frame.maxX - 2 * hTextInset
+        let dateViewHeight: CGFloat = self.bounds.size.height - (layoutMargins.top + layoutMargins.bottom)
+        date.frame = CGRect(x: layoutMargins.left + 3, y: layoutMargins.top, width: 0.8 * dateViewHeight, height: dateViewHeight)
+        let textViewWidth: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * hTextInset
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: layoutMargins.top), size: CGSize(width: textViewWidth, height: locationSize.height))
         presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
-        time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 4, y: layoutMargins.top), size: CGSize(width: 0.5 * imageViewHeight, height: imageViewHeight))
+        time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
         textView.bounds.size = CGSize(width: textViewWidth, height: presenterNames.frame.maxY)
         textView.frame.origin.x = date.frame.maxX + hTextInset
         textView.center.y = date.center.y
