@@ -108,7 +108,6 @@ class LoginScreenController: UIViewController {
     // Main Display---------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //create variables
         let loginView = LoginView()
         let profileImageView = loginView.profileImageView
@@ -131,6 +130,13 @@ class LoginScreenController: UIViewController {
         
         
     }
+    
+    // Customize navigationBar
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.barTintColor = UIColor.white
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//    }
     
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
