@@ -10,18 +10,10 @@ import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
     
-//    override init(frame: CGRect) {
-//        // Called when collection view dequeues itself
-//        super.init(frame: frame)
-//        // Change the background color of the cell
-//        self.backgroundColor = UIColor(r: 128, g: 128, b: 128)
-//        setupPresNameView()
-//    }
     
     //examples from the alerts and pickers app cell file-----------------------------
     public lazy var date: UILabel = {
         $0.textAlignment = NSTextAlignment.center
-//        $0.backgroundColor = .yellow
         $0.numberOfLines = 0
         $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
         $0.text = "Nov\n02"
@@ -30,7 +22,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     public lazy var time: UILabel = {
         $0.textAlignment = NSTextAlignment.center
-//        $0.backgroundColor = .orange
         $0.numberOfLines = 0
         $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
         $0.text = "3:00"
@@ -44,7 +35,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         $0.adjustsFontSizeToFitWidth = true
         $0.text = "Valley Oak Elementary"
         $0.textAlignment = NSTextAlignment.center
-//        $0.backgroundColor = .green
         $0.numberOfLines = 1
         return $0
     }(UILabel())
@@ -53,7 +43,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     public lazy var presenterNames: UILabel = {
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-//        $0.backgroundColor = .blue
         $0.textColor = .gray
         $0.text = "Dweezel the Dragon"
         $0.textAlignment = NSTextAlignment.center
@@ -62,15 +51,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     //end examples from the alerts and pickers app cell file-----------------------------
-    
-    // Name Label
-//    let presentationName: UILabel = {
-//        let label = UILabel()
-//        label.backgroundColor = .red
-//        label.text = "Presentation1"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -135,25 +115,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         view.layer.rasterizationScale = UIScreen.main.scale
     }
     
-    
-    // Setup() for Name Label
-//    func setupPresNameView() {
-//        addSubview(presentationName)
-//        // Horizontal Contraint
-//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[v0]-50-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
-//        // Vertical Constraint
-//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[v0]-30-|", options:
-//            NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": presentationName]))
-//    }
-    
-//    func setupFirstNamesView(){
-//
-//    }
-
-//    func setupPresTimeView(){
-//
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initilization Code
@@ -164,9 +125,4 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         location.text = model.location
         presenterNames.text = model.names
     }
-    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
 }

@@ -25,8 +25,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
         // Register cell classes
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-//        self.collectionView.register(UINib.init(nibName: "PresentationListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
