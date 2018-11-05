@@ -18,13 +18,13 @@ class PresentationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let apiEndpoint: String = "https://10to8.com/api/booking/v2/service/?format=json"
+        // example of slot request
+        let apiEndpoint: String = "https://10to8.com/api/booking/v2/slot/?start_date=2018-11-12&end_date=2018-11-19&location=https://10to8.com/api/booking/v2/location/242664/&staff=https://10to8.com/api/booking/v2/staff/72695/&service=https://10to8.com/api/booking/v2/service/509961/"
         
-        let auth_headers: HTTPHeaders = ["Authorization": "Token <fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3>"]
+        // authorization header - DON'T CHANGE UNLESS AUTHORIZATION FAILS
+        let auth_headers: HTTPHeaders = ["Authorization": "Token gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"]
         
-        let headers: HTTPHeaders = ["Authorization": "fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3"]
-        
-        let request = Alamofire.request(apiEndpoint, headers: headers)
+        let request = Alamofire.request(apiEndpoint, headers: auth_headers)
             .responseJSON { response in
                 //print(response.result.value!)
                 debugPrint(response)
