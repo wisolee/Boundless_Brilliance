@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "Cell"
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // Added an array PresentationObjs
-    let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
+    var presentationItems: [PresentationListItemModel]! = []
+//        = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
 
 //    override func didSelectItemAtIndexPath : (NSIndexPath *)indexPath{
 //
@@ -34,8 +36,41 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 //        self.collectionView.register(UINib.init(nibName: "PresentationListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        loadData()
     }
-
+    
+    func loadData(){
+        var ref: DatabaseReference!
+        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+        
+        let presentationRef = ref.child("presentations")
+        var presentationDict: [String : AnyObject]!
+        var presenterDict: [String : String]!
+        _ = presentationRef.observe(DataEventType.value, with: { (snapshot) in
+            presentationDict = snapshot.value as? [String : AnyObject] ?? [:]
+            // add code here
+            _ = presentationRef.child("presenters").observe(DataEventType.value, with: {(snapshot) in
+                presenterDict = snapshot.value as? [String : String] ?? [:]
+                print(presenterDict)
+            })
+            print(presentationDict)
+            
+            if (presentationDict != nil && presenterDict != nil){
+                self.loadDataIntoArray(presentationDict: presentationDict, presenterDict: presenterDict)
+            }
+        })
+    }
+    
+    func loadDataIntoArray(presentationDict: [String : AnyObject], presenterDict: [String: String]){
+        
+        for values in presentationDict.values {
+            presentationItems.append(PresentationListItemModel(location: values["location"] as! String, presenters: values["presenters"] as! Dictionary<String, String>))
+            //print(values["date"]!!)
+            let loc = values["location"]
+            // let date = values["date"]
+            
+        }
+    }
     /*
     // MARK: - Navigation
 

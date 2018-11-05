@@ -146,7 +146,10 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     // Called in PresentationListViewController when configuring custom view cells
     public func configure(with model: PresentationListItemModel) {
         location.text = model.location
-        presenterNames.text = model.names
+        let presentersString = model.presenters.values.joined(separator: ", ")
+        print(presentersString)
+
+        presenterNames.text = presentersString
     }
     
 //    required init?(coder aDecoder: NSCoder) {

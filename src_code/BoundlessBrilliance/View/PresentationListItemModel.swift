@@ -9,7 +9,8 @@
 import Foundation
 
 struct PresentationListItemModel {
-    let location: String
-    let names: String
+    var location: String
+    var presenters: Dictionary<String, String>
+//    var date: String
     // Custom Cell to be added
 }
