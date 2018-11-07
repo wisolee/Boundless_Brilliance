@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
@@ -23,11 +24,63 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+        doAPIRequest()
+        
         // Register cell classes
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
+    
+    // Retrieves data from 10to8 API and loads it into presentationItems array.
+    func doAPIRequest(){
+        let apiBaseEndpoint: String = "https://10to8.com/api/booking/v2/"
+        
+        let slot: String = "slot/?"
+        let organisation: String = "organisation/?"
+        let service: String = "service/?"
+        let staff: String = "staff/?"
+        let location: String = "location/?"
+        
+        let additional_info: String = "start_date=2018-11-12&end_date=2018-11-19&location=https://10to8.com/api/booking/v2/location/242664/&staff=https://10to8.com/api/booking/v2/staff/72695/&service=https://10to8.com/api/booking/v2/service/509961/"
+        
+        
+        // authorization header - DON'T CHANGE UNLESS AUTHORIZATION FAILS
+        // test token: fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3
+        // boundless brilliance token: gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf
+        let auth_headers: HTTPHeaders = ["Authorization": "Token gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"]
+        
+        // example of slot request
+        let apiEndpoint: String = apiBaseEndpoint + slot + additional_info
+        
+        let request = Alamofire.request(apiEndpoint, headers: auth_headers)
+            .responseJSON { response in
+                
+                //creates an array with start_datetimes for the request
+                if let responseArray = response.result.value as? [[String: String]] {
+                    //If you want array of task id you can try like
+                    print(responseArray)
+                    
+                    for presentation in responseArray {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'-'HH:mm"
+                        
+                        let timeFormatter = DateFormatter()
+                        timeFormatter.dateFormat = "h:mm a"
+                        
+                        let start_datetime_string : String = presentation ["start_datetime"]!
+                        let start_date : Date = dateFormatter.date(from: start_datetime_string)!
+                        
+                        let end_datetime_string : String = presentation["end_datetime"]!
+                        let end_date : Date = dateFormatter.date(from:end_datetime_string)!
+                        
+                        print ("start: \(start_date), end: \(end_date)")
+                    }
+                    
+                }
+        }
+    }
+
 
     /*
     // MARK: - Navigation
