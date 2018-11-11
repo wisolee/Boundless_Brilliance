@@ -22,18 +22,12 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         self.searchController.obscuresBackgroundDuringPresentation = false
         
         searchController.searchBar.placeholder = "Search presentations"
+        definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         
         searchController.searchBar.becomeFirstResponder()
         
-        self.navigationItem.titleView = searchController.searchBar
-//        self.navigationItem.searchController = searchController
-//        collectionView.addSubview(searchController.searchBar)
-//        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
-//        searchController.searchBar.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
-//        searchController.searchBar.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
-//        searchController.searchBar.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
-//        searchController.searchBar.heightAnchor.constraint(equalToConstant: CGFloat(50)).isActive = true
+//        self.navigationItem.titleView = searchController.searchBar
     }
     
     // MARK: Search Bar

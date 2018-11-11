@@ -8,10 +8,10 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let cellReuseIdentifier = "Cell"
 
-fileprivate let searchBarHeight = 50
-fileprivate let cellHeight = 100
+private let searchBarHeight = 50
+private let cellHeight = 100
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -26,13 +26,21 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        let layout = UICollectionViewFlowLayout()
+        layout.headerReferenceSize = CGSize(width: Int(view.frame.width), height: searchBarHeight)
+        
+        self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        
         // Register cell classes
-        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        
         // Do any additional setup after loading the view.
         configureNavigationBar()
         configureCollectionView()
         configureSearchController()
+        self.collectionView.addSubview(searchController.searchBar)
         loadListOfPresentations()
     }
 
@@ -63,7 +71,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
     
         // Configure the cell
         if isSearching {
@@ -77,15 +85,15 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Custimizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let padding: CGFloat = 15
-//        let collectionViewSize = collectionView.frame.size.width - padding
+        //        let padding: CGFloat = 15
+        //        let collectionViewSize = collectionView.frame.size.width - padding
         return CGSize(width: view.frame.width, height: CGFloat(cellHeight))
     }
     
     // Repositions first cell with respect to searchBar (no more overlapping)
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
+//    }
 
     // MARK: UICollectionViewDelegate
 
