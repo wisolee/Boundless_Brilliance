@@ -55,6 +55,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
+        isSearching = isFiltering()
         if isSearching {
             return filteredPresentationItems.count
         } else {
@@ -66,6 +67,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
     
         // Configure the cell
+        isSearching = isFiltering()
         if isSearching {
             cell.configure(with: filteredPresentationItems[indexPath.row])
         } else {
@@ -83,9 +85,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
     
     // Repositions first cell with respect to searchBar (no more overlapping)
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
+//    }
 
     // MARK: UICollectionViewDelegate
 
@@ -117,11 +119,12 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     }
     */
-    
+
     // MARK: - Private setup methods for UIsubviews
     
     func configureNavigationBar() {
         navigationItem.title = "Presentations"
+        navigationItem.hidesBackButton = true
     }
     
     func configureCollectionView() {
@@ -139,13 +142,13 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // MARK: - Private methods for presentationData
     func loadListOfPresentations() {
-        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John"))
-        presentationItems.append(PresentationListItemModel(location: "San Francisco", names: "Jermaine"))
-        presentationItems.append(PresentationListItemModel(location: "Santa Cruz", names: "Peter"))
-        presentationItems.append(PresentationListItemModel(location: "San Diego", names: "Alexios"))
-        presentationItems.append(PresentationListItemModel(location: "New York", names: "Billy"))
-        presentationItems.append(PresentationListItemModel(location: "Athens", names: "Alexios"))
-        presentationItems.append(PresentationListItemModel(location: "Paris", names: "Buderrrriiiii"))
+        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University"))
+        presentationItems.append(PresentationListItemModel(location: "San Francisco", names: "Jermaine", chapter: "Azusa Pacific University"))
+        presentationItems.append(PresentationListItemModel(location: "Santa Cruz", names: "Peter", chapter: "Los Angeles Trade Tech College"))
+        presentationItems.append(PresentationListItemModel(location: "San Diego", names: "Alexios", chapter: "Los Angeles Trade Tech College"))
+        presentationItems.append(PresentationListItemModel(location: "New York", names: "Billy", chapter: "Occidental College"))
+        presentationItems.append(PresentationListItemModel(location: "Athens", names: "Alexios", chapter: "Occidental College"))
+        presentationItems.append(PresentationListItemModel(location: "Paris", names: "Buderrrriiiii", chapter: "Occidental College"))
         presentationItems.sort { $0.location < $1.location }
     }
     

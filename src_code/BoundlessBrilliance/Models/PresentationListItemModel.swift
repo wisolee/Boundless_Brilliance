@@ -11,5 +11,6 @@ import Foundation
 struct PresentationListItemModel {
     let location: String
     let names: String
+    let chapter: String
     // Custom Cell to be added
 }
