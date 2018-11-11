@@ -27,7 +27,8 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         
         searchController.searchBar.becomeFirstResponder()
         
-//        self.navigationItem.titleView = searchController.searchBar
+        self.navigationItem.titleView = searchController.searchBar
+//        self.navigationItem.searchController = searchController
     }
     
     // MARK: Search Bar

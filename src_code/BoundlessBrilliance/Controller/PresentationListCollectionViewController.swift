@@ -26,13 +26,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        let layout = UICollectionViewFlowLayout()
-        layout.headerReferenceSize = CGSize(width: Int(view.frame.width), height: searchBarHeight)
-        
-        self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        
         // Register cell classes
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         
@@ -40,7 +33,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         configureNavigationBar()
         configureCollectionView()
         configureSearchController()
-        self.collectionView.addSubview(searchController.searchBar)
         loadListOfPresentations()
     }
 
@@ -91,9 +83,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
     
     // Repositions first cell with respect to searchBar (no more overlapping)
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
+    }
 
     // MARK: UICollectionViewDelegate
 
@@ -147,10 +139,13 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // MARK: - Private methods for presentationData
     func loadListOfPresentations() {
-        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "Presenter1"))
-        presentationItems.append(PresentationListItemModel(location: "San Francisco", names: "Presenter2"))
-        presentationItems.append(PresentationListItemModel(location: "Santa Cruz", names: "Presenter3"))
-        presentationItems.append(PresentationListItemModel(location: "San Diego", names: "Presenter4"))
+        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John"))
+        presentationItems.append(PresentationListItemModel(location: "San Francisco", names: "Jermaine"))
+        presentationItems.append(PresentationListItemModel(location: "Santa Cruz", names: "Peter"))
+        presentationItems.append(PresentationListItemModel(location: "San Diego", names: "Alexios"))
+        presentationItems.append(PresentationListItemModel(location: "New York", names: "Billy"))
+        presentationItems.append(PresentationListItemModel(location: "Athens", names: "Alexios"))
+        presentationItems.append(PresentationListItemModel(location: "Paris", names: "Buderrrriiiii"))
         presentationItems.sort { $0.location < $1.location }
     }
     
