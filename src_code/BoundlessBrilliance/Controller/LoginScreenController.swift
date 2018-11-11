@@ -37,6 +37,10 @@ class LoginScreenController: UIViewController {
 //        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
 //        self.present(presentationListVC, animated: true)
         
+        // EASE OF ACCESS DELETE WHEN DONE
+        let chapterScheduleVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        self.navigationController?.pushViewController(chapterScheduleVC, animated: true)
+        
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
                 print("Form input is not valid")

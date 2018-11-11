@@ -10,23 +10,30 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+fileprivate let searchBarHeight = 50
+fileprivate let cellHeight = 100
+
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    // Added an array PresentationObjs
-    let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
+    
+    var presentationItems = [PresentationListItemModel]()
+    var filteredPresentationItems = [PresentationListItemModel]()
+    
+    var isSearching: Bool = false
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //createTabBarController()
-        // Change the background color of the PresentationListView
-        collectionView?.backgroundColor = UIColor.white
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Register cell classes
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        configureNavigationBar()
+        configureCollectionView()
+        configureSearchController()
+        loadListOfPresentations()
     }
 
     /*
@@ -46,17 +53,24 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return presentationItems.count
+        if isSearching {
+            return filteredPresentationItems.count
+        } else {
+            return presentationItems.count
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
     
         // Configure the cell
-        cell.configure(with: presentationItems[indexPath.row])
+        if isSearching {
+            cell.configure(with: filteredPresentationItems[indexPath.row])
+        } else {
+            cell.configure(with: presentationItems[indexPath.row])
+        }
     
         return cell
     }
@@ -65,7 +79,12 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let padding: CGFloat = 15
 //        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: view.frame.width, height: 100)
+        return CGSize(width: view.frame.width, height: CGFloat(cellHeight))
+    }
+    
+    // Repositions first cell with respect to searchBar (no more overlapping)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: CGFloat(searchBarHeight))
     }
 
     // MARK: UICollectionViewDelegate
@@ -98,5 +117,33 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     }
     */
-
+    
+    // MARK: - Private setup methods for UIsubviews
+    
+    func configureNavigationBar() {
+        navigationItem.title = "Presentations"
+    }
+    
+    func configureCollectionView() {
+        self.collectionView?.backgroundColor = UIColor.white
+    }
+    
+    func setupPresentationSearchBar() {
+        /* need x, y, width, height contraints */
+        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchController.searchBar.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        searchController.searchBar.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
+        searchController.searchBar.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
+        searchController.searchBar.heightAnchor.constraint(equalToConstant: CGFloat(searchBarHeight)).isActive = true
+    }
+    
+    // MARK: - Private methods for presentationData
+    func loadListOfPresentations() {
+        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "Presenter1"))
+        presentationItems.append(PresentationListItemModel(location: "San Francisco", names: "Presenter2"))
+        presentationItems.append(PresentationListItemModel(location: "Santa Cruz", names: "Presenter3"))
+        presentationItems.append(PresentationListItemModel(location: "San Diego", names: "Presenter4"))
+        presentationItems.sort { $0.location < $1.location }
+    }
+    
 }

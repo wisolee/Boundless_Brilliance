@@ -12,6 +12,8 @@
 		0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */; };
 		0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */; };
 		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
+		0F299BF22193C5D000ECB960 /* ExtensionPresentationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F299BF12193C5D000ECB960 /* ExtensionPresentationListViewController.swift */; };
+		0F299BF42193C70D00ECB960 /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F299BF32193C70D00ECB960 /* ExtensionUIColor.swift */; };
 		0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B5D3217C3625000540E1 /* SpinnerView.swift */; };
 		0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* RegisterController.swift */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
@@ -51,6 +53,8 @@
 		0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListItemModel.swift; sourceTree = "<group>"; };
 		0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F1E75872175B59100276770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F299BF12193C5D000ECB960 /* ExtensionPresentationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionPresentationListViewController.swift; sourceTree = "<group>"; };
+		0F299BF32193C70D00ECB960 /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
 		0FB3B5D3217C3625000540E1 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		0FE9E0602174509D00B96476 /* BoundlessBrilliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoundlessBrilliance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0632174509D00B96476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F299BEF2193C4DD00ECB960 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0F299BF02193C50400ECB960 /* Extensions */,
+				0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0F299BF02193C50400ECB960 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F299BF12193C5D000ECB960 /* ExtensionPresentationListViewController.swift */,
+				0F299BF32193C70D00ECB960 /* ExtensionUIColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		0FE9E0572174509D00B96476 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +154,7 @@
 		0FE9E0622174509D00B96476 /* BoundlessBrilliance */ = {
 			isa = PBXGroup;
 			children = (
+				0F299BEF2193C4DD00ECB960 /* Models */,
 				1F4F20F22177B64F0070EAEB /* View */,
 				0FE9E091217457B400B96476 /* Controller */,
 				0FE9E0632174509D00B96476 /* AppDelegate.swift */,
@@ -176,7 +199,6 @@
 		1F4F20F22177B64F0070EAEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */,
 				0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */,
 				1F4F20F32177C2270070EAEB /* RegisterView.swift */,
 				666732C72179553700C68C0E /* LoginView.swift */,
@@ -453,9 +475,11 @@
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
 				0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */,
+				0F299BF22193C5D000ECB960 /* ExtensionPresentationListViewController.swift in Sources */,
 				0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */,
 				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
 				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,
+				0F299BF42193C70D00ECB960 /* ExtensionUIColor.swift in Sources */,
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
