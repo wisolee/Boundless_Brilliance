@@ -121,7 +121,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     */
 
     // MARK: - Private setup methods for UIsubviews
-    
     func configureNavigationBar() {
         navigationItem.title = "Presentations"
         navigationItem.hidesBackButton = true

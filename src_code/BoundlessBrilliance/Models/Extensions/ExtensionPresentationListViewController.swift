@@ -76,7 +76,8 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     // MARK: Private Instance Methods
     func isFiltering() -> Bool {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        //return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        return (searchController.isActive && !searchBarIsEmpty()) || searchBarScopeIsFiltering
     }
     
     func searchBarIsEmpty() -> Bool {
