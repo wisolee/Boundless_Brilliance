@@ -125,6 +125,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     func configureNavigationBar() {
         navigationItem.title = "Presentations"
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
     }
     
     func configureCollectionView() {
