@@ -46,11 +46,11 @@ class LoginScreenController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print("User or password not found")
-                print(error)
+                print(error as Any)
                 return
             } else {
                 print("Successfully authenticated user")
-                print(user)
+                print(user as Any)
                 
                 // After succesfully logging-in go to presentationList
                 self.navigationController?.pushViewController(TabBarViewController(), animated: true)

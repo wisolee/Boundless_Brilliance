@@ -53,7 +53,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // example of slot request
         let apiEndpoint: String = apiBaseEndpoint + slot + additional_info
         
-        let request = Alamofire.request(apiEndpoint, headers: auth_headers)
+        _ = Alamofire.request(apiEndpoint, headers: auth_headers)
             .responseJSON { response in
                 
                 //creates an array with start_datetimes for the request
@@ -122,34 +122,57 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
 
     // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
+//    https://learnappmaking.com/pass-data-between-view-controllers-swift-how-to/
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //do stuff here
+        //use presentationItems[indexPath.row] to get the presentation Item
+        //pass the presentation item to a new view and segue
+        let detailController = PresentationDetailController()
+        detailController.presentation = presentationItems[indexPath.row]
+        self.navigationController?.pushViewController(detailController, animated: true)
+        
     }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
-
+    // This function passes data between view controllers
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//
+//        if segue.identifier == "ShowDetail" {
+//            let detailVC = segue.destination as! ViewController
+//
+//            // Get the cell that generated this segue
+//            if let selectedCel = sender as? PresentationListCollectionViewCell {
+////                let indexPath = presentationItems.indexPath(for: selectedCel)!
+//                let selectedItem = presentationItems[IndexPath.row]
+//                detailVC.item = selectedItem[IndexPath.row]
+//            }
+//        } else if segue.identifier == "AddItem" {
+//
+//        }
+//    }
+    
+    
+    
+    
+    
+//    @IBAction func unwindToList(sender: UIStoryboardSegue) {
+//        let srcViewCon = sender.source as? ViewController
+//        let item = srcViewCon?.item
+//        if (srcViewCon != nil && item?.name != "") {
+//            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+//                // Update an existing item
+//                items[selectedIndexPath.row] = item!
+//                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+//            } else {
+//                // Add a new item
+//                let newIndexPath = IndexPath(row: items.count, section: 0)
+//                items.append(item!)
+//                tableView.insertRows(at: [newIndexPath], with: .bottom)
+//                //                saveItems()
+//            }
+//        }
+//    }
 }
