@@ -23,3 +23,10 @@ class PresentationDetailView : UIView{
         return view
     }()
 }
+
+extension UITextField {
+    func loadStickerShirtOptions(spinnerOptions: [String]) {
+        self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
+    }
+}
+

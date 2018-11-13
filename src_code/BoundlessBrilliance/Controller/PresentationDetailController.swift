@@ -12,7 +12,9 @@ import UIKit
 class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
-    
+    let stickerOptions = ["", "yes", "no"]
+    let shirtOptions = ["", "yes", "no"]
+    var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     //semester
     
     //elementary school/organization
@@ -48,8 +50,31 @@ class PresentationDetailController : UIViewController{
     //transportation
     
     //stickers yes/no
+    let StickerDropdown: UITextField! = {
+        let tf = UITextField()
+        tf.textColor = UIColor.black
+        tf.placeholder = "Sticker?"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
     
     // t-shirt yes/no ? size
+    let ShirtDropdown: UITextField! = {
+        let tf = UITextField()
+        tf.textColor = UIColor.black
+        tf.placeholder = "T-Shirt?"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // t-shirt yes/no ? size
+    let ShirtSizeDropdown: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "Shirt Size"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
     
     // subview - nameTextField
     let TestTextField: UITextField = {
@@ -107,11 +132,30 @@ class PresentationDetailController : UIViewController{
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         setupInputsView(inputsView: inputsView, textField: TestTextField, locField: LocField, namesField: NamesField, anecdoteField: AnecdoteView)
+        StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
+        ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
+        ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         
     }
     
-
+    func textViewDidChange(_ textView: UITextView){
+        if(textView == ShirtDropdown){
+            if(textView.text == "yes"){
+                shirtSizes =  ["", "extra-small", "small", "medium", "large", "extra-large"]
+                ShirtSizeDropdown.backgroundColor = UIColor.black
+                ShirtSizeDropdown.textColor = UIColor.black
+            }
+            else if(textView.text == "no"){
+                shirtSizes = [""]
+                ShirtSizeDropdown.allowsEditingTextAttributes = false
+                ShirtSizeDropdown.backgroundColor = UIColor.gray
+                ShirtSizeDropdown.textColor = UIColor.gray
+            }
+        }
+    }
+    
+    
 
     func setupInputsView(inputsView: UIScrollView, textField: UITextField, locField: UITextField, namesField: UITextField, anecdoteField: UITextView){
         /* inputsView: need x, y, width, height contraints */
@@ -124,6 +168,9 @@ class PresentationDetailController : UIViewController{
         inputsView.addSubview(locField)
         inputsView.addSubview(namesField)
         inputsView.addSubview(anecdoteField)
+        inputsView.addSubview(StickerDropdown)
+        inputsView.addSubview(ShirtDropdown)
+        inputsView.addSubview(ShirtSizeDropdown)
         
         // nameTextField: need x, y, width, height contraints
         textField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
@@ -143,8 +190,24 @@ class PresentationDetailController : UIViewController{
         anecdoteField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         anecdoteField.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
+        StickerDropdown.topAnchor.constraint(equalTo: anecdoteField.bottomAnchor, constant: 15).isActive = true
+        StickerDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        StickerDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        ShirtDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor).isActive = true
+        ShirtDropdown.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 15).isActive = true
+        ShirtDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
+        ShirtDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        ShirtSizeDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor).isActive = true
+        ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 15).isActive = true
+        ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
+        ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
     }
     
+    // Make originally black status bar white
+    override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
 
     
     
