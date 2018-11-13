@@ -13,6 +13,43 @@ class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
     
+    //semester
+    
+    //elementary school/organization
+    
+    //date
+    
+    //teacher
+    
+    //presenter 1
+    
+    //presenter 2
+    
+    //grade
+    
+    //number of students
+    
+    //classroom #
+    
+    //teacher email
+    
+    //presenter 1 email
+    
+    //presenter 2 email
+    
+    //science experiment performed
+    
+    //outreach coordinator
+    
+    //outreach coordinator email
+    
+    //time
+    
+    //transportation
+    
+    //stickers yes/no
+    
+    // t-shirt yes/no ? size
     
     // subview - nameTextField
     let TestTextField: UITextField = {
@@ -49,6 +86,15 @@ class PresentationDetailController : UIViewController{
         return names_tf
     }()
     
+    let AnecdoteView: UITextView = {
+        let af_tv = UITextView()
+        af_tv.text = "Any anecdotes to share?"
+        af_tv.textColor = UIColor.white
+        af_tv.translatesAutoresizingMaskIntoConstraints = false
+        af_tv.backgroundColor = UIColor(r: 120, g: 120, b: 120)
+        af_tv.isEditable = true
+        return af_tv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,36 +106,43 @@ class PresentationDetailController : UIViewController{
         view.addSubview(inputsView)
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
-        setupInputsView(inputsView: inputsView, textField: TestTextField, locField: LocField, namesField: NamesField)
+        setupInputsView(inputsView: inputsView, textField: TestTextField, locField: LocField, namesField: NamesField, anecdoteField: AnecdoteView)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         
     }
     
 
 
-    func setupInputsView(inputsView: UIView, textField: UITextField, locField: UITextField, namesField: UITextField){
+    func setupInputsView(inputsView: UIScrollView, textField: UITextField, locField: UITextField, namesField: UITextField, anecdoteField: UITextView){
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
         
         inputsView.addSubview(textField)
         inputsView.addSubview(locField)
         inputsView.addSubview(namesField)
+        inputsView.addSubview(anecdoteField)
+        
         // nameTextField: need x, y, width, height contraints
         textField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         textField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
         textField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        textField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true // 1/4 of entire height
         
-        locField.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 20).isActive = true
+        locField.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15).isActive = true
         locField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        locField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true
+        locField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        namesField.topAnchor.constraint(equalTo: locField.bottomAnchor, constant: 20).isActive = true
+        namesField.topAnchor.constraint(equalTo: locField.bottomAnchor, constant: 15).isActive = true
         namesField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        namesField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true
+        namesField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        anecdoteField.topAnchor.constraint(equalTo: namesField.bottomAnchor, constant: 15).isActive = true
+        anecdoteField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        anecdoteField.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
     }
     
 
