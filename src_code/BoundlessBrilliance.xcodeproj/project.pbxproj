@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05280C218FA5D900635790 /* TabBarViewController.swift */; };
+		0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */; };
+		0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */; };
+		0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */; };
 		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
 		0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B5D3217C3625000540E1 /* SpinnerView.swift */; };
-		0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0652174509D00B96476 /* ViewController.swift */; };
 		0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E092217457E900B96476 /* RegisterController.swift */; };
 		0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0632174509D00B96476 /* AppDelegate.swift */; };
 		0FE9E0692174509D00B96476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9E0672174509D00B96476 /* Main.storyboard */; };
@@ -43,11 +46,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F05280C218FA5D900635790 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewController.swift; sourceTree = "<group>"; };
+		0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListItemModel.swift; sourceTree = "<group>"; };
+		0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F1E75872175B59100276770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FB3B5D3217C3625000540E1 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		0FE9E0602174509D00B96476 /* BoundlessBrilliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoundlessBrilliance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE9E0632174509D00B96476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0FE9E0652174509D00B96476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0FE9E0682174509D00B96476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0FE9E06A2174509E00B96476 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FE9E06D2174509E00B96476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -159,8 +165,9 @@
 		0FE9E091217457B400B96476 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */,
+				0F05280C218FA5D900635790 /* TabBarViewController.swift */,
 				0FE9E092217457E900B96476 /* RegisterController.swift */,
-				0FE9E0652174509D00B96476 /* ViewController.swift */,
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 			);
 			path = Controller;
@@ -169,6 +176,8 @@
 		1F4F20F22177B64F0070EAEB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */,
+				0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */,
 				1F4F20F32177C2270070EAEB /* RegisterView.swift */,
 				666732C72179553700C68C0E /* LoginView.swift */,
 				0FB3B5D3217C3625000540E1 /* SpinnerView.swift */,
@@ -409,8 +418,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -419,8 +430,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -438,8 +451,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
-				0FE71C5D2175D0CB009C3C44 /* ViewController.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
+				0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */,
+				0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */,
+				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
+				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,

@@ -13,7 +13,9 @@ import Toast_Swift
 class RegisterController: UIViewController {
     
     // Spinner options for chapterTextField
-    let chapters = ["", "Azusa Pacific University", "L.A. Trade Tech College", "Occidental College"]
+    //TODO: in the future, we should pull chapter names from the database in case there are new chapters
+    let chapters = ["", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
+    let memberTypes = ["", "Presenter", "Outreach Coordinator", "Management"]
     
     // subview - nameTextField
     let nameTextField: UITextField = {
@@ -46,6 +48,14 @@ class RegisterController: UIViewController {
     let chapterTextField: UITextField! = {
         let tf = UITextField()
         tf.placeholder = "Chapter"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    // subview - chapterTextField
+    let memberTypeTextField: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "Member Type"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -90,10 +100,10 @@ class RegisterController: UIViewController {
         self.present(returnToLoginController, animated: true)
     }
     
-    // registerButton action
+    // registerButton action -- Send data to Firebase
     @objc func handleRegister() {
         // Ensure email and password are valid values
-        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text
+        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text, let memberType = memberTypeTextField.text
             else {
                 print("Form input is not valid")
                 return
@@ -103,6 +113,12 @@ class RegisterController: UIViewController {
             //print("Password must be at least 7 characters.")
             self.view.makeToast("Password must be at least 7 characters.")
             return
+        } else if chapter == "" {
+            self.view.makeToast("Please choose a chapter.")
+            return
+        } else if memberType == "" {
+            self.view.makeToast("Please choose a member type.")
+            return
         } else {
             // Register User
             Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
@@ -111,30 +127,49 @@ class RegisterController: UIViewController {
                     self.view.makeToast("Error in creating account")
                     return
                 } else {
+                    // Successful Authentication, now save user
+                    /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+                    var ref: DatabaseReference!
+                    
+                    //save user to users table
+                    ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                    let userID = Auth.auth().currentUser!.uid
+                    
+                    let userRef = ref.child("users").child(userID)
+                    let userFields = ["name" : name,
+                                      "email" : email,
+                                      "chapter" : chapter,
+                                      "memberType" : memberType]
+                    
+                    // updateChildValues with completion block
+                    userRef.updateChildValues(userFields) {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
+                    
+                    
+                    //Now save the user under the appropriate chapter table
+                    let chapterRef = ref.child("chapters").child(chapter)
+                    let member = [userID : name]
+
+                    chapterRef.updateChildValues(member) {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
+
+                    //after saving all the data successfully, navigate back to login screen
                     let newViewController = LoginScreenController()
                     self.present(newViewController, animated: true)
                 }
-                // Successful Authentication, now save user
-                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-                var ref: DatabaseReference!
-
-                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-                let userID = Auth.auth().currentUser!.uid
-                let userRef = ref.child("users").child(userID)
-                let userFields = ["name" : name,
-                                  "email" : email,
-                                  "password" : password,
-                                  "chapter" : chapter]
-
-                // updateChildValues with completion block
-                userRef.updateChildValues(userFields) {
-                    (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                        print("Data could not be saved: \(error).")
-                    } else {
-                        print("Data saved successfully!")
-                    }
-                }                                                                      
+               
             })
         }
     }
@@ -159,8 +194,9 @@ class RegisterController: UIViewController {
         let nameSeparatorView = registerView.nameSeparatorView
         let emailSeparatorView = registerView.emailSeparatorView
         let passwordSeparatorView = registerView.passwordSeparatorView
-        chapterTextField?.loadSpinnerOptions(spinnerOptions: chapters)
-
+        let chapterSeparatorView = registerView.chapterSeparatorView
+        chapterTextField?.loadChapterOptions(spinnerOptions: chapters)
+        memberTypeTextField?.loadMemberTypeOptions(spinnerOptions: memberTypes)
         
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255);
         
@@ -180,8 +216,10 @@ class RegisterController: UIViewController {
         inputsView.addSubview(emailSeparatorView)
         inputsView.addSubview(passwordTextField)
         inputsView.addSubview(passwordSeparatorView)
-
+        
         inputsView.addSubview(chapterTextField!)
+        inputsView.addSubview(chapterSeparatorView)
+        inputsView.addSubview(memberTypeTextField!)
         
     //FORMAT VIEWS-----------------
         
@@ -189,7 +227,8 @@ class RegisterController: UIViewController {
         setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, nameSeparatorView: nameSeparatorView,
                                 emailSeparatorView: emailSeparatorView,
-                                passwordSeparatorView: passwordSeparatorView)
+                                passwordSeparatorView: passwordSeparatorView,
+                                chapterSeparatorView: chapterSeparatorView)
         setupRegisterButton(inputsView: inputsView)
         setupReturnButton(inputsView: inputsView)
         
@@ -208,20 +247,20 @@ class RegisterController: UIViewController {
     }
     
 
-    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView) {
+    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView, chapterSeparatorView: UIView) {
         
         /* inputsView: need x, y, width, height contraints */
         inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        inputsView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         
         // nameTextField: need x, y, width, height contraints
         nameTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // nameSeparatorView: need x, y, width, height contraints
         nameSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -233,7 +272,7 @@ class RegisterController: UIViewController {
         emailTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // emailSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -245,7 +284,7 @@ class RegisterController: UIViewController {
         passwordTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // passwordSeparatorView need x, y, width, height contraints
         passwordSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
@@ -257,7 +296,19 @@ class RegisterController: UIViewController {
         chapterTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         chapterTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
         chapterTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/4).isActive = true // 1/4 of entire height
+        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        
+        // chapterSeparatorView need x, y, width, height contraints
+        chapterSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
+        chapterSeparatorView.topAnchor.constraint(equalTo: chapterTextField.bottomAnchor).isActive = true
+        chapterSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        chapterSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        // memberTypeTextField need x, y, width, height constraints
+        memberTypeTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
+        memberTypeTextField.topAnchor.constraint(equalTo:chapterTextField.bottomAnchor).isActive = true
+        memberTypeTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        memberTypeTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
     }
     
@@ -275,6 +326,7 @@ class RegisterController: UIViewController {
         returnButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         returnButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+    
 
 // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
