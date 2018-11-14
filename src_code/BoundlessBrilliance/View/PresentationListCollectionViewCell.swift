@@ -124,5 +124,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     public func configure(with model: PresentationListItemModel) {
         location.text = model.location
         presenterNames.text = model.names
+        time.text = model.time
+        date.text = model.date
     }
 }
