@@ -100,7 +100,7 @@ class PresentationDetailController : UIViewController{
     let Pres2Email: UITextView! = {
         let p2e = UITextView()
         p2e.textColor = UIColor.white
-        p2e.text = "pres1@gmail.com"
+        p2e.text = "pres2@gmail.com"
         p2e.translatesAutoresizingMaskIntoConstraints = false
         p2e.isEditable = false
         p2e.textAlignment = NSTextAlignment.center
@@ -123,7 +123,7 @@ class PresentationDetailController : UIViewController{
     let OutreachCoordinator: UITextView! = {
         let oc = UITextView()
         oc.textColor = UIColor.white
-        oc.text = "pres1@gmail.com"
+        oc.text = "Outreach Coordinator"
         oc.translatesAutoresizingMaskIntoConstraints = false
         oc.isEditable = false
         oc.textAlignment = NSTextAlignment.center
@@ -135,7 +135,7 @@ class PresentationDetailController : UIViewController{
     let OutreachCoordinatorEmail: UITextView! = {
         let oce = UITextView()
         oce.textColor = UIColor.white
-        oce.text = "pres1@gmail.com"
+        oce.text = "OC@gmail.com"
         oce.translatesAutoresizingMaskIntoConstraints = false
         oce.isEditable = false
         oce.textAlignment = NSTextAlignment.center
