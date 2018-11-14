@@ -9,31 +9,32 @@
 import UIKit
 import Alamofire
 
-private let reuseIdentifier = "Cell"
+private let cellReuseIdentifier = "Cell"
+
+private let searchBarHeight = 50
+private let cellHeight = 100
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    // Added an array PresentationObjs
-//    let presentationItems: [PresentationListItemModel] = [PresentationListItemModel(location: "Loc1", names: "Presenter1"), PresentationListItemModel(location: "Loc2", names: "Presenter2"), PresentationListItemModel(location: "Loc3", names: "Presenter3"), PresentationListItemModel(location: "Loc4", names: "Presenter4")]
     
     var presentationItems: [PresentationListItemModel] = []
+    var filteredPresentationItems = [PresentationListItemModel]()
+    
+    var isSearching: Bool = false
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //createTabBarController()
-        // Change the background color of the PresentationListView
-        collectionView?.backgroundColor = UIColor.white
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        
-        
         // Register cell classes
-        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        doAPIRequest()
+        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
 
         // Do any additional setup after loading the view.
+        configureNavigationBar()
+        configureCollectionView()
+        configureSearchController()
+        doAPIRequest()
     }
     
     // Retrieves data from 10to8 API and loads it into presentationItems array.
@@ -97,7 +98,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         let end_time = parseTime(iso_date: iso_end_date, date_formatter: date_formatter)
         
         // Return a new PresentationListItemModel
-        return PresentationListItemModel(location: "loc1", names: "presenter1", time: start_time, date: start_date)
+        return PresentationListItemModel(location: "loc1", names: "presenter1", chapter: "Occidental College", time: start_time, date: start_date)
     }
     
     func parseDate (iso_date: Date, date_formatter: DateFormatter) -> String {
@@ -132,26 +133,35 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return presentationItems.count
+        isSearching = isFiltering()
+        if isSearching {
+            return filteredPresentationItems.count
+        } else {
+            return presentationItems.count
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
+        
         // Configure the cell
-        cell.configure(with: presentationItems[indexPath.row])
-    
+        isSearching = isFiltering()
+        if isSearching {
+            cell.configure(with: filteredPresentationItems[indexPath.row])
+        } else {
+            cell.configure(with: presentationItems[indexPath.row])
+        }
+        
         return cell
     }
     
-    // Custimizes layout of cells in collectionview
+    // Customizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let padding: CGFloat = 15
-//        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: view.frame.width, height: 100)
+        //        let padding: CGFloat = 15
+        //        let collectionViewSize = collectionView.frame.size.width - padding
+        return CGSize(width: view.frame.width, height: CGFloat(cellHeight))
     }
 
     // MARK: UICollectionViewDelegate
@@ -165,7 +175,37 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
+<<<<<<< HEAD
 
     
 
+=======
+    
+    // MARK: - Private setup methods for UIsubviews
+    func configureNavigationBar() {
+        navigationItem.title = "Presentations"
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
+    }
+    
+    func configureCollectionView() {
+        self.collectionView?.backgroundColor = UIColor.white
+    }
+    
+    func setupPresentationSearchBar() {
+        /* need x, y, width, height contraints */
+        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchController.searchBar.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        searchController.searchBar.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
+        searchController.searchBar.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
+        searchController.searchBar.heightAnchor.constraint(equalToConstant: CGFloat(searchBarHeight)).isActive = true
+    }
+    
+    // MARK: - Private methods for presentationData
+    func loadListOfPresentations() {
+        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
+        presentationItems.sort { $0.location < $1.location }
+    }
+    
+>>>>>>> e0b5f1fee9c5df12b76cb0d9a09d3ef810153fdc
 }

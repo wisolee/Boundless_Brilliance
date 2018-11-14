@@ -53,7 +53,8 @@ class LoginScreenController: UIViewController {
                 print(user as Any)
                 
                 // After succesfully logging-in go to presentationList
-                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                let chapterScheduleVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+                self.navigationController?.pushViewController(chapterScheduleVC, animated: true)
             }
         }
 
