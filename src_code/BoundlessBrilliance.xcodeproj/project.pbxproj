@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0457E6219C9F1300B365DA /* PresentationListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0457E2219C9F1300B365DA /* PresentationListItemModel.swift */; };
+		0F0457E7219C9F1300B365DA /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0457E4219C9F1300B365DA /* ExtensionUIColor.swift */; };
+		0F0457E8219C9F1300B365DA /* ExtensionPresentationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0457E5219C9F1300B365DA /* ExtensionPresentationListViewController.swift */; };
 		0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05280C218FA5D900635790 /* TabBarViewController.swift */; };
 		0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */; };
-		0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */; };
 		0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */; };
 		0F1E75882175B59100276770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1E75872175B59100276770 /* GoogleService-Info.plist */; };
 		0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B5D3217C3625000540E1 /* SpinnerView.swift */; };
@@ -48,9 +50,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F0457E2219C9F1300B365DA /* PresentationListItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationListItemModel.swift; sourceTree = "<group>"; };
+		0F0457E4219C9F1300B365DA /* ExtensionUIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
+		0F0457E5219C9F1300B365DA /* ExtensionPresentationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionPresentationListViewController.swift; sourceTree = "<group>"; };
 		0F05280C218FA5D900635790 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0F1AD962218AB295008D3FD6 /* PresentationListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewController.swift; sourceTree = "<group>"; };
-		0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListItemModel.swift; sourceTree = "<group>"; };
 		0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F1E75872175B59100276770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FB3B5D3217C3625000540E1 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
@@ -111,6 +115,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F0457E1219C9F1300B365DA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0F0457E2219C9F1300B365DA /* PresentationListItemModel.swift */,
+				0F0457E3219C9F1300B365DA /* Extensions */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0F0457E3219C9F1300B365DA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F0457E4219C9F1300B365DA /* ExtensionUIColor.swift */,
+				0F0457E5219C9F1300B365DA /* ExtensionPresentationListViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		0FE9E0572174509D00B96476 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +158,7 @@
 		0FE9E0622174509D00B96476 /* BoundlessBrilliance */ = {
 			isa = PBXGroup;
 			children = (
+				0F0457E1219C9F1300B365DA /* Models */,
 				1F4F20F22177B64F0070EAEB /* View */,
 				0FE9E091217457B400B96476 /* Controller */,
 				0FE9E0632174509D00B96476 /* AppDelegate.swift */,
@@ -181,7 +204,6 @@
 		1F4F20F22177B64F0070EAEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0F1AD964218AB47A008D3FD6 /* PresentationListItemModel.swift */,
 				0F1AD966218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift */,
 				1F4F20F32177C2270070EAEB /* RegisterView.swift */,
 				666732C72179553700C68C0E /* LoginView.swift */,
@@ -458,16 +480,18 @@
 			files = (
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
 				66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */,
+				0F0457E6219C9F1300B365DA /* PresentationListItemModel.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
 				0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */,
 				66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */,
-				0F1AD965218AB47A008D3FD6 /* PresentationListItemModel.swift in Sources */,
 				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
 				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,
+				0F0457E8219C9F1300B365DA /* ExtensionPresentationListViewController.swift in Sources */,
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
 				0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */,
+				0F0457E7219C9F1300B365DA /* ExtensionUIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
