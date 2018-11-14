@@ -12,6 +12,7 @@ import UIKit
 class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
+    let ScrollViewHeight = 1500
     let stickerOptions = ["", "yes", "no"]
     let shirtOptions = ["", "yes", "no"]
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
@@ -189,6 +190,12 @@ class PresentationDetailController : UIViewController{
         return tf
     }()
     
+    let BottomSpacer: UITextView! = {
+        let bs = UITextView()
+        bs.backgroundColor = UIColor.white
+        bs.translatesAutoresizingMaskIntoConstraints = false
+        return bs
+    }()
     
     // subview - nameTextField
     let TestTextField: UITextView = {
@@ -301,6 +308,7 @@ class PresentationDetailController : UIViewController{
         inputsView.addSubview(OutreachCoordinator)
         inputsView.addSubview(OutreachCoordinatorEmail)
         inputsView.addSubview(Time)
+        inputsView.addSubview(BottomSpacer)
         
         // nameTextField: need x, y, width, height contraints
         textField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
@@ -380,6 +388,23 @@ class PresentationDetailController : UIViewController{
         ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
         ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
+        BottomSpacer.topAnchor.constraint(equalTo: ShirtDropdown.bottomAnchor).isActive = true
+        BottomSpacer.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        BottomSpacer.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        setScrollViewSize(inputsView: inputsView)
+    }
+    
+    func setScrollViewSize(inputsView: UIScrollView){
+        var height: CGFloat = 0
+        for view in inputsView.subviews {
+            print("subview height: \(view.frame.size.height)")
+            print("scrollview height: \(height)")
+            
+            height = height + view.bounds.size.height
+        }
+        
+        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(ScrollViewHeight))
     }
     
     // Make originally black status bar white

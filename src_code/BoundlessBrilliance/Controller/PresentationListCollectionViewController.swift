@@ -167,45 +167,5 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
 
     
-    // This function passes data between view controllers
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//
-//        if segue.identifier == "ShowDetail" {
-//            let detailVC = segue.destination as! ViewController
-//
-//            // Get the cell that generated this segue
-//            if let selectedCel = sender as? PresentationListCollectionViewCell {
-////                let indexPath = presentationItems.indexPath(for: selectedCel)!
-//                let selectedItem = presentationItems[IndexPath.row]
-//                detailVC.item = selectedItem[IndexPath.row]
-//            }
-//        } else if segue.identifier == "AddItem" {
-//
-//        }
-//    }
-    
-    
-    
-    
-    
-//    @IBAction func unwindToList(sender: UIStoryboardSegue) {
-//        let srcViewCon = sender.source as? ViewController
-//        let item = srcViewCon?.item
-//        if (srcViewCon != nil && item?.name != "") {
-//            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-//                // Update an existing item
-//                items[selectedIndexPath.row] = item!
-//                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-//            } else {
-//                // Add a new item
-//                let newIndexPath = IndexPath(row: items.count, section: 0)
-//                items.append(item!)
-//                tableView.insertRows(at: [newIndexPath], with: .bottom)
-//                //                saveItems()
-//            }
-//        }
-//    }
+
 }
