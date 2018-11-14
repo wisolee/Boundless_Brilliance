@@ -14,6 +14,8 @@ pod 'Firebase/Core'
 pod 'Toast-Swift', '~> 4.0.0'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.7'
+pod 'GoogleAPIClientForREST/Sheets', '~> 1.2.1'
+pod 'GoogleSignIn', '~> 4.1.1'
 
   target 'BoundlessBrillianceTests' do
     inherit! :search_paths
