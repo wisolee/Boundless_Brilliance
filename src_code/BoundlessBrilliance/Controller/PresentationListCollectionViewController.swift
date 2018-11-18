@@ -31,8 +31,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
 
         // Do any additional setup after loading the view.
-        configureNavigationBar()
-        configureCollectionView()
+//        configureNavigationBar()
+//        configureCollectionView()
         configureSearchController()
         doAPIRequest()
     }
@@ -175,11 +175,10 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
-<<<<<<< HEAD
+
 
     
 
-=======
     
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
@@ -207,5 +206,4 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         presentationItems.sort { $0.location < $1.location }
     }
     
->>>>>>> e0b5f1fee9c5df12b76cb0d9a09d3ef810153fdc
 }
