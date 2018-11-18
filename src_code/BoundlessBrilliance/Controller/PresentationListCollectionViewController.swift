@@ -50,24 +50,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         var presentationDict: [String : Dictionary<String, Any>]!
         _ = presentationRef.observe(DataEventType.value, with: { (snapshot) in
             presentationDict = snapshot.value as? [String : Dictionary] ?? [:]
-            // add code here
-//            _ = presentationRef.child("presenters").observe(DataEventType.value, with: {(snapshot) in
-//                presenterDict = snapshot.value as? Dictionary ?? [:]
-//                print("printing presenter dict")
-//                print(presenterDict)
-//            })
-            print("printing presentation dict")
+
             print(presentationDict)
-            
-//            for presentation in presentationDict.values {
-//                presenterDict = presentation["presenters"] as? Dictionary
-//                print(presenterDict)
-//                // presentationItems.append(PresentationListItemModel(location: values["location"] as! String, names: "", chapter: "Occidental College", time: "", date: ""))
-//                //print(values["date"]!!)
-//                //let loc = values["location"]
-//                // let date = values["date"]
-//
-//            }
             
             if (presentationDict != nil){
                 self.loadDataIntoArray(presentationDict: presentationDict)
@@ -83,7 +67,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
             print(parsedPresenterString)
             
-            presentationItems.append(PresentationListItemModel(location: values["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: "", date: ""))
+            self.presentationItems.append(PresentationListItemModel(location: values["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: "9:00 AM", date: "11/17/18"))
+            self.collectionView!.reloadData()
             // print(values["date"]!!)
             // let loc = values["location"]
             // let date = values["date"]
