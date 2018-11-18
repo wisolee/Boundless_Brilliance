@@ -39,8 +39,47 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Retrieves data from 10to8 API and loads it into presentationItems array.
     func doAPIRequest(){
-        let apiBaseEndpoint: String = "https://10to8.com/api/booking/v2/"
+        //getAvailableBookingsData()
+        getEnterpriseAPIData()
+    }
+    
+    func getEnterpriseAPIData(){
+        let apiEnterpriseEndpoint: String = "https://10to8.com/api/enterprise/v1/"
+        let event: String = "event/"
+        let enterprise_auth_headers: HTTPHeaders = ["Authorization": "Token fcb12597-25c0-4067-80d9-68f65047943d"]
         
+        let apiEndpoint: String = apiEnterpriseEndpoint + event
+        
+        _ = Alamofire.request(apiEndpoint, headers: enterprise_auth_headers)
+            .responseJSON { response in
+                // Parse JSON response into an array of presentation dictionaries
+                //debugPrint(response.result.value)
+                if let responseObject = response.result.value as? [String: Any]{
+                    // print(responseObject["results"])
+                    // if/let for booking api
+                    if let responseArray = responseObject["results"] as? [[String: Any]] {
+                        debugPrint(responseArray)
+                        for presentation in responseArray {
+                            let newPresentation = self.parseResponseEnterprise(presentation: presentation)
+                            self.presentationItems.append(newPresentation)
+                        }
+                        // For every presentation in the response array: parse data, create new PresentationListItemModel, and append to presentationItems array
+                        //                        for presentation in responseArray {
+                        //                            let newPresentation = self.parseResponse(presentation: presentation)
+                        //                            self.presentationItems.append(newPresentation)
+                        //                        }
+                        self.collectionView!.reloadData()
+                    } else {
+                        print("responseArray is null")
+                    }
+                } else {
+                    print("responseObject is null")
+                }
+        }
+    }
+    
+    func getAvailableBookingsData(){
+        let apiBaseEndpoint: String = "https://10to8.com/api/booking/v2/"
         let slot: String = "slot/?"
         let organisation: String = "organisation/?"
         let service: String = "service/?"
@@ -52,24 +91,17 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
         let additional_info: String = "&location=https://10to8.com/api/booking/v2/location/242664/&staff=https://10to8.com/api/booking/v2/staff/72695/&service=https://10to8.com/api/booking/v2/service/509961/"
         
-        
-        // authorization header - DON'T CHANGE UNLESS AUTHORIZATION FAILS
-        // test token: fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3
-        // boundless brilliance token: gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf
         let auth_headers: HTTPHeaders = ["Authorization": "Token gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"]
         
-        // example of slot request
         let apiEndpoint: String = apiBaseEndpoint + slot + start_date + "&" + end_date + additional_info
         
         _ = Alamofire.request(apiEndpoint, headers: auth_headers)
             .responseJSON { response in
-                
-                // Parse JSON response into an array of presentation dictionaries
                 if let responseArray = response.result.value as? [[String: String]] {
-                    
+                    debugPrint(responseArray)
                     // For every presentation in the response array: parse data, create new PresentationListItemModel, and append to presentationItems array
                     for presentation in responseArray {
-                        let newPresentation = self.parseResponse(presentation: presentation)
+                        let newPresentation = self.parseResponseBooking(presentation: presentation)
                         self.presentationItems.append(newPresentation)
                     }
                     self.collectionView!.reloadData()
@@ -77,7 +109,31 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         }
     }
     
-    func parseResponse (presentation : [String: String]) -> PresentationListItemModel {
+    func parseResponseEnterprise (presentation : [String: Any]) -> PresentationListItemModel {
+        
+        // Parse response for datetime strings
+        let start_datetime_string : String = presentation ["start"]! as! String
+        let end_datetime_string : String = presentation["end"]! as! String
+        
+        // Create expected date format from string
+        let date_formatter = DateFormatter()
+        date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        // Create start and end dates from datetime strings
+        let iso_start_date : Date = date_formatter.date(from: start_datetime_string)!
+        let iso_end_date : Date = date_formatter.date(from: end_datetime_string)!
+        
+        // Call functions to correctly parse date and times for start and end of presentation
+        let start_date = parseDate(iso_date: iso_start_date, date_formatter: date_formatter)
+        let end_date = parseDate(iso_date: iso_end_date, date_formatter: date_formatter)
+        let start_time = parseTime(iso_date: iso_start_date, date_formatter: date_formatter)
+        let end_time = parseTime(iso_date: iso_end_date, date_formatter: date_formatter)
+        
+        // Return a new PresentationListItemModel
+        return PresentationListItemModel(location: "loc1", names: "presenter1", chapter: "Occidental College", time: start_time, date: start_date)
+    }
+    
+    func parseResponseBooking (presentation : [String: String]) -> PresentationListItemModel {
         
         // Parse response for datetime strings
         let start_datetime_string : String = presentation ["start_datetime"]!
