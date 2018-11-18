@@ -49,7 +49,6 @@ class LoginView: UIView{
     }()
 
     
-
     //     subview - LoginButton
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -60,10 +59,6 @@ class LoginView: UIView{
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
-        
-        // Add action to LoginButton
-        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
         return button
     }()
     
@@ -76,10 +71,6 @@ class LoginView: UIView{
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        // Add action to registerButton
-        //        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        
         return button
     }()
     

@@ -332,12 +332,3 @@ class RegisterController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
     
 }
-
-// Convenient extension of UIColor, simplier initialization
-extension UIColor {
-    
-    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
-    }
-    
-}

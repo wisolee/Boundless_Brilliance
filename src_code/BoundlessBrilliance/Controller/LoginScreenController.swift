@@ -34,8 +34,8 @@ class LoginScreenController: UIViewController {
     //action for loginButton -- authenticates user
     @objc func handleLogin() {
         
-        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        self.present(presentationListVC, animated: true)
+//        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//        self.present(presentationListVC, animated: true)
         
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
@@ -46,15 +46,15 @@ class LoginScreenController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print("User or password not found")
-                print(error)
+                print(error as Any)
                 return
             } else {
                 print("Successfully authenticated user")
-                print(user)
+                print(user as Any)
                 
                 // After succesfully logging-in go to presentationList
-                let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-                self.present(presentationListVC, animated: true)
+                let chapterScheduleVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+                self.navigationController?.pushViewController(chapterScheduleVC, animated: true)
             }
         }
 
@@ -109,7 +109,6 @@ class LoginScreenController: UIViewController {
     // Main Display---------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //create variables
         let loginView = LoginView()
         let profileImageView = loginView.profileImageView
@@ -132,6 +131,13 @@ class LoginScreenController: UIViewController {
         
         
     }
+    
+    // Customize navigationBar
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.barTintColor = UIColor.white
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//    }
     
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
