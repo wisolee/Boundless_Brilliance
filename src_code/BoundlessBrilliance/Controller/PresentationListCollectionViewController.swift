@@ -50,8 +50,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         var presentationDict: [String : Dictionary<String, Any>]!
         _ = presentationRef.observe(DataEventType.value, with: { (snapshot) in
             presentationDict = snapshot.value as? [String : Dictionary] ?? [:]
-
-            print(presentationDict)
+            
+            print (presentationDict)
             
             if (presentationDict != nil){
                 self.loadDataIntoArray(presentationDict: presentationDict)
@@ -61,21 +61,24 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>]) {
         var presenterDict: Dictionary<String, String>!
-        for values in presentationDict.values {
+        for presentation in presentationDict.values {
             // values["presenters"] as! Dictionary<String, String>)
-            presenterDict = values["presenters"] as? Dictionary
+            presenterDict = presentation["presenters"] as? Dictionary
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
             print(parsedPresenterString)
             
-            self.presentationItems.append(PresentationListItemModel(location: values["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: "9:00 AM", date: "11/17/18"))
-            self.collectionView!.reloadData()
-            // print(values["date"]!!)
-            // let loc = values["location"]
-            // let date = values["date"]
             
+            
+            let date_string : String = presentation["date"] as! String
+            let formatted_date : String = parseDateTime (datetime : date_string)
+         
+            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: "9:00 AM", date: formatted_date))
+            self.collectionView!.reloadData()
+
         }
     }
     
+   
     func parsePresenterDictionary(presenterNames: Array<String>) -> String {
         var namesString: String = ""
         if (presenterNames.count == 1) {
@@ -95,68 +98,20 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         return namesString
     }
     
-    // Retrieves data from 10to8 API and loads it into presentationItems array.
-    func doAPIRequest(){
-        let apiBaseEndpoint: String = "https://10to8.com/api/booking/v2/"
-        
-        let slot: String = "slot/?"
-        let organisation: String = "organisation/?"
-        let service: String = "service/?"
-        let staff: String = "staff/?"
-        let location: String = "location/?"
-        
-        let start_date: String = "start_date=2018-11-12"
-        let end_date: String = "end_date=2018-12-12"
-        
-        let additional_info: String = "&location=https://10to8.com/api/booking/v2/location/242664/&staff=https://10to8.com/api/booking/v2/staff/72695/&service=https://10to8.com/api/booking/v2/service/509961/"
-        
-        
-        // authorization header - DON'T CHANGE UNLESS AUTHORIZATION FAILS
-        // test token: fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3
-        // boundless brilliance token: gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf
-        let auth_headers: HTTPHeaders = ["Authorization": "Token gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"]
-        
-        // example of slot request
-        let apiEndpoint: String = apiBaseEndpoint + slot + start_date + "&" + end_date + additional_info
-        
-        _ = Alamofire.request(apiEndpoint, headers: auth_headers)
-            .responseJSON { response in
-                
-                // Parse JSON response into an array of presentation dictionaries
-                if let responseArray = response.result.value as? [[String: String]] {
-                    
-                    // For every presentation in the response array: parse data, create new PresentationListItemModel, and append to presentationItems array
-                    for presentation in responseArray {
-                        let newPresentation = self.parseResponse(presentation: presentation)
-                        self.presentationItems.append(newPresentation)
-                    }
-                    self.collectionView!.reloadData()
-                }
-        }
-    }
-    
-    func parseResponse (presentation : [String: String]) -> PresentationListItemModel {
-        
-        // Parse response for datetime strings
-        let start_datetime_string : String = presentation ["start_datetime"]!
-        let end_datetime_string : String = presentation["end_datetime"]!
+    // This currenty cannot be abstracted to work for retrieving date AND time, only date
+    func parseDateTime (datetime : String) -> String {
         
         // Create expected date format from string
         let date_formatter = DateFormatter()
-        date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
         
         // Create start and end dates from datetime strings
-        let iso_start_date : Date = date_formatter.date(from: start_datetime_string)!
-        let iso_end_date : Date = date_formatter.date(from: end_datetime_string)!
+        let iso_datetime : Date = date_formatter.date(from: datetime)!
         
         // Call functions to correctly parse date and times for start and end of presentation
-        let start_date = parseDate(iso_date: iso_start_date, date_formatter: date_formatter)
-        let end_date = parseDate(iso_date: iso_end_date, date_formatter: date_formatter)
-        let start_time = parseTime(iso_date: iso_start_date, date_formatter: date_formatter)
-        let end_time = parseTime(iso_date: iso_end_date, date_formatter: date_formatter)
+        let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
         
-        // Return a new PresentationListItemModel
-        return PresentationListItemModel(location: "loc1", names: "presenter1", chapter: "Occidental College", time: start_time, date: start_date)
+        return date_string
     }
     
     func parseDate (iso_date: Date, date_formatter: DateFormatter) -> String {
