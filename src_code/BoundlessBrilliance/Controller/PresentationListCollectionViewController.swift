@@ -48,7 +48,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
         let presentationRef = ref.child("presentations")
         var presentationDict: [String : Dictionary<String, Any>]!
-        _ = presentationRef.observe(DataEventType.value, with: { (snapshot) in
+        _ = presentationRef
+                //.queryOrdered(byChild: "location")
+                .observe(DataEventType.value, with: { (snapshot) in
             presentationDict = snapshot.value as? [String : Dictionary] ?? [:]
             
             print (presentationDict)
@@ -70,9 +72,10 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             
             
             let date_string : String = presentation["date"] as! String
-            let formatted_date : String = parseDateTime (datetime : date_string)
+            let formatted_date : String = parseDateTime (datetime : date_string).0
+            let formatted_time: String = parseDateTime(datetime : date_string).1
          
-            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: "9:00 AM", date: formatted_date))
+            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: formatted_time, date: formatted_date))
             self.collectionView!.reloadData()
 
         }
@@ -99,19 +102,19 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     }
     
     // This currenty cannot be abstracted to work for retrieving date AND time, only date
-    func parseDateTime (datetime : String) -> String {
+    func parseDateTime (datetime : String) -> (String, String) {
         
         // Create expected date format from string
         let date_formatter = DateFormatter()
         date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
         
-        // Create start and end dates from datetime strings
+        // Create ISO Date object from datetime string
         let iso_datetime : Date = date_formatter.date(from: datetime)!
         
         // Call functions to correctly parse date and times for start and end of presentation
         let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
-        
-        return date_string
+        let time_string = parseTime(iso_date: iso_datetime, date_formatter: date_formatter)
+        return (date_string, time_string)
     }
     
     func parseDate (iso_date: Date, date_formatter: DateFormatter) -> String {
