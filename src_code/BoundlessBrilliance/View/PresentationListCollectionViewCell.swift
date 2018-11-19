@@ -49,6 +49,18 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         $0.numberOfLines = 1
         return $0
     }(UILabel())
+    
+    public lazy var leaveInputButton: UIButton = {
+        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        $0.setTitle("Post-pres Survey", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.titleLabel?.adjustsFontSizeToFitWidth = true
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.layer.cornerRadius = 5
+        return $0
+    }(UIButton())
 
     //end examples from the alerts and pickers app cell file-----------------------------
     
@@ -68,6 +80,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         addSubview(time)
         addSubview(location)
         addSubview(presenterNames)
+        addSubview(leaveInputButton)
         
     }
     
@@ -91,8 +104,9 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         //create frames for objects
-        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 4)), size: CGSize(width: textViewWidth, height: locationSize.height))
+        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 8)), size: CGSize(width: textViewWidth, height: locationSize.height))
         presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
+        leaveInputButton.frame = CGRect(origin: CGPoint(x: presenterNames.frame.minX + 10, y: presenterNames.frame.maxY + 7), size: CGSize(width: textViewWidth - 12, height: presenterNamesSize.height * 1.5) )
         time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
         //not sure what this stuff is for
 //        textView.bounds.size = CGSize(width: textViewWidth, height: presenterNames.frame.maxY)

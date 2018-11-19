@@ -218,6 +218,7 @@ class PresentationDetailController : UIViewController{
     
     //transportation
     
+    
     //stickers yes/no
     let StickerDropdown: UITextField! = {
         let tf = UITextField()
@@ -466,39 +467,17 @@ class PresentationDetailController : UIViewController{
         setupSeparator(emailSeparatorView: separator9, inputsView: inputsView, aboveView: anecdoteField)
         
         inputsView.addSubview(StickerDropdown)
-        
-        let separator10 = UIView()
-        initSeparator(separator: separator10)
-        inputsView.addSubview(separator10)
-        setupSeparator(emailSeparatorView: separator10, inputsView: inputsView, aboveView: StickerDropdown)
-        
         inputsView.addSubview(ShirtDropdown)
         inputsView.addSubview(ShirtSizeDropdown)
-        
-//        let separator11 = UIView()
-//        initSeparator(separator: separator11)
-//        inputsView.addSubview(separator11)
-//        setupSeparator(emailSeparatorView: separator11, inputsView: inputsView, aboveView: ShirtDropdown)
-        
         
         let bottomBorder = CALayer ()
         bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
         bottomBorder.backgroundColor = UIColor.gray.cgColor
         
-//        let separator = UIView()
-//        //separator.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
-//        separator.backgroundColor = UIColor.black
-//        inputsView.addSubview(separator)
-        
-        // nameTextField: need x, y, width, height contraints
         textField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
         textField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
         textField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true // 1/4 of entire height
-        
-//        separator.topAnchor.constraint(equalTo: textField.topAnchor).isActive = true
-//        separator.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-//        separator.heightAnchor.constraint(equalToConstant: 5).isActive = true // 1/4 of entire height
         
         LocFieldTitle.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15).isActive = true
         LocFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/3).isActive = true
@@ -509,11 +488,6 @@ class PresentationDetailController : UIViewController{
         locField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 2/3).isActive = true
         locField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         locField.leftAnchor.constraint(equalTo: LocFieldTitle.rightAnchor).isActive = true
-        
-        
-//        separator.topAnchor.constraint(equalTo: locField.topAnchor).isActive = true
-//        separator.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-//        separator.heightAnchor.constraint(equalToConstant: 3).isActive = true // 1/4 of entire height
         
         TimeTitle.topAnchor.constraint(equalTo: locField.bottomAnchor, constant: 6).isActive = true
         TimeTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
