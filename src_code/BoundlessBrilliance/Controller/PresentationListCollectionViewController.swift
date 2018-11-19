@@ -19,6 +19,8 @@ private let cellHeight = 100
 var presenterChapter: String!
 var presenterNames: String!
 
+let firebaseGroup = DispatchGroup()
+
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
 
@@ -43,6 +45,11 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
         // Do any additional setup after loading the view.
         loadData()
+        
+        // Waits for Firebase data to be received
+        firebaseGroup.notify(queue: DispatchQueue.main, execute: {
+            self.scrollToToday()
+        })
     }
     
     func loadData(){
@@ -51,6 +58,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
         let presentationRef = ref.child("presentations")
         var presentationDict: [String : Dictionary<String, Any>]!
+        firebaseGroup.enter()
         _ = presentationRef
                 //.queryOrdered(byChild: "location")
                 .observe(DataEventType.value, with: { (snapshot) in
@@ -60,28 +68,40 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             
             if (presentationDict != nil){
                 self.loadDataIntoArray(presentationDict: presentationDict)
+                firebaseGroup.leave()
             }
         })
+    }
+    
+    func scrollToToday(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        var index: Int = 0
+        for presentation in presentationItems {
+            let presentationDate = dateFormatter.date(from: presentation.date)
+            if (presentationDate! >= currentDate!){
+                self.collectionView.scrollToItem(at:IndexPath(item: index, section: 0), at: .top, animated: false)
+                return
+            }
+            index += 1
+        }
     }
     
     func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>]) {
         var presenterDict: Dictionary<String, String>!
         for presentation in presentationDict.values {
-            // values["presenters"] as! Dictionary<String, String>)
             presenterDict = presentation["presenters"] as? Dictionary
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
-            print(parsedPresenterString)
-            
-            
-            
             let date_string : String = presentation["date"] as! String
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
          
             self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presenterChapter, time: formatted_time, date: formatted_date))
-            self.collectionView!.reloadData()
-
         }
+        presentationItems.sort { $0.date < $1.date }
+        self.collectionView!.reloadData()
     }
     
    
