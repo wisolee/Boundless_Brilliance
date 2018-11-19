@@ -25,6 +25,7 @@
 		124256EAD093563BC1610AFB /* Pods_BoundlessBrilliance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */; };
 		1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F20F32177C2270070EAEB /* RegisterView.swift */; };
 		5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A8912176E28100B30810 /* LoginScreenController.swift */; };
+		52A6EA0421A1D14B00BB3234 /* GoogleSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */; };
 		666732C82179553700C68C0E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666732C72179553700C68C0E /* LoginView.swift */; };
 		66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */; };
 		66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */; };
@@ -74,6 +75,7 @@
 		1F4F20F32177C2270070EAEB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.release.xcconfig"; sourceTree = "<group>"; };
 		5236A8912176E28100B30810 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
+		52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetController.swift; sourceTree = "<group>"; };
 		5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrillianceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		666732C72179553700C68C0E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				0FE9E092217457E900B96476 /* RegisterController.swift */,
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 				66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */,
+				52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				0FE9E05D2174509D00B96476 /* Frameworks */,
 				0FE9E05E2174509D00B96476 /* Resources */,
 				F5E8AE2174C55F1A22452013 /* [CP] Embed Pods Frameworks */,
+				6FF8D2EA0D1712E8006A8773 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -393,6 +397,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6FF8D2EA0D1712E8006A8773 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E1D6AE90225DCB1473B24143 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,7 +473,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
@@ -459,7 +488,10 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
@@ -492,6 +524,7 @@
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
 				0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */,
 				0F0457E7219C9F1300B365DA /* ExtensionUIColor.swift in Sources */,
+				52A6EA0421A1D14B00BB3234 /* GoogleSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
