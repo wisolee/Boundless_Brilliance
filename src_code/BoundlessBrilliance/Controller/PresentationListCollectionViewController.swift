@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Firebase
 import Alamofire
+
 
 private let cellReuseIdentifier = "Cell"
 
@@ -16,6 +18,7 @@ private let cellHeight = 100
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+
     var presentationItems: [PresentationListItemModel] = []
     var filteredPresentationItems = [PresentationListItemModel]()
     
@@ -30,75 +33,88 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Register cell classes
         self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
 
-        // Do any additional setup after loading the view.
-//        configureNavigationBar()
-//        configureCollectionView()
+        configureNavigationBar()
+        configureCollectionView()
         configureSearchController()
-        doAPIRequest()
+        //doAPIRequest()
+        
+        // Do any additional setup after loading the view.
+        loadData()
     }
     
-    // Retrieves data from 10to8 API and loads it into presentationItems array.
-    func doAPIRequest(){
-        let apiBaseEndpoint: String = "https://10to8.com/api/booking/v2/"
+    func loadData(){
+        var ref: DatabaseReference!
+        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
         
-        let slot: String = "slot/?"
-        let organisation: String = "organisation/?"
-        let service: String = "service/?"
-        let staff: String = "staff/?"
-        let location: String = "location/?"
-        
-        let start_date: String = "start_date=2018-11-12"
-        let end_date: String = "end_date=2018-12-12"
-        
-        let additional_info: String = "&location=https://10to8.com/api/booking/v2/location/242664/&staff=https://10to8.com/api/booking/v2/staff/72695/&service=https://10to8.com/api/booking/v2/service/509961/"
-        
-        
-        // authorization header - DON'T CHANGE UNLESS AUTHORIZATION FAILS
-        // test token: fdRiruCVyxvCHwud-kNoocYPv4dXiOpx6qhD0qXWeYpOL1itXrFiImOzmRs3
-        // boundless brilliance token: gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf
-        let auth_headers: HTTPHeaders = ["Authorization": "Token gwu4bSt-fMRJr1io99N8ZckrAkcQvxfApy7VUuafe0W6NnHiGHAySDX1QGFf"]
-        
-        // example of slot request
-        let apiEndpoint: String = apiBaseEndpoint + slot + start_date + "&" + end_date + additional_info
-        
-        _ = Alamofire.request(apiEndpoint, headers: auth_headers)
-            .responseJSON { response in
-                
-                // Parse JSON response into an array of presentation dictionaries
-                if let responseArray = response.result.value as? [[String: String]] {
-                    
-                    // For every presentation in the response array: parse data, create new PresentationListItemModel, and append to presentationItems array
-                    for presentation in responseArray {
-                        let newPresentation = self.parseResponse(presentation: presentation)
-                        self.presentationItems.append(newPresentation)
-                    }
-                    self.collectionView!.reloadData()
-                }
+        let presentationRef = ref.child("presentations")
+        var presentationDict: [String : Dictionary<String, Any>]!
+        _ = presentationRef
+                //.queryOrdered(byChild: "location")
+                .observe(DataEventType.value, with: { (snapshot) in
+            presentationDict = snapshot.value as? [String : Dictionary] ?? [:]
+            
+            print (presentationDict)
+            
+            if (presentationDict != nil){
+                self.loadDataIntoArray(presentationDict: presentationDict)
+            }
+        })
+    }
+    
+    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>]) {
+        var presenterDict: Dictionary<String, String>!
+        for presentation in presentationDict.values {
+            // values["presenters"] as! Dictionary<String, String>)
+            presenterDict = presentation["presenters"] as? Dictionary
+            let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
+            print(parsedPresenterString)
+            
+            
+            
+            let date_string : String = presentation["date"] as! String
+            let formatted_date : String = parseDateTime (datetime : date_string).0
+            let formatted_time: String = parseDateTime(datetime : date_string).1
+         
+            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: formatted_time, date: formatted_date))
+            self.collectionView!.reloadData()
+
         }
     }
     
-    func parseResponse (presentation : [String: String]) -> PresentationListItemModel {
-        
-        // Parse response for datetime strings
-        let start_datetime_string : String = presentation ["start_datetime"]!
-        let end_datetime_string : String = presentation["end_datetime"]!
+   
+    func parsePresenterDictionary(presenterNames: Array<String>) -> String {
+        var namesString: String = ""
+        if (presenterNames.count == 1) {
+            return presenterNames[0]
+        } else if (presenterNames.count > 1) {
+            var index = 0
+            for name in presenterNames {
+                namesString.append(contentsOf: name)
+                if (index != presenterNames.count - 1){
+                    namesString.append(contentsOf: ", ")
+                }
+                index += 1
+            }
+        } else {
+            namesString = "No presenters listed."
+        }
+        return namesString
+    }
+    
+    // This currenty cannot be abstracted to work for retrieving date AND time, only date
+    func parseDateTime (datetime : String) -> (String, String) {
         
         // Create expected date format from string
         let date_formatter = DateFormatter()
-        date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
         
-        // Create start and end dates from datetime strings
-        let iso_start_date : Date = date_formatter.date(from: start_datetime_string)!
-        let iso_end_date : Date = date_formatter.date(from: end_datetime_string)!
+        // Create ISO Date object from datetime string
+        let iso_datetime : Date = date_formatter.date(from: datetime)!
         
         // Call functions to correctly parse date and times for start and end of presentation
-        let start_date = parseDate(iso_date: iso_start_date, date_formatter: date_formatter)
-        let end_date = parseDate(iso_date: iso_end_date, date_formatter: date_formatter)
-        let start_time = parseTime(iso_date: iso_start_date, date_formatter: date_formatter)
-        let end_time = parseTime(iso_date: iso_end_date, date_formatter: date_formatter)
-        
-        // Return a new PresentationListItemModel
-        return PresentationListItemModel(location: "loc1", names: "presenter1", chapter: "Occidental College", time: start_time, date: start_date)
+        let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
+        let time_string = parseTime(iso_date: iso_datetime, date_formatter: date_formatter)
+        return (date_string, time_string)
     }
     
     func parseDate (iso_date: Date, date_formatter: DateFormatter) -> String {
@@ -114,7 +130,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         let time_string = date_formatter.string(from: iso_date)
         return time_string
     }
-
 
     /*
     // MARK: - Navigation
@@ -202,8 +217,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // MARK: - Private methods for presentationData
     func loadListOfPresentations() {
-        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
-        presentationItems.sort { $0.location < $1.location }
+//        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
+//        presentationItems.sort { $0.location < $1.location }
     }
     
 }
