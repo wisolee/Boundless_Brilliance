@@ -226,6 +226,7 @@ class PresentationDetailController : UIViewController{
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.textAlignment = NSTextAlignment.center
         tf.backgroundColor = UIColor.white
+        tf.borderStyle = UITextField.BorderStyle.line
         tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return tf
     }()
@@ -238,6 +239,7 @@ class PresentationDetailController : UIViewController{
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.textAlignment = NSTextAlignment.center
         tf.backgroundColor = UIColor.white
+        tf.borderStyle = UITextField.BorderStyle.line
 //        tf.borderStyle
         tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return tf
@@ -250,15 +252,9 @@ class PresentationDetailController : UIViewController{
         tf.textAlignment = NSTextAlignment.center
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = UIColor.white
+        tf.borderStyle = UITextField.BorderStyle.line
         tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return tf
-    }()
-    
-    let BottomSpacer: UITextView! = {
-        let bs = UITextView()
-        bs.backgroundColor = UIColor.white
-        bs.translatesAutoresizingMaskIntoConstraints = false
-        return bs
     }()
     
     // subview - nameTextField
@@ -453,6 +449,16 @@ class PresentationDetailController : UIViewController{
         setupSeparator(emailSeparatorView: separator8, inputsView: inputsView, aboveView: OutreachCoordinatorEmail)
         
         inputsView.addSubview(anecdoteField)
+       
+        let separatorLeft = UIView()
+        initSeparator(separator: separatorLeft)
+        inputsView.addSubview(separatorLeft)
+        setupVertLeftSeparator(emailSeparatorView: separatorLeft, inputsView: inputsView, aboveView: OutreachCoordinatorEmail, sideView: anecdoteField)
+        
+        let separatorRight = UIView()
+        initSeparator(separator: separatorRight)
+        inputsView.addSubview(separatorRight)
+        setupVertRightSeparator(emailSeparatorView: separatorRight, inputsView: inputsView, aboveView: OutreachCoordinatorEmail, sideView: anecdoteField, otherSeparator: separator8)
         
         let separator9 = UIView()
         initSeparator(separator: separator9)
@@ -469,12 +475,11 @@ class PresentationDetailController : UIViewController{
         inputsView.addSubview(ShirtDropdown)
         inputsView.addSubview(ShirtSizeDropdown)
         
-        let separator11 = UIView()
-        initSeparator(separator: separator11)
-        inputsView.addSubview(separator11)
-        setupSeparator(emailSeparatorView: separator11, inputsView: inputsView, aboveView: ShirtDropdown)
+//        let separator11 = UIView()
+//        initSeparator(separator: separator11)
+//        inputsView.addSubview(separator11)
+//        setupSeparator(emailSeparatorView: separator11, inputsView: inputsView, aboveView: ShirtDropdown)
         
-        inputsView.addSubview(BottomSpacer)
         
         let bottomBorder = CALayer ()
         bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
@@ -505,7 +510,7 @@ class PresentationDetailController : UIViewController{
         locField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         locField.leftAnchor.constraint(equalTo: LocFieldTitle.rightAnchor).isActive = true
         
-        drawRect(startx: inputsView.frame.minX, starty: locField.frame.maxY, endx: inputsView.frame.maxX)
+        
 //        separator.topAnchor.constraint(equalTo: locField.topAnchor).isActive = true
 //        separator.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
 //        separator.heightAnchor.constraint(equalToConstant: 3).isActive = true // 1/4 of entire height
@@ -591,10 +596,10 @@ class PresentationDetailController : UIViewController{
         OutreachCoordinatorEmail.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         anecdoteField.topAnchor.constraint(equalTo: OutreachCoordinatorEmail.bottomAnchor, constant: 6).isActive = true
-        anecdoteField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        anecdoteField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 2).isActive = true
+        anecdoteField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -10).isActive = true
         anecdoteField.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        inputsView.draw(CGRect(x: anecdoteField.frame.minX, y: anecdoteField.frame.minY, width: anecdoteField.frame.maxX, height: anecdoteField.frame.maxY))
-            
+        drawRect(startx: anecdoteField.frame.minX, starty: anecdoteField.frame.minY, endx: anecdoteField.frame.maxX, endy: anecdoteField.frame.maxY)
         
         
         StickerDropdown.topAnchor.constraint(equalTo: anecdoteField.bottomAnchor, constant: 6).isActive = true
@@ -602,18 +607,16 @@ class PresentationDetailController : UIViewController{
         StickerDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         ShirtDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtDropdown.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 15).isActive = true
-        ShirtDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
+        ShirtDropdown.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
+        ShirtDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
         ShirtDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         ShirtSizeDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 15).isActive = true
-        ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
+        ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 10).isActive = true
+        ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
         ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        BottomSpacer.topAnchor.constraint(equalTo: ShirtDropdown.bottomAnchor).isActive = true
-        BottomSpacer.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        BottomSpacer.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
         
         setScrollViewSize(inputsView: inputsView)
     }
@@ -635,13 +638,15 @@ class PresentationDetailController : UIViewController{
 
     
 //    rect: CGRect,
-    func drawRect( startx: CGFloat, starty: CGFloat, endx: CGFloat ) {
-        var aPath = UIBezierPath()
+    func drawRect( startx: CGFloat, starty: CGFloat, endx: CGFloat , endy: CGFloat) {
+        let aPath = UIBezierPath()
         
         aPath.move(to: CGPoint(x:/*Put starting Location*/startx, y: starty/*Put starting Location*/))
         
         aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: starty/*Put Next Location*/))
-        
+        aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: endy/*Put Next Location*/))
+        aPath.addLine(to: CGPoint(x: startx/*Put Next Location*/, y: endy/*Put Next Location*/))
+//        aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: starty/*Put Next Location*/))
         //Keep using the method addLineToPoint until you get to the one where about to close the path
         
         aPath.close()
@@ -650,7 +655,7 @@ class PresentationDetailController : UIViewController{
         UIColor.red.set()
         aPath.stroke()
         //If you want to fill it as well
-        aPath.fill()
+//        aPath.fill()
     }
     
     func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
@@ -659,6 +664,22 @@ class PresentationDetailController : UIViewController{
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
+    
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
+        // nameSeparatorView: need x, y, width, height contraints
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
+    }
+    
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
+        // nameSeparatorView: need x, y, width, height contraints
+        emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
     func initSeparator(separator: UIView){
