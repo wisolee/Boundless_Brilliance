@@ -16,6 +16,9 @@ private let cellReuseIdentifier = "Cell"
 private let searchBarHeight = 50
 private let cellHeight = 100
 
+var presenterChapter: String!
+var presenterNames: String!
+
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
 
@@ -75,7 +78,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
          
-            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: "Occidental College", time: formatted_time, date: formatted_date))
+            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presenterChapter, time: formatted_time, date: formatted_date))
             self.collectionView!.reloadData()
 
         }
