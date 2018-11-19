@@ -190,6 +190,10 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
+
+
+    
+
     
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {

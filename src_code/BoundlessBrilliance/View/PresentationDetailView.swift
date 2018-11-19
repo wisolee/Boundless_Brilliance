@@ -15,7 +15,7 @@ class PresentationDetailView : UIView{
     // subview - inputsContainerView
     let inputsView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor.white
 //        view. = true
         // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -25,9 +25,19 @@ class PresentationDetailView : UIView{
     }()
 }
 
+// subview - nameSeparatorView
+let SeparatorLine: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+}()
+
 extension UITextField {
     func loadStickerShirtOptions(spinnerOptions: [String]) {
         self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
     }
 }
+
+
 
