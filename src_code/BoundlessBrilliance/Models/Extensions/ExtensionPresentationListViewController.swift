@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 extension PresentationListCollectionViewController: UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
     
@@ -31,8 +32,24 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         self.navigationItem.titleView = searchController.searchBar
         
         // Setup Scope Bar
-        searchController.searchBar.showsScopeBar = true
-        searchController.searchBar.scopeButtonTitles = ["All", "Occidental College"]
+        self.searchController.searchBar.showsScopeBar = true
+        
+        var ref: DatabaseReference!
+        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+        let userID = Auth.auth().currentUser!.uid
+        
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user field(s)
+            let value = snapshot.value as? NSDictionary
+            //let names = value?["names"] as? String ?? ""
+            let chapter = value?["chapter"] as? String ?? ""
+            //presenterNames = names
+            presenterChapter = chapter
+            // Set Scope Bar Titles
+            self.searchController.searchBar.scopeButtonTitles = ["All", presenterChapter]
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     // MARK: Search Bar
@@ -87,13 +104,16 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         filteredPresentationItems = presentationItems.filter({ (item) -> Bool in
-            let presentationText: NSString = item.location as NSString
-            let doesCategoryMatch = (scope == "All") || (item.chapter == scope)
+            let presentationLocation: NSString = item.location as NSString
+            let presentationNames: NSString = item.names as NSString
+            let categoryMatch = (scope == "All") || (item.chapter == scope)
             
             if searchBarIsEmpty() {
-                return doesCategoryMatch
+                return categoryMatch
             } else {
-                return doesCategoryMatch && (presentationText.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                return categoryMatch
+                    && ((presentationLocation.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentationNames.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
             }
         })
         collectionView.reloadData()
