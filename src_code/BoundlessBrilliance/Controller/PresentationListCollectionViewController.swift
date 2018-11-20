@@ -78,28 +78,32 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             let formatted_time: String = parseDateTime(datetime : date_string).1
             
             // Obtain userID from first presenter
-            var presentationChapter: String!
-            let firstUserID = Array(presenterDict.keys)[0]
-            ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user chapter field
-                let value = snapshot.value as? NSDictionary
-                let chapter = value?["chapter"] as? String ?? ""
-                presentationChapter = chapter
-                
-                // Create presentationItem with necessary fields
-                if (presenterMemberType == "Presenter") {
-                    if  presenterChapter == presentationChapter {
-                        self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
-                    }
-                } else {
+            let presentationChapter = retrieveChapter(presenterDict: presenterDict, ref: ref)
+            
+            /* Create presentationItem with necessary fields */
+            if (presenterMemberType == "Presenter") {
+                if  presenterChapter == presentationChapter {
                     self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                 }
-                self.collectionView!.reloadData()
-            }) { (error) in
-                print(error.localizedDescription)
+            } else {
+                self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
             }
-
+            self.collectionView!.reloadData()
         }
+    }
+    
+    func retrieveChapter(presenterDict: Dictionary<String, String>, ref: DatabaseReference) -> String {
+        var presentationChapter: String!
+        let firstUserID = Array(presenterDict.keys)[0]
+        ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user chapter field
+            let value = snapshot.value as? NSDictionary
+            let chapter = value?["chapter"] as? String ?? ""
+            presentationChapter = chapter
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        return presentationChapter
     }
     
    
