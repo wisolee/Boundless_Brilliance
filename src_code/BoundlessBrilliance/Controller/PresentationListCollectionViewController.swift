@@ -17,7 +17,8 @@ private let searchBarHeight = 50
 private let cellHeight = 100
 
 var presenterChapter: String!
-var presenterNames: String!
+var presenterName: String!
+var presenterMemberType: String!
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -59,12 +60,12 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             print (presentationDict)
             
             if (presentationDict != nil){
-                self.loadDataIntoArray(presentationDict: presentationDict)
+                self.loadDataIntoArray(presentationDict: presentationDict, ref: ref)
             }
         })
     }
     
-    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>]) {
+    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>], ref: DatabaseReference) {
         var presenterDict: Dictionary<String, String>!
         for presentation in presentationDict.values {
             // values["presenters"] as! Dictionary<String, String>)
@@ -72,14 +73,31 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
             print(parsedPresenterString)
             
-            
-            
             let date_string : String = presentation["date"] as! String
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
-         
-            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presenterChapter, time: formatted_time, date: formatted_date))
-            self.collectionView!.reloadData()
+            
+            // Obtain userID from first presenter
+            var presentationChapter: String!
+            let firstUserID = Array(presenterDict.keys)[0]
+            ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user chapter field
+                let value = snapshot.value as? NSDictionary
+                let chapter = value?["chapter"] as? String ?? ""
+                presentationChapter = chapter
+                
+                // Create presentationItem with necessary fields
+                if (presenterMemberType == "Presenter") {
+                    if  presenterChapter == presentationChapter {
+                        self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    }
+                } else {
+                    self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                }
+                self.collectionView!.reloadData()
+            }) { (error) in
+                print(error.localizedDescription)
+            }
 
         }
     }
@@ -194,16 +212,19 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
     }
 
-
-    
-
-    
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
         navigationItem.title = "Presentations"
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
     }
+    
+    @objc func logOut(){
+        //go back to login
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     func configureCollectionView() {
         self.collectionView?.backgroundColor = UIColor.white
