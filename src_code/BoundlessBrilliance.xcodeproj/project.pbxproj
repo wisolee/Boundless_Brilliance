@@ -23,6 +23,8 @@
 		0FE9E0792174509E00B96476 /* BoundlessBrillianceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0782174509E00B96476 /* BoundlessBrillianceTests.swift */; };
 		0FE9E0842174509E00B96476 /* BoundlessBrillianceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */; };
 		124256EAD093563BC1610AFB /* Pods_BoundlessBrilliance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */; };
+		1F12966321A5103A00D56591 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12966221A5103A00D56591 /* LaunchView.swift */; };
+		1F12966521A510F300D56591 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12966421A510F300D56591 /* LaunchController.swift */; };
 		1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F20F32177C2270070EAEB /* RegisterView.swift */; };
 		5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A8912176E28100B30810 /* LoginScreenController.swift */; };
 		52A6EA0421A1D14B00BB3234 /* GoogleSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */; };
@@ -72,6 +74,8 @@
 		0FE9E0832174509E00B96476 /* BoundlessBrillianceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundlessBrillianceUITests.swift; sourceTree = "<group>"; };
 		0FE9E0852174509E00B96476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FE9E092217457E900B96476 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		1F12966221A5103A00D56591 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		1F12966421A510F300D56591 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
 		1F4F20F32177C2270070EAEB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.release.xcconfig"; sourceTree = "<group>"; };
 		5236A8912176E28100B30810 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 				66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */,
 				52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */,
+				1F12966421A510F300D56591 /* LaunchController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				666732C72179553700C68C0E /* LoginView.swift */,
 				0FB3B5D3217C3625000540E1 /* SpinnerView.swift */,
 				66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */,
+				1F12966221A5103A00D56591 /* LaunchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
+				1F12966321A5103A00D56591 /* LaunchView.swift in Sources */,
 				66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */,
 				0F0457E6219C9F1300B365DA /* PresentationListItemModel.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
@@ -518,6 +525,7 @@
 				66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */,
 				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
 				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,
+				1F12966521A510F300D56591 /* LaunchController.swift in Sources */,
 				0F0457E8219C9F1300B365DA /* ExtensionPresentationListViewController.swift in Sources */,
 				0FE71C5E2175D0CE009C3C44 /* RegisterController.swift in Sources */,
 				0FE9E0642174509D00B96476 /* AppDelegate.swift in Sources */,
