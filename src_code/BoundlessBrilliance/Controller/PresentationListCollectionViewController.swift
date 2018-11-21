@@ -42,7 +42,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         //doAPIRequest()
         
         // Do any additional setup after loading the view.
-        loadData()
+        //loadData()
     }
     
     func loadData(){
@@ -83,6 +83,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
         }
     }
+    
+
     
    
     func parsePresenterDictionary(presenterNames: Array<String>) -> String {
