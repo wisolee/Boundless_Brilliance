@@ -67,7 +67,7 @@ class PresentationDetailController : UIViewController{
     let NumStudents: UITextField! = {
         let ns = UITextField()
         ns.textColor = UIColor.black
-        ns.text = "# students?"
+        ns.placeholder = "# students?"
         ns.translatesAutoresizingMaskIntoConstraints = false
         ns.textAlignment = NSTextAlignment.center
         ns.backgroundColor = UIColor.white
@@ -304,7 +304,7 @@ class PresentationDetailController : UIViewController{
         let names_tf = UITextView()
         names_tf.isEditable = false
         names_tf.textAlignment = NSTextAlignment.left
-        names_tf.text = "Boaty McBoatface et. al"
+        names_tf.text = "Presenters:"
         names_tf.resignFirstResponder()
         names_tf.textColor = UIColor.black
         names_tf.translatesAutoresizingMaskIntoConstraints = false
@@ -337,6 +337,31 @@ class PresentationDetailController : UIViewController{
         af_tv.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return af_tv
     }()
+    
+        public lazy var leaveInputButton: UIButton = {
+            $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+            $0.setTitle("Post-pres Survey", for: .normal)
+            // must set up this property otherwise, the specified anchors will not work
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.setTitleColor(UIColor.white, for: .normal)
+            $0.titleLabel?.adjustsFontSizeToFitWidth = true
+            $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+            $0.layer.cornerRadius = 5
+            $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
+            return $0
+        }(UIButton())
+    
+//    end examples from the alerts and pickers app cell file-----------------------------
+    
+        @objc func enterSurvey() {
+    
+            //        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            //        self.present(presentationListVC, animated: true)
+            let surveyController = SurveyController()
+            surveyController.presentation = presentation
+            super.navigationController?.pushViewController(surveyController, animated: true)
+    
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -451,6 +476,8 @@ class PresentationDetailController : UIViewController{
         
         inputsView.addSubview(anecdoteField)
        
+        inputsView.addSubview(leaveInputButton)
+        
         let separatorLeft = UIView()
         initSeparator(separator: separatorLeft)
         inputsView.addSubview(separatorLeft)
@@ -548,11 +575,11 @@ class PresentationDetailController : UIViewController{
         namesField.leftAnchor.constraint(equalTo: NamesFieldTitle.rightAnchor).isActive = true
         
         Pres1Email.topAnchor.constraint(equalTo: NamesField.bottomAnchor, constant: 6).isActive = true
-        Pres1Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        Pres1Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
         Pres1Email.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         Pres2Email.topAnchor.constraint(equalTo: Pres1Email.bottomAnchor).isActive = true
-        Pres2Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        Pres2Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
         Pres2Email.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         OCTitle.topAnchor.constraint(equalTo: Pres2Email.bottomAnchor, constant: 6).isActive = true
@@ -589,6 +616,11 @@ class PresentationDetailController : UIViewController{
         ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 10).isActive = true
         ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
         ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        leaveInputButton.topAnchor.constraint(equalTo: ShirtDropdown.bottomAnchor, constant: 10).isActive = true
+        leaveInputButton.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 10).isActive = true
+        leaveInputButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        leaveInputButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         
         
