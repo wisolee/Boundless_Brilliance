@@ -15,7 +15,7 @@ class SurveyView : UIView{
     // subview - inputsContainerView
     let inputsView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor.white
         //        view. = true
         // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false

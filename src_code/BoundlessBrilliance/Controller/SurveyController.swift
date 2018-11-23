@@ -16,13 +16,27 @@ class  SurveyController : UIViewController {
     let shirtOptions = ["", "yes", "no"]
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
+    let presSection: UITextView! = {
+        let ns = UITextView()
+        ns.isEditable = false
+        ns.textColor = UIColor(r: 0, g: 240, b: 240)
+        ns.text = "Presentation"
+        ns.translatesAutoresizingMaskIntoConstraints = false
+        ns.textAlignment = NSTextAlignment.left
+        ns.backgroundColor = UIColor.white
+        ns.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return ns
+    }()
+    
     //number of students
     let NumStudents: UITextField! = {
         let ns = UITextField()
         ns.textColor = UIColor.black
-        ns.placeholder = "# students?"
+        ns.placeholder = "How many students were there?"
         ns.translatesAutoresizingMaskIntoConstraints = false
         ns.textAlignment = NSTextAlignment.center
+        ns.keyboardType = UIKeyboardType.numberPad
+        ns.borderStyle = UITextField.BorderStyle.line
         ns.backgroundColor = UIColor.white
         ns.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return ns
@@ -32,9 +46,10 @@ class  SurveyController : UIViewController {
     let Experiment: UITextField! = {
         let exp = UITextField()
         exp.textColor = UIColor.black
-        exp.text = "Experiment Performed"
+        exp.placeholder = "What experiment was performed?"
         exp.translatesAutoresizingMaskIntoConstraints = false
-        exp.textAlignment = NSTextAlignment.right
+        exp.textAlignment = NSTextAlignment.center
+        exp.borderStyle = UITextField.BorderStyle.line
         exp.backgroundColor = UIColor.white
         exp.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return exp
@@ -79,6 +94,40 @@ class  SurveyController : UIViewController {
         return tf
     }()
     
+    let transportationSection: UITextView! = {
+        let tf = UITextView()
+        tf.text = "Transportation"
+        tf.isEditable = false
+        tf.textColor = UIColor(r: 0, g: 240, b: 240)
+        tf.textAlignment = NSTextAlignment.left
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.backgroundColor = UIColor.white
+        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return tf
+    }()
+    
+    let transportationDriver: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "Driver or caller of rideshare"
+        tf.textAlignment = NSTextAlignment.center
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.backgroundColor = UIColor.white
+        tf.borderStyle = UITextField.BorderStyle.line
+        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return tf
+    }()
+    
+    let mileageOrCost: UITextField! = {
+        let tf = UITextField()
+        tf.placeholder = "Miles driven or cost of rideshare"
+        tf.textAlignment = NSTextAlignment.center
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.backgroundColor = UIColor.white
+        tf.borderStyle = UITextField.BorderStyle.line
+        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return tf
+    }()
+    
     let AnecdoteView: UITextView = {
         let af_tv = UITextView()
         af_tv.text = "Any anecdotes to share?"
@@ -104,109 +153,105 @@ class  SurveyController : UIViewController {
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         
-        
-//        super.viewDidLoad()
-//        //create variables
-//        let presDetailView  = PresentationDetailView()
-//        let inputsView = presDetailView.inputsView
-//
-//        /* Add subviews */
-//        view.addSubview(inputsView)
-//        LocField.text = presentation?.location
-//        NamesField.text = presentation?.names
-//        setupInputsView(inputsView: inputsView, textField: TestTextField, locField: LocField, namesField: NamesField, anecdoteField: AnecdoteView)
-//        StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
-//        ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
-//        ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
-//        view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
-//
     }
 
     func setupInputsView(inputsView: UIScrollView){
+        
+        /* inputsView: need x, y, width, height contraints */
+        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
+        
+        inputsView.addSubview(presSection)
+        let separator0 = UIView()
+        initSeparator(separator: separator0)
+        inputsView.addSubview(separator0)
+        setupSeparator(emailSeparatorView: separator0, inputsView: inputsView, aboveView: presSection)
+        
         inputsView.addSubview(NumStudents)
-        let separator1 = UIView()
-        
-        initSeparator(separator: separator1)
-        inputsView.addSubview(separator1)
-        setupSeparator(emailSeparatorView: separator1, inputsView: inputsView, aboveView: NumStudents)
-        
         inputsView.addSubview(Experiment)
-        
-        let separator2 = UIView()
-        initSeparator(separator: separator2)
-        inputsView.addSubview(separator2)
-        setupSeparator(emailSeparatorView: separator2, inputsView: inputsView, aboveView: Experiment)
-        
         inputsView.addSubview(StickerDropdown)
-        
-        let separator3 = UIView()
-        initSeparator(separator: separator3)
-        inputsView.addSubview(separator3)
-        setupSeparator(emailSeparatorView: separator3, inputsView: inputsView, aboveView: StickerDropdown)
-        
         inputsView.addSubview(ShirtDropdown)
         inputsView.addSubview(ShirtSizeDropdown)
-        
+
         let separator4 = UIView()
         initSeparator(separator: separator4)
         inputsView.addSubview(separator4)
         setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: ShirtDropdown)
-        
+
         inputsView.addSubview(AnecdoteView)
+
+        let separator5 = UIView()
+        initSeparator(separator: separator5)
+        inputsView.addSubview(separator5)
+        setupSeparator(emailSeparatorView: separator5, inputsView: inputsView, aboveView: AnecdoteView)
         
-        let bottomLine = UIView()
-        initSeparator(separator: bottomLine)
-        inputsView.addSubview(bottomLine)
-        setupSeparator(emailSeparatorView: bottomLine, inputsView: inputsView, aboveView: AnecdoteView)
+        let separatorLeft = UIView()
+        initSeparator(separator: separatorLeft)
+        inputsView.addSubview(separatorLeft)
+        setupVertLeftSeparator(emailSeparatorView: separatorLeft, inputsView: inputsView, aboveView: separator4, sideView: AnecdoteView)
         
-        NumStudents.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
-        NumStudents.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        NumStudents.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        NumStudents.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 15).isActive = true
+        let separatorRight = UIView()
+        initSeparator(separator: separatorRight)
+        inputsView.addSubview(separatorRight)
+        setupVertRightSeparator(emailSeparatorView: separatorRight, inputsView: inputsView, aboveView: separator4, sideView: AnecdoteView)
         
-        Experiment.topAnchor.constraint(equalTo: NumStudents.bottomAnchor, constant: 6).isActive = true
-        Experiment.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        Experiment.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        inputsView.addSubview(transportationSection)
         
-        StickerDropdown.topAnchor.constraint(equalTo: Experiment.bottomAnchor, constant: 6).isActive = true
-        StickerDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        StickerDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        let separator6 = UIView()
+        initSeparator(separator: separator6)
+        inputsView.addSubview(separator6)
+        setupSeparator(emailSeparatorView: separator6, inputsView: inputsView, aboveView: transportationSection)
         
-        ShirtDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtDropdown.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
-        ShirtDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        ShirtDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        inputsView.addSubview(transportationDriver)
+        inputsView.addSubview(mileageOrCost)
         
-        ShirtSizeDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 10).isActive = true
-        ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        initWideView(target: presSection, topView: inputsView, container: inputsView)
+        presSection.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
+        initWideView(target: NumStudents, topView: presSection, container: inputsView)
+        initWideView(target: Experiment, topView: NumStudents, container: inputsView)
+        initWideView(target: StickerDropdown, topView: Experiment, container: inputsView)
+        initSplitLeftView(target: ShirtDropdown, topView: StickerDropdown, container: inputsView)
+        initSplitRightView(target: ShirtSizeDropdown, topView: StickerDropdown, container: inputsView, leftView: ShirtDropdown)
         
         AnecdoteView.topAnchor.constraint(equalTo: ShirtSizeDropdown.bottomAnchor, constant: 6).isActive = true
         AnecdoteView.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 2).isActive = true
         AnecdoteView.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -10).isActive = true
         AnecdoteView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-       
-//        setScrollViewSize(inputsView: inputsView)
+        initWideView(target: transportationSection, topView: AnecdoteView, container: inputsView)
+        initWideView(target: transportationDriver, topView: transportationSection, container: inputsView)
+        initWideView(target: mileageOrCost, topView: transportationDriver, container: inputsView)
+        
         inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(1500))
     }
+
+    func initWideView(target: UIView, topView: UIView, container: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    }
     
-//    func setScrollViewSize(inputsView: UIScrollView){
-////        var height: CGFloat = 0
-////        for view in inputsView.subviews {
-////            print("subview height: \(view.frame.size.height)")
-////            print("scrollview height: \(height)")
-////            
-////            height = height + view.bounds.size.height
-////        }
-//
-//        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(ScrollViewHeight))
-//    }
+    func initSplitLeftView(target: UIView, topView: UIView, container: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initSplitRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
 
     func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor, constant: 3).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
@@ -219,7 +264,7 @@ class  SurveyController : UIViewController {
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
