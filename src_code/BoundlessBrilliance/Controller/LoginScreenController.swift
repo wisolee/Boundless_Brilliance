@@ -103,7 +103,8 @@ class LoginScreenController: UIViewController {
     @objc func goToRegister() {
         // Ensure email and password are valid values
         let newViewController = RegisterController()
-        self.present(newViewController, animated: true)
+        //self.present(newViewController, animated: true)
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
   
     // Main Display---------------------------------------------------------------------------------------------------------

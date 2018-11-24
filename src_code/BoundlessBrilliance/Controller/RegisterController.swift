@@ -166,8 +166,9 @@ class RegisterController: UIViewController {
                     }
 
                     //after saving all the data successfully, navigate back to login screen
-                    let newViewController = LoginScreenController()
-                    self.present(newViewController, animated: true)
+                    //let newViewController = LoginScreenController()
+                    //self.present(newViewController, animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
                
             })
