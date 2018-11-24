@@ -13,7 +13,7 @@ class CellArrow: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         if let context = UIGraphicsGetCurrentContext() {
-            context.setStrokeColor(UIColor.gray.cgColor)
+            context.setStrokeColor(UIColor(r: 232, g: 115, b: 0).cgColor)
             context.setLineWidth(1)
             context.move(to: CGPoint(x: 0, y: bounds.height * 2 / 3))
             context.addLine(to: CGPoint(x: bounds.width - 3, y: bounds.height / 2))
