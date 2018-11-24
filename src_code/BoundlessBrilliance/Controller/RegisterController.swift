@@ -77,6 +77,25 @@ class RegisterController: UIViewController {
         return button
     }()
     
+    // registerButton action -- Send data to Firebase
+    @objc func handleRegister() {
+        
+        // Ensure email and password are valid values
+        // Note: It seems that this doesn't function as intended: toast will not be fired if the entire form is empty, which seems like is what is supposed to happen...?
+        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text, let memberType = memberTypeTextField.text
+            else {
+                self.view.makeToast("Form input is not valid.")
+                return
+        }
+        
+        // Create a new user with info from form if form inputs pass all validation checks
+        if inputsAreValid(name: name, email: email, password: password, chapter: chapter, memberType: memberType) {
+            createUser(name: name, email: email, password: password, chapter: chapter, memberType: memberType)
+        } else {
+            return
+        }
+    }
+    
     // subview - returnButton
     let returnButton: UIButton = {
         let button = UIButton(type: .system)
@@ -100,112 +119,6 @@ class RegisterController: UIViewController {
         self.present(returnToLoginController, animated: true)
     }
     
-    func inputsAreValid (password: String, chapter: String, memberType: String) -> Bool {
-        if (passwordTooShort(password: password) ||
-            chapterNotSelected(chapter: chapter) ||
-            memberTypeNotSelected(memberType: memberType)) {
-            
-            return false
-        }
-        return true
-    }
-    
-    func passwordTooShort (password: String) -> Bool {
-        if password.count < 7 {
-            self.view.makeToast("Password too short")
-            return true
-        }
-        return false
-    }
-    
-    func chapterNotSelected (chapter: String) -> Bool {
-        if chapter == "" {
-            self.view.makeToast("Please choose a chapter.")
-            return true
-        }
-        return false
-    }
-    
-    func memberTypeNotSelected (memberType: String) -> Bool {
-        if memberType == "" {
-            self.view.makeToast("Please choose a member type.")
-            return true
-        }
-        return false
-    }
-    
-    // registerButton action -- Send data to Firebase
-    @objc func handleRegister() {
-        // Ensure email and password are valid values
-        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text, let memberType = memberTypeTextField.text
-            else {
-                print("Form input is not valid")
-                return
-        }
-
-        if inputsAreValid(password: password, chapter: chapter, memberType: memberType) {
-            createUser(name: name, email: email, password: password, chapter: chapter, memberType: memberType)
-        } else {
-            return
-        }
-        
-        
-        
-    }
-    
-    @objc func createUser (name: String, email: String, password: String, chapter: String, memberType: String) {
-        // Register User
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil {
-                //print("Error in creating account")
-                self.view.makeToast("Error in creating account")
-                return
-            } else {
-                // Successful Authentication, now save user
-                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-                var ref: DatabaseReference!
-                
-                //save user to users table
-                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-                let userID = Auth.auth().currentUser!.uid
-                
-                let userRef = ref.child("users").child(userID)
-                let userFields = ["name" : name,
-                                  "email" : email,
-                                  "chapter" : chapter,
-                                  "memberType" : memberType]
-                
-                // updateChildValues with completion block
-                userRef.updateChildValues(userFields) {
-                    (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                        print("Data could not be saved: \(error).")
-                    } else {
-                        print("Data saved successfully!")
-                    }
-                }
-                
-                
-                //Now save the user under the appropriate chapter table
-                let chapterRef = ref.child("chapters").child(chapter)
-                let member = [userID : name]
-                
-                chapterRef.updateChildValues(member) {
-                    (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                        print("Data could not be saved: \(error).")
-                    } else {
-                        print("Data saved successfully!")
-                    }
-                }
-                
-                //after saving all the data successfully, navigate back to login screen
-                let newViewController = LoginScreenController()
-                self.present(newViewController, animated: true)
-            }
-            
-        })
-    }
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
@@ -268,7 +181,147 @@ class RegisterController: UIViewController {
         
     }
     
-// HELPER FUNCTIONS FOR SETTING UP THE VIEWS---------------------------------------------------------------------------------
+ 
+   /* ---------------------------------------------------------------------------------
+    * HELPER FUNCTION OVERVIEW
+    * Input validation checks
+    * User creation
+    * Setting up views
+    *---------------------------------------------------------------------------------*/
+    
+    // INPUT VALIDATION CHECKS---------------------------------------------------------
+    
+    // inputsAreValid
+    // Returns true if all inputs are valid
+    func inputsAreValid (name: String, email: String, password: String, chapter: String, memberType: String) -> Bool {
+        print ("inputsAreValid() entered")
+        
+        if (nameNotEntered(name: name) ||
+            invalidEmailFormat(email: email) ||
+            passwordTooShort(password: password) ||
+            chapterNotSelected(chapter: chapter) ||
+            memberTypeNotSelected(memberType: memberType)) {
+            
+            return false
+        }
+        return true
+    }
+    
+    
+    // nameNotEntered, invalidEmailFormat, passwordTooShort, chapterNotSelected, memberTypeNotSelected
+    // Returns true if there are any errors in the inputs
+    func nameNotEntered (name: String) -> Bool {
+        if name == "" {
+            self.view.makeToast("Please enter a name.")
+            return true
+        }
+        return false
+    }
+    
+    func invalidEmailFormat (email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        
+        let validEmail = emailTest.evaluate(with: email)
+        
+        if !validEmail {
+            self.view.makeToast("Please enter a valid email.")
+            return true
+        }
+        return false
+    }
+    
+    func passwordTooShort (password: String) -> Bool {
+        if password.count < 7 {
+            self.view.makeToast("Password too short")
+            return true
+        }
+        return false
+    }
+    
+    func chapterNotSelected (chapter: String) -> Bool {
+        if chapter == "" {
+            self.view.makeToast("Please choose a chapter.")
+            return true
+        }
+        return false
+    }
+    
+    func memberTypeNotSelected (memberType: String) -> Bool {
+        if memberType == "" {
+            self.view.makeToast("Please choose a member type.")
+            return true
+        }
+        return false
+    }
+    
+    
+    
+    // USER CREATION---------------------------------------------------------------------------------
+    
+    // If input validations are all good, attempt to create a user
+    func createUser (name: String, email: String, password: String, chapter: String, memberType: String) {
+        // Register User
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                self.view.makeToast("Error in creating account")
+                return
+            } else {
+                // Successful Authentication, now save user
+                var ref: DatabaseReference!
+                
+                
+                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                let userID = Auth.auth().currentUser!.uid
+                
+                // Save user to users table
+                self.putIntoUsersTable(ref: ref, userID: userID, name: name, email: email, chapter: chapter, memberType: memberType)
+                
+                // Save user to chapters table
+                self.putIntoChaptersTable(ref: ref, userID: userID, name: name, chapter: chapter)
+                
+                
+                // After saving all the data successfully, navigate back to login screen
+                let newViewController = LoginScreenController()
+                self.present(newViewController, animated: true)
+            }
+            
+        })
+    }
+    
+    func putIntoUsersTable (ref: DatabaseReference, userID: String, name: String, email: String, chapter: String, memberType: String) {
+        let userRef = ref.child("users").child(userID)
+        let userFields = ["name" : name,
+                          "email" : email,
+                          "chapter" : chapter,
+                          "memberType" : memberType]
+        
+        updateTable(ref: userRef, value: userFields)
+        
+    }
+    
+    func putIntoChaptersTable (ref: DatabaseReference, userID: String, name: String, chapter: String) {
+        //Now save the user under the appropriate chapter table
+        let chapterRef = ref.child("chapters").child(chapter)
+        let member = [userID : name]
+        
+        updateTable(ref: chapterRef, value: member)
+    }
+    
+    func updateTable (ref: DatabaseReference, value: Dictionary <String, String>) {
+        ref.updateChildValues(value) {
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+                print("Data could not be saved: \(error).")
+            } else {
+                print("Data saved successfully!")
+            }
+        }
+    }
+    
+    
+    // SETTING UP VIEWS---------------------------------------------------------------------------------
     
     func setupProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
         /* need x, y, width, height contraints */
@@ -363,5 +416,4 @@ class RegisterController: UIViewController {
 
 // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
-    
 }
