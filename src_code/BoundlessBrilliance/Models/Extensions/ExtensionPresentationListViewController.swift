@@ -41,12 +41,19 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user field(s)
             let value = snapshot.value as? NSDictionary
-            //let names = value?["names"] as? String ?? ""
+            let name = value?["name"] as? String ?? ""
             let chapter = value?["chapter"] as? String ?? ""
-            //presenterNames = names
+            let memberType = value?["memberType"] as? String ?? ""
+            
+            presenterName = name
             presenterChapter = chapter
+            presenterMemberType = memberType
             // Set Scope Bar Titles
-            self.searchController.searchBar.scopeButtonTitles = ["All", presenterChapter]
+            if (presenterMemberType == "Presenter") {
+                self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]
+            } else {
+                self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
+            }
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -102,18 +109,28 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String) {
         filteredPresentationItems = presentationItems.filter({ (item) -> Bool in
             let presentationLocation: NSString = item.location as NSString
             let presentationNames: NSString = item.names as NSString
-            let categoryMatch = (scope == "All") || (item.chapter == scope)
+            let presentationTime: NSString = item.time as NSString
+            let presentationDate: NSString = item.date as NSString
+            
+            var categoryMatch: Bool!
+            if (presenterMemberType == "Presenter") {
+                categoryMatch = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
+            } else {
+                categoryMatch = (scope == "All") || (item.chapter == scope)
+            }
             
             if searchBarIsEmpty() {
                 return categoryMatch
             } else {
                 return categoryMatch
                     && ((presentationLocation.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationNames.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
+                        || (presentationNames.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentationTime.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentationDate.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
             }
         })
         collectionView.reloadData()
