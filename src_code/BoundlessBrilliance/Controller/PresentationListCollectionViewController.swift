@@ -21,7 +21,8 @@ var presenterName: String!
 var presenterMemberType: String!
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+    // We keep track of the pending work item as a property
+    private var pendingRequestWorkItem: DispatchWorkItem?
 
     var presentationItems: [PresentationListItemModel] = []
     var filteredPresentationItems = [PresentationListItemModel]()
@@ -77,36 +78,44 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
             
-            // Obtain userID from first presenter
-            let presentationChapter = retrieveChapter(presenterDict: presenterDict, ref: ref)
-            
-            /* Create presentationItem with necessary fields */
-            if (presenterMemberType == "Presenter") {
-                if  presenterChapter == presentationChapter {
+            var presentationChapter: String!
+            retrieveChapter(presenterDict: presenterDict, ref: ref, completion: { message in
+                // callback from completion handler
+                presentationChapter = message
+                /* create presentationItem with necessary fields */
+                if (presenterMemberType == "Presenter") {
+                    print(presentationChapter)
+                    if  presenterChapter == presentationChapter {
+                        self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    }
+                } else {
                     self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                 }
-            } else {
-                self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
-            }
-            self.collectionView!.reloadData()
+                self.collectionView!.reloadData()
+            })
         }
     }
     
-    func retrieveChapter(presenterDict: Dictionary<String, String>, ref: DatabaseReference) -> String {
+    func retrieveChapter(presenterDict: Dictionary<String, String>, ref: DatabaseReference, completion: @escaping (_ message: String) -> Void) {
         var presentationChapter: String!
+        // Obtain userID from first presenter
         let firstUserID = Array(presenterDict.keys)[0]
         ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user chapter field
-            let value = snapshot.value as? NSDictionary
-            let chapter = value?["chapter"] as? String ?? ""
-            presentationChapter = chapter
+            guard 
+                let value = snapshot.value as? NSDictionary,
+                let chapter = value["chapter"]
+            else {
+                completion("")
+                return
+            }
+            presentationChapter = chapter as? String
+            completion(presentationChapter)
         }) { (error) in
             print(error.localizedDescription)
         }
-        return presentationChapter
     }
     
-   
     func parsePresenterDictionary(presenterNames: Array<String>) -> String {
         var namesString: String = ""
         if (presenterNames.count == 1) {
