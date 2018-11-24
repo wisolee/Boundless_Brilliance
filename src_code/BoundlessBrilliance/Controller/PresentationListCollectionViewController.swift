@@ -17,12 +17,14 @@ private let searchBarHeight = 50
 private let cellHeight = 100
 
 var presenterChapter: String!
-var presenterNames: String!
+var presenterName: String!
+var presenterMemberType: String!
 
 let firebaseGroup = DispatchGroup()
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+    // We keep track of the pending work item as a property
+    private var pendingRequestWorkItem: DispatchWorkItem?
 
     var presentationItems: [PresentationListItemModel] = []
     var filteredPresentationItems = [PresentationListItemModel]()
@@ -47,9 +49,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         loadData()
         
         // Waits for Firebase data to be received
-        firebaseGroup.notify(queue: DispatchQueue.main, execute: {
+        firebaseGroup.notify(queue: .main) {
             self.scrollToToday()
-        })
+        }
     }
     
     func loadData(){
@@ -67,7 +69,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             print (presentationDict)
             
             if (presentationDict != nil){
-                self.loadDataIntoArray(presentationDict: presentationDict)
+                self.loadDataIntoArray(presentationDict: presentationDict, ref: ref)
                 firebaseGroup.leave()
             }
         })
@@ -88,23 +90,61 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             index += 1
         }
     }
-    
-    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>]) {
+
+    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>], ref: DatabaseReference) {
         var presenterDict: Dictionary<String, String>!
         for presentation in presentationDict.values {
             presenterDict = presentation["presenters"] as? Dictionary
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
+            print(parsedPresenterString)
+            
             let date_string : String = presentation["date"] as! String
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
-         
-            self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presenterChapter, time: formatted_time, date: formatted_date))
+            
+            var presentationChapter: String!
+            retrieveChapter(presenterDict: presenterDict, ref: ref, completion: { message in
+                // callback from completion handler
+                presentationChapter = message
+                /* create presentationItem with necessary fields */
+                if (presenterMemberType == "Presenter") {
+                    print(presentationChapter)
+                    // only load presentations from the presenter's chapter
+                    if  presenterChapter == presentationChapter {
+                        self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    }
+                } else {
+                    // load presentations from all chapters
+                    self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                }
+                self.collectionView!.reloadData()
+            })
+        }
+    }
+    
+    func retrieveChapter(presenterDict: Dictionary<String, String>, ref: DatabaseReference, completion: @escaping (_ message: String) -> Void) {
+        var presentationChapter: String!
+        // Obtain userID from first presenter
+        let firstUserID = Array(presenterDict.keys)[0]
+        ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user chapter field
+            guard 
+                let value = snapshot.value as? NSDictionary,
+                let chapter = value["chapter"]
+            else {
+                completion("")
+                return
+            }
+            presentationChapter = chapter as? String
+            completion(presentationChapter)
+        }) { (error) in
+            print(error.localizedDescription)
+
         }
         presentationItems.sort { $0.date < $1.date }
         self.collectionView!.reloadData()
     }
     
-   
     func parsePresenterDictionary(presenterNames: Array<String>) -> String {
         var namesString: String = ""
         if (presenterNames.count == 1) {
@@ -214,16 +254,19 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         
     }
 
-
-    
-
-    
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
         navigationItem.title = "Presentations"
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
     }
+    
+    @objc func logOut(){
+        //go back to login
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     func configureCollectionView() {
         self.collectionView?.backgroundColor = UIColor.white
