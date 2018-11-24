@@ -45,6 +45,7 @@ class LoginScreenController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
+                self.view.makeToast("User not found or incorrect password.")
                 print("User or password not found")
                 print(error as Any)
                 return

@@ -100,6 +100,40 @@ class RegisterController: UIViewController {
         self.present(returnToLoginController, animated: true)
     }
     
+    func inputsAreValid (password: String, chapter: String, memberType: String) -> Bool {
+        if (passwordTooShort(password: password) ||
+            chapterNotSelected(chapter: chapter) ||
+            memberTypeNotSelected(memberType: memberType)) {
+            
+            return false
+        }
+        return true
+    }
+    
+    func passwordTooShort (password: String) -> Bool {
+        if password.count < 7 {
+            self.view.makeToast("Password too short")
+            return true
+        }
+        return false
+    }
+    
+    func chapterNotSelected (chapter: String) -> Bool {
+        if chapter == "" {
+            self.view.makeToast("Please choose a chapter.")
+            return true
+        }
+        return false
+    }
+    
+    func memberTypeNotSelected (memberType: String) -> Bool {
+        if memberType == "" {
+            self.view.makeToast("Please choose a member type.")
+            return true
+        }
+        return false
+    }
+    
     // registerButton action -- Send data to Firebase
     @objc func handleRegister() {
         // Ensure email and password are valid values
@@ -109,69 +143,68 @@ class RegisterController: UIViewController {
                 return
         }
 
-        if password.count < 7 {
-            //print("Password must be at least 7 characters.")
-            self.view.makeToast("Password must be at least 7 characters.")
-            return
-        } else if chapter == "" {
-            self.view.makeToast("Please choose a chapter.")
-            return
-        } else if memberType == "" {
-            self.view.makeToast("Please choose a member type.")
-            return
+        if inputsAreValid(password: password, chapter: chapter, memberType: memberType) {
+            createUser(name: name, email: email, password: password, chapter: chapter, memberType: memberType)
         } else {
-            // Register User
-            Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-                if error != nil {
-                    //print("Error in creating account")
-                    self.view.makeToast("Error in creating account")
-                    return
-                } else {
-                    // Successful Authentication, now save user
-                    /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
-                    var ref: DatabaseReference!
-                    
-                    //save user to users table
-                    ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-                    let userID = Auth.auth().currentUser!.uid
-                    
-                    let userRef = ref.child("users").child(userID)
-                    let userFields = ["name" : name,
-                                      "email" : email,
-                                      "chapter" : chapter,
-                                      "memberType" : memberType]
-                    
-                    // updateChildValues with completion block
-                    userRef.updateChildValues(userFields) {
-                        (error:Error?, ref:DatabaseReference) in
-                        if let error = error {
-                            print("Data could not be saved: \(error).")
-                        } else {
-                            print("Data saved successfully!")
-                        }
-                    }
-                    
-                    
-                    //Now save the user under the appropriate chapter table
-                    let chapterRef = ref.child("chapters").child(chapter)
-                    let member = [userID : name]
-
-                    chapterRef.updateChildValues(member) {
-                        (error:Error?, ref:DatabaseReference) in
-                        if let error = error {
-                            print("Data could not be saved: \(error).")
-                        } else {
-                            print("Data saved successfully!")
-                        }
-                    }
-
-                    //after saving all the data successfully, navigate back to login screen
-                    let newViewController = LoginScreenController()
-                    self.present(newViewController, animated: true)
-                }
-               
-            })
+            return
         }
+        
+        
+        
+    }
+    
+    @objc func createUser (name: String, email: String, password: String, chapter: String, memberType: String) {
+        // Register User
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                //print("Error in creating account")
+                self.view.makeToast("Error in creating account")
+                return
+            } else {
+                // Successful Authentication, now save user
+                /*Store user info, temporarily set fire db rules to true, by default both set to fault*/
+                var ref: DatabaseReference!
+                
+                //save user to users table
+                ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+                let userID = Auth.auth().currentUser!.uid
+                
+                let userRef = ref.child("users").child(userID)
+                let userFields = ["name" : name,
+                                  "email" : email,
+                                  "chapter" : chapter,
+                                  "memberType" : memberType]
+                
+                // updateChildValues with completion block
+                userRef.updateChildValues(userFields) {
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                    } else {
+                        print("Data saved successfully!")
+                    }
+                }
+                
+                
+                //Now save the user under the appropriate chapter table
+                let chapterRef = ref.child("chapters").child(chapter)
+                let member = [userID : name]
+                
+                chapterRef.updateChildValues(member) {
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Data could not be saved: \(error).")
+                    } else {
+                        print("Data saved successfully!")
+                    }
+                }
+                
+                //after saving all the data successfully, navigate back to login screen
+                let newViewController = LoginScreenController()
+                self.present(newViewController, animated: true)
+            }
+            
+        })
     }
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
