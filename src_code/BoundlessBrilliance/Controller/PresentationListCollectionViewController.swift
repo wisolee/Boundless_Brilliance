@@ -85,10 +85,12 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
                 /* create presentationItem with necessary fields */
                 if (presenterMemberType == "Presenter") {
                     print(presentationChapter)
+                    // only load presentations from the presenter's chapter
                     if  presenterChapter == presentationChapter {
                         self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                     }
                 } else {
+                    // load presentations from all chapters
                     self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                 }
                 self.collectionView!.reloadData()
