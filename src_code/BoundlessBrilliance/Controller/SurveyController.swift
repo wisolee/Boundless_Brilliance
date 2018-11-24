@@ -16,10 +16,10 @@ class  SurveyController : UIViewController {
     let shirtOptions = ["", "yes", "no"]
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
-    let presSection: UITextView! = {
-        let ns = UITextView()
-        ns.isEditable = false
-        ns.textColor = UIColor(r: 0, g: 240, b: 240)
+    let presSection: UILabel! = {
+        let ns = UILabel()
+        ns.adjustsFontSizeToFitWidth = true
+        ns.textColor = UIColor(r: 0, g: 128, b: 128)
         ns.text = "Presentation"
         ns.translatesAutoresizingMaskIntoConstraints = false
         ns.textAlignment = NSTextAlignment.left
@@ -94,11 +94,12 @@ class  SurveyController : UIViewController {
         return tf
     }()
     
-    let transportationSection: UITextView! = {
-        let tf = UITextView()
+    let transportationSection: UILabel! = {
+        let tf = UILabel()
         tf.text = "Transportation"
-        tf.isEditable = false
-        tf.textColor = UIColor(r: 0, g: 240, b: 240)
+//        tf.isEditable = false
+        tf.adjustsFontSizeToFitWidth = true
+        tf.textColor = UIColor(r: 0, g: 128, b: 128)
         tf.textAlignment = NSTextAlignment.left
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = UIColor.white
@@ -130,13 +131,27 @@ class  SurveyController : UIViewController {
     
     let AnecdoteView: UITextView = {
         let af_tv = UITextView()
-        af_tv.text = "Any anecdotes to share?"
+        af_tv.text = "Please add anything about the presentation you'd like to share"
         af_tv.textColor = UIColor.black
         af_tv.translatesAutoresizingMaskIntoConstraints = false
         af_tv.backgroundColor = UIColor.white
         af_tv.isEditable = true
         af_tv.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return af_tv
+    }()
+    
+    let SubmitButton: UIButton = {
+        let sub = UIButton()
+        sub.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        sub.setTitle("Submit", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        sub.translatesAutoresizingMaskIntoConstraints = false
+        sub.setTitleColor(UIColor.white, for: .normal)
+        sub.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        sub.layer.cornerRadius = 5
+        // Add action to registerButton
+        sub.addTarget(self, action: #selector(submit), for: .touchUpInside)
+        return sub
     }()
     
     override func viewDidLoad() {
@@ -152,8 +167,8 @@ class  SurveyController : UIViewController {
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
-        
     }
+    
 
     func setupInputsView(inputsView: UIScrollView){
         
@@ -207,6 +222,12 @@ class  SurveyController : UIViewController {
         inputsView.addSubview(transportationDriver)
         inputsView.addSubview(mileageOrCost)
         
+        let separator7 = UIView()
+        initSeparator(separator: separator7)
+        inputsView.addSubview(separator7)
+        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: mileageOrCost)
+        
+        inputsView.addSubview(SubmitButton)
         
         initWideView(target: presSection, topView: inputsView, container: inputsView)
         presSection.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
@@ -223,6 +244,7 @@ class  SurveyController : UIViewController {
         initWideView(target: transportationSection, topView: AnecdoteView, container: inputsView)
         initWideView(target: transportationDriver, topView: transportationSection, container: inputsView)
         initWideView(target: mileageOrCost, topView: transportationDriver, container: inputsView)
+        initWideView(target: SubmitButton, topView: mileageOrCost, container: inputsView)
         
         inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(1500))
     }
@@ -275,6 +297,10 @@ class  SurveyController : UIViewController {
     func initSeparator(separator: UIView){
         separator.backgroundColor = UIColor.gray
         separator.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    @objc func submit(){
+        
     }
     
 }
