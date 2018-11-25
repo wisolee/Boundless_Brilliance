@@ -16,7 +16,6 @@ class SurveyView : UIView{
     let inputsView: UIScrollView = {
         let view = UIScrollView()
         view.backgroundColor = UIColor.white
-        //        view. = true
         // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
@@ -24,17 +23,3 @@ class SurveyView : UIView{
         return view
     }()
 }
-
-// subview - nameSeparatorView
-//let SeparatorLine: UIView = {
-//    let view = UIView()
-//    view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
-//    view.translatesAutoresizingMaskIntoConstraints = false
-//    return view
-//}()
-//
-//extension UITextField {
-//    func loadStickerShirtOptions(spinnerOptions: [String]) {
-//        self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
-//    }
-//}

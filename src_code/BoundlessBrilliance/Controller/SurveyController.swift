@@ -17,142 +17,129 @@ class  SurveyController : UIViewController {
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
     let presSection: UILabel! = {
-        let ns = UILabel()
-        ns.adjustsFontSizeToFitWidth = true
-        ns.textColor = UIColor(r: 0, g: 128, b: 128)
-        ns.text = "Presentation"
-        ns.translatesAutoresizingMaskIntoConstraints = false
-        ns.textAlignment = NSTextAlignment.left
-        ns.backgroundColor = UIColor.white
-        ns.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return ns
-    }()
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.text = "Presentation"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UILabel())
     
     //number of students
     let NumStudents: UITextField! = {
-        let ns = UITextField()
-        ns.textColor = UIColor.black
-        ns.placeholder = "How many students were there?"
-        ns.translatesAutoresizingMaskIntoConstraints = false
-        ns.textAlignment = NSTextAlignment.center
-        ns.keyboardType = UIKeyboardType.numberPad
-        ns.borderStyle = UITextField.BorderStyle.line
-        ns.backgroundColor = UIColor.white
-        ns.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return ns
-    }()
+        $0.textColor = UIColor.black
+        $0.placeholder = "How many students were there?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.keyboardType = UIKeyboardType.numberPad
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     //science experiment performed
     let Experiment: UITextField! = {
-        let exp = UITextField()
-        exp.textColor = UIColor.black
-        exp.placeholder = "What experiment was performed?"
-        exp.translatesAutoresizingMaskIntoConstraints = false
-        exp.textAlignment = NSTextAlignment.center
-        exp.borderStyle = UITextField.BorderStyle.line
-        exp.backgroundColor = UIColor.white
-        exp.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return exp
-    }()
+        $0.textColor = UIColor.black
+        $0.placeholder = "What experiment was performed?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     //stickers yes/no
     let StickerDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.textColor = UIColor.black
-        tf.placeholder = "Sticker?"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.center
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.textColor = UIColor.black
+        $0.placeholder = "Sticker?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     // t-shirt yes/no ? size
     let ShirtDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.textColor = UIColor.black
-        tf.placeholder = "T-Shirt?"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.center
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        //        tf.borderStyle
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.textColor = UIColor.black
+        $0.placeholder = "T-Shirt?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     // t-shirt yes/no ? size
     let ShirtSizeDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.placeholder = "Shirt Size"
-        tf.textAlignment = NSTextAlignment.center
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.placeholder = "Shirt Size"
+        $0.textAlignment = NSTextAlignment.center
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     let transportationSection: UILabel! = {
-        let tf = UILabel()
-        tf.text = "Transportation"
-//        tf.isEditable = false
-        tf.adjustsFontSizeToFitWidth = true
-        tf.textColor = UIColor(r: 0, g: 128, b: 128)
-        tf.textAlignment = NSTextAlignment.left
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = UIColor.white
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.text = "Transportation"
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.textAlignment = NSTextAlignment.left
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UILabel())
     
     let transportationDriver: UITextField! = {
-        let tf = UITextField()
-        tf.placeholder = "Driver or caller of rideshare"
-        tf.textAlignment = NSTextAlignment.center
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.placeholder = "Driver or caller of rideshare"
+        $0.textAlignment = NSTextAlignment.center
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     let mileageOrCost: UITextField! = {
-        let tf = UITextField()
-        tf.placeholder = "Miles driven or cost of rideshare"
-        tf.textAlignment = NSTextAlignment.center
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+        $0.placeholder = "Miles driven or cost of rideshare"
+        $0.textAlignment = NSTextAlignment.center
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
     
     let AnecdoteView: UITextView = {
-        let af_tv = UITextView()
-        af_tv.text = "Please add anything about the presentation you'd like to share"
-        af_tv.textColor = UIColor.black
-        af_tv.translatesAutoresizingMaskIntoConstraints = false
-        af_tv.backgroundColor = UIColor.white
-        af_tv.isEditable = true
-        af_tv.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return af_tv
-    }()
+        $0.text = "Please add anything about the presentation you'd like to share"
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.isEditable = true
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
     let SubmitButton: UIButton = {
-        let sub = UIButton()
-        sub.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        sub.setTitle("Submit", for: .normal)
+        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        $0.setTitle("Submit", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
-        sub.translatesAutoresizingMaskIntoConstraints = false
-        sub.setTitleColor(UIColor.white, for: .normal)
-        sub.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        sub.layer.cornerRadius = 5
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.layer.cornerRadius = 5
         // Add action to registerButton
-        sub.addTarget(self, action: #selector(submit), for: .touchUpInside)
-        return sub
-    }()
+        $0.addTarget(self, action: #selector(submit), for: .touchUpInside)
+        return $0
+    }(UIButton())
     
     override func viewDidLoad() {
         super.viewDidLoad()
