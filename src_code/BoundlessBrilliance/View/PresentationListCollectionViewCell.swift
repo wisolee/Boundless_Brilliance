@@ -50,6 +50,14 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         return $0
     }(UILabel())
     
+    public lazy var notification: UILabel = {
+        $0.textColor = .red
+        $0.text = ""
+        $0.textAlignment = NSTextAlignment.center
+        $0.numberOfLines = 1
+        return $0
+    }(UILabel())
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -68,6 +76,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         addSubview(time)
         addSubview(location)
         addSubview(presenterNames)
+        addSubview(notification)
         
     }
     
@@ -89,10 +98,13 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         //create frames for objects
-        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 8)), size: CGSize(width: textViewWidth, height: locationSize.height))
+        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5)), size: CGSize(width: textViewWidth, height: locationSize.height))
         presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
         time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
         arrow.frame = CGRect(origin: CGPoint(x: time.frame.maxX, y: layoutMargins.top), size: CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight))
+//         let notificationY = CGFloat(presenterNames.frame.maxY + (self.bounds.size.height - presenterNames.frame.maxY / 2))
+        notification.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: presenterNames.frame.maxY + vTextInset + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
+//            CGRect(origin: CGPoint(x: presenterNames.center.x, y: notificationY), size: CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight))
         //not sure what this stuff is for
         
         style(view: contentView)
@@ -117,12 +129,33 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     }
     
     // Called in PresentationListViewController when configuring custom view cells
-    public func configure(with model: PresentationListItemModel) {
-        
+    public func configure(with model: PresentationListItemModel) {        
         presentation = model
         location.text = model.location
         presenterNames.text = model.names
         time.text = model.time
+//        let formattedDate = configureDate(date: model.date)
         date.text = model.date
+        checkDateUpdateNotification(notification: notification)
+    }
+    
+    func checkDateUpdateNotification(notification: UILabel){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        let presentationDate = dateFormatter.date(from: presentation!.date)
+        print(currentDate)
+        if(currentDate! >= presentationDate!){
+            notification.text = "!"
+        }
+    }
+    
+    func configureDate(date: String) -> String{
+        let placeHolderDate = date
+        let indexOfSubstring = placeHolderDate.index(placeHolderDate.startIndex, offsetBy: 5)
+        var dateWOYear = String(placeHolderDate[indexOfSubstring...])
+        dateWOYear = dateWOYear.replacingOccurrences(of: "-", with: "\n")
+        return dateWOYear
     }
 }

@@ -146,10 +146,12 @@ class  SurveyController : UIViewController {
         //create variables
         let surveyView  = SurveyView()
         let inputsView = surveyView.inputsView
-        
+        let scrollContainer = surveyView.scrollContainer
         /* Add subviews */
-        view.addSubview(inputsView)
-        setupInputsView(inputsView: inputsView)
+        view.addSubview(scrollContainer)
+        scrollContainer.addSubview(inputsView)
+        
+        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
@@ -157,13 +159,23 @@ class  SurveyController : UIViewController {
     }
     
 
-    func setupInputsView(inputsView: UIScrollView){
+    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
+        /* inputsView: need x, y, width, height contraints */
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         /* inputsView: need x, y, width, height contraints */
-        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
+        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+//        inputsView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1, constant: -24).isActive = true
+//        inputsView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 4/5).isActive = true
+        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
         
         inputsView.addSubview(presSection)
         let separator0 = UIView()
@@ -232,8 +244,16 @@ class  SurveyController : UIViewController {
         initWideView(target: transportationDriver, topView: transportationSection, container: inputsView)
         initWideView(target: mileageOrCost, topView: transportationDriver, container: inputsView)
         initWideView(target: SubmitButton, topView: mileageOrCost, container: inputsView)
+        SubmitButton.bottomAnchor.constraint(equalTo: inputsView.bottomAnchor).isActive = true
         
-        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(1500))
+        var contentRect = CGRect.zero
+        
+        for view in inputsView.subviews {
+            contentRect = contentRect.union(view.frame)
+        }
+        
+        
+//        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(1500))
     }
 
     func initWideView(target: UIView, topView: UIView, container: UIView){
@@ -257,7 +277,7 @@ class  SurveyController : UIViewController {
         target.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 
-    func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
+    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor, constant: 3).isActive = true
@@ -265,7 +285,7 @@ class  SurveyController : UIViewController {
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
-    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -273,7 +293,7 @@ class  SurveyController : UIViewController {
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true

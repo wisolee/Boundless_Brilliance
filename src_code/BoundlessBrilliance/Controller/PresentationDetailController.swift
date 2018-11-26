@@ -88,8 +88,6 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UITextView())
     
-    
-    
     //teacher email
     let TeacherEmail: UITextView! = {
         $0.textColor = UIColor.black
@@ -282,18 +280,18 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UITextView())
     
-        public lazy var leaveInputButton: UIButton = {
-            $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-            $0.setTitle("Post-pres Survey", for: .normal)
-            // must set up this property otherwise, the specified anchors will not work
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setTitleColor(UIColor.white, for: .normal)
-            $0.titleLabel?.adjustsFontSizeToFitWidth = true
-            $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-            $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
-            return $0
-        }(UIButton())
+    public lazy var leaveInputButton: UIButton = {
+        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        $0.setTitle("Post-pres Survey", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.titleLabel?.adjustsFontSizeToFitWidth = true
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.layer.cornerRadius = 5
+        $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
+        return $0
+    }(UIButton())
     
 //    end examples from the alerts and pickers app cell file-----------------------------
     
@@ -313,7 +311,7 @@ class PresentationDetailController : UIViewController{
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         Time.text = presentation?.time
-        
+        checkDateUpdateButton(button: leaveInputButton)
         setupInputsView(inputsView: inputsView)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
@@ -369,7 +367,6 @@ class PresentationDetailController : UIViewController{
         initSeparator(separator: separator5)
         inputsView.addSubview(separator5)
         setupSeparator(emailSeparatorView: separator5, inputsView: inputsView, aboveView: Grade)
-        
         
         inputsView.addSubview(NamesFieldTitle)
         inputsView.addSubview(NamesField)
@@ -488,5 +485,20 @@ class PresentationDetailController : UIViewController{
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    func checkDateUpdateButton(button: UIButton){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+//        let calendar = Calendar.current
+//        let hour = Calendar.component(.hour, from: date)
+//        let minute = Calendar.component(.minute, from: date)
+        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        let presentationDate = dateFormatter.date(from: presentation!.date)
+        if(presentationDate! >= currentDate!){
+            button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+            button.isEnabled = false
+        }
+    }
+
 }
 
