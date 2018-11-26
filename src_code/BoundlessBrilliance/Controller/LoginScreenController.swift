@@ -34,9 +34,6 @@ class LoginScreenController: UIViewController {
     //action for loginButton -- authenticates user
     @objc func handleLogin() {
         
-//        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-//        self.present(presentationListVC, animated: true)
-        
         guard let email = emailTextField.text, let password = passwordTextField.text
             else {
                 print("Form input is not valid")
@@ -104,7 +101,7 @@ class LoginScreenController: UIViewController {
     @objc func goToRegister() {
         // Ensure email and password are valid values
         let newViewController = RegisterController()
-        self.present(newViewController, animated: true)
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
   
     // Main Display---------------------------------------------------------------------------------------------------------
