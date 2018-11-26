@@ -34,7 +34,7 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         // Setup Scope Bar
         self.searchController.searchBar.showsScopeBar = true
         // Set Scope Bar Titles
-        if (presenterMemberType == "Presenter") {
+        if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
             self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]
         } else {
             self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]

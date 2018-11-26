@@ -126,7 +126,7 @@ class LoginScreenController: UIViewController {
                 // callback from completion handler
                 presentationChapter = message
                 /* create presentationItem with necessary fields */
-                if (presenterMemberType == "Presenter") {
+                if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
                     // only load presentations from the presenter's chapter
                     if  presenterChapter == presentationChapter {
                         print(presentationChapter)
