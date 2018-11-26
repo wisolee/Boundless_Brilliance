@@ -29,6 +29,9 @@
 		666732C82179553700C68C0E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666732C72179553700C68C0E /* LoginView.swift */; };
 		66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */; };
 		66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */; };
+		66CE92B921A63F09001CEBB3 /* SurveyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B821A63F09001CEBB3 /* SurveyController.swift */; };
+		66CE92BB21A641F8001CEBB3 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92BA21A641F8001CEBB3 /* SurveyView.swift */; };
+		66CE92BD21A8FF5B001CEBB3 /* CellArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92BC21A8FF5B001CEBB3 /* CellArrowView.swift */; };
 		774F8425C57F2B61F86A6EF4 /* Pods_BoundlessBrillianceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC66C2D5144407351D51D0AD /* Pods_BoundlessBrillianceUITests.framework */; };
 		FAA19891C822ECFFA168EA4A /* Pods_BoundlessBrillianceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */; };
 /* End PBXBuildFile section */
@@ -81,6 +84,9 @@
 		666732C72179553700C68C0E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDetailView.swift; sourceTree = "<group>"; };
 		66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDetailController.swift; sourceTree = "<group>"; };
+		66CE92B821A63F09001CEBB3 /* SurveyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyController.swift; sourceTree = "<group>"; };
+		66CE92BA21A641F8001CEBB3 /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
+		66CE92BC21A8FF5B001CEBB3 /* CellArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellArrowView.swift; sourceTree = "<group>"; };
 		68DB6213F78EDD6AB776C30F /* Pods-BoundlessBrilliance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.debug.xcconfig"; sourceTree = "<group>"; };
 		696641ACA5567F74133AA0EB /* Pods-BoundlessBrillianceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceTests/Pods-BoundlessBrillianceTests.release.xcconfig"; sourceTree = "<group>"; };
 		970C990868BE78D719294DE5 /* Pods_BoundlessBrilliance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrilliance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +206,7 @@
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 				66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */,
 				52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */,
+				66CE92B821A63F09001CEBB3 /* SurveyController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,6 +219,8 @@
 				666732C72179553700C68C0E /* LoginView.swift */,
 				0FB3B5D3217C3625000540E1 /* SpinnerView.swift */,
 				66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */,
+				66CE92BA21A641F8001CEBB3 /* SurveyView.swift */,
+				66CE92BC21A8FF5B001CEBB3 /* CellArrowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -513,8 +522,11 @@
 				666732C82179553700C68C0E /* LoginView.swift in Sources */,
 				66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */,
 				0F0457E6219C9F1300B365DA /* PresentationListItemModel.swift in Sources */,
+				66CE92B921A63F09001CEBB3 /* SurveyController.swift in Sources */,
+				66CE92BD21A8FF5B001CEBB3 /* CellArrowView.swift in Sources */,
 				1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */,
 				0F05280D218FA5D900635790 /* TabBarViewController.swift in Sources */,
+				66CE92BB21A641F8001CEBB3 /* SurveyView.swift in Sources */,
 				66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */,
 				0F1AD963218AB295008D3FD6 /* PresentationListCollectionViewController.swift in Sources */,
 				0F1AD967218AB4DD008D3FD6 /* PresentationListCollectionViewCell.swift in Sources */,
@@ -700,6 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZV6S4GW68;
 				INFOPLIST_FILE = BoundlessBrilliance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -716,6 +729,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZV6S4GW68;
 				INFOPLIST_FILE = BoundlessBrilliance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
