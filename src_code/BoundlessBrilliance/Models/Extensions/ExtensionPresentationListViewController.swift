@@ -33,30 +33,31 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         
         // Setup Scope Bar
         self.searchController.searchBar.showsScopeBar = true
-        
-        var ref: DatabaseReference!
-        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-        let userID = Auth.auth().currentUser!.uid
-        
-        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user field(s)
-            let value = snapshot.value as? NSDictionary
-            let name = value?["name"] as? String ?? ""
-            let chapter = value?["chapter"] as? String ?? ""
-            let memberType = value?["memberType"] as? String ?? ""
-            
-            presenterName = name
-            presenterChapter = chapter
-            presenterMemberType = memberType
-            // Set Scope Bar Titles
-            if (presenterMemberType == "Presenter") {
-                self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]
-            } else {
-                self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
-            }
-        }) { (error) in
-            print(error.localizedDescription)
+        // Set Scope Bar Titles
+        if (presenterMemberType == "Presenter") {
+            self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]
+        } else {
+            self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
         }
+        
+        
+//        var ref: DatabaseReference!
+//        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
+//        let userID = Auth.auth().currentUser!.uid
+//        
+//        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user field(s)
+//            let value = snapshot.value as? NSDictionary
+//            let name = value?["name"] as? String ?? ""
+//            let chapter = value?["chapter"] as? String ?? ""
+//            let memberType = value?["memberType"] as? String ?? ""
+//            
+//            presenterName = name
+//            presenterChapter = chapter
+//            presenterMemberType = memberType
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
     }
     
     // MARK: Search Bar

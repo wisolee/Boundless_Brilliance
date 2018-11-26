@@ -10,25 +10,13 @@ import UIKit
 import Firebase
 import Alamofire
 
-
 private let cellReuseIdentifier = "Cell"
-
 private let searchBarHeight = 50
 private let cellHeight = 100
-
-var presenterChapter: String!
-var presenterName: String!
-var presenterMemberType: String!
-
-let firebaseGroup = DispatchGroup()
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     // We keep track of the pending work item as a property
     private var pendingRequestWorkItem: DispatchWorkItem?
-
-    var presentationItems: [PresentationListItemModel] = []
-    var filteredPresentationItems = [PresentationListItemModel]()
-    
     var isSearching: Bool = false
     var searchController: UISearchController!
     
@@ -43,36 +31,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         configureNavigationBar()
         configureCollectionView()
         configureSearchController()
-        //doAPIRequest()
-        
-        // Do any additional setup after loading the view.
-        loadData()
-        
-        // Waits for Firebase data to be received
-        firebaseGroup.notify(queue: .main) {
-            self.scrollToToday()
-        }
-    }
-    
-    func loadData(){
-        var ref: DatabaseReference!
-        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-        
-        let presentationRef = ref.child("presentations")
-        var presentationDict: [String : Dictionary<String, Any>]!
-        firebaseGroup.enter()
-        _ = presentationRef
-                //.queryOrdered(byChild: "location")
-                .observe(DataEventType.value, with: { (snapshot) in
-            presentationDict = snapshot.value as? [String : Dictionary] ?? [:]
-            
-            print (presentationDict)
-            
-            if (presentationDict != nil){
-                self.loadDataIntoArray(presentationDict: presentationDict, ref: ref)
-                firebaseGroup.leave()
-            }
-        })
+        scrollToToday()
+        self.collectionView!.reloadData()
     }
     
     func scrollToToday(){
@@ -89,109 +49,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
             }
             index += 1
         }
-    }
-
-    func loadDataIntoArray(presentationDict: [String : Dictionary<String, Any>], ref: DatabaseReference) {
-        var presenterDict: Dictionary<String, String>!
-        for presentation in presentationDict.values {
-            presenterDict = presentation["presenters"] as? Dictionary
-            let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
-            print(parsedPresenterString)
-            
-            let date_string : String = presentation["date"] as! String
-            let formatted_date : String = parseDateTime (datetime : date_string).0
-            let formatted_time: String = parseDateTime(datetime : date_string).1
-            
-            var presentationChapter: String!
-            retrieveChapter(presenterDict: presenterDict, ref: ref, completion: { message in
-                // callback from completion handler
-                presentationChapter = message
-                /* create presentationItem with necessary fields */
-                if (presenterMemberType == "Presenter") {
-                    print(presentationChapter)
-                    // only load presentations from the presenter's chapter
-                    if  presenterChapter == presentationChapter {
-                        self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
-                    }
-                } else {
-                    // load presentations from all chapters
-                    self.presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
-                }
-                self.collectionView!.reloadData()
-            })
-        }
-    }
-    
-    func retrieveChapter(presenterDict: Dictionary<String, String>, ref: DatabaseReference, completion: @escaping (_ message: String) -> Void) {
-        var presentationChapter: String!
-        // Obtain userID from first presenter
-        let firstUserID = Array(presenterDict.keys)[0]
-        ref.child("users").child(firstUserID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user chapter field
-            guard 
-                let value = snapshot.value as? NSDictionary,
-                let chapter = value["chapter"]
-            else {
-                completion("")
-                return
-            }
-            presentationChapter = chapter as? String
-            completion(presentationChapter)
-        }) { (error) in
-            print(error.localizedDescription)
-
-        }
-        presentationItems.sort { $0.date < $1.date }
-        self.collectionView!.reloadData()
-    }
-    
-    func parsePresenterDictionary(presenterNames: Array<String>) -> String {
-        var namesString: String = ""
-        if (presenterNames.count == 1) {
-            return presenterNames[0]
-        } else if (presenterNames.count > 1) {
-            var index = 0
-            for name in presenterNames {
-                namesString.append(contentsOf: name)
-                if (index != presenterNames.count - 1){
-                    namesString.append(contentsOf: ", ")
-                }
-                index += 1
-            }
-        } else {
-            namesString = "No presenters listed."
-        }
-        return namesString
-    }
-    
-    // This currenty cannot be abstracted to work for retrieving date AND time, only date
-    func parseDateTime (datetime : String) -> (String, String) {
-        
-        // Create expected date format from string
-        let date_formatter = DateFormatter()
-        date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
-        
-        // Create ISO Date object from datetime string
-        let iso_datetime : Date = date_formatter.date(from: datetime)!
-        
-        // Call functions to correctly parse date and times for start and end of presentation
-        let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
-        let time_string = parseTime(iso_date: iso_datetime, date_formatter: date_formatter)
-        return (date_string, time_string)
-    }
-    
-    func parseDate (iso_date: Date, date_formatter: DateFormatter) -> String {
-        // Create desired date format
-        date_formatter.dateFormat = "yyyy-MM-dd"
-        let date_string = date_formatter.string(from: iso_date)
-        return date_string
-    }
-    
-    func parseTime (iso_date: Date, date_formatter: DateFormatter) -> String {
-        // Create desired time format
-        date_formatter.dateFormat = "EEE hh:mm a"
-        let time_string = date_formatter.string(from: iso_date)
-        return time_string
     }
 
     /*
