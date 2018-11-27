@@ -11,16 +11,16 @@ import UIKit
 
 class LoginView: UIView{
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    let profile_image_view: UIImageView = {
+        let image_view = UIImageView()
+        image_view.image = UIImage(named: "boundlessbrilliance-vert-logo")
+        image_view.translatesAutoresizingMaskIntoConstraints = false
+        image_view.contentMode = .scaleAspectFill
+        return image_view
     }()
     
     // subview - inputsContainerView
-    let inputsView: UIView = {
+    let inputs_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         // must set up this property otherwise, the specified anchors will not work
@@ -32,7 +32,7 @@ class LoginView: UIView{
     
 
     // subview - nameSeparatorView
-    let emailSeparatorView: UIView = {
+    let email_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class LoginView: UIView{
     
 
     // subview - nameSeparatorView
-    let passwordSeparatorView: UIView = {
+    let password_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,8 +49,8 @@ class LoginView: UIView{
     }()
 
     
-    //     subview - LoginButton
-    let loginButton: UIButton = {
+    //     subview - login_button
+    let login_button: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Login", for: .normal)
@@ -62,8 +62,8 @@ class LoginView: UIView{
         return button
     }()
     
-    // subview - registerButton
-    let registerButton: UIButton = {
+    // subview - register_button
+    let register_button: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("New to the app? Register here", for: .normal)
