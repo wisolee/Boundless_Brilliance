@@ -11,7 +11,7 @@ import Firebase
 
 class RegisterView: UIView {
     
-    let profileImageView: UIImageView = {
+    let profile_image_view: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +20,7 @@ class RegisterView: UIView {
     }()
     
     // subview - inputsContainerView
-    let inputsView: UIView = {
+    let inputs_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         // must set up this property otherwise, the specified anchors will not work
@@ -34,7 +34,7 @@ class RegisterView: UIView {
     
 
     // subview - nameTextField
-    let nameTextField: UITextField = {
+    let name_text_field: UITextField = {
         let name_tf = UITextField()
         name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ class RegisterView: UIView {
     }()
     
     // subview - nameSeparatorView
-    let nameSeparatorView: UIView = {
+    let name_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class RegisterView: UIView {
     }()
     
     // subview - emailSeparatorView
-    let emailSeparatorView: UIView = {
+    let email_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ class RegisterView: UIView {
     }()
 
     // subview - passwordSeparatorView
-    let passwordSeparatorView: UIView = {
+    let password_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ class RegisterView: UIView {
     }()
     
     // subview - passwordSeparatorView
-    let chapterSeparatorView: UIView = {
+    let chapter_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false

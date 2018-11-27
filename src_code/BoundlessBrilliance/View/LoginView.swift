@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class LoginView: UIView{
+class LoginView: UIView {
     
     let profile_image_view: UIImageView = {
         let image_view = UIImageView()
