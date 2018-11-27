@@ -88,8 +88,6 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UITextView())
     
-    
-    
     //teacher email
     let TeacherEmail: UITextView! = {
         $0.textColor = UIColor.black

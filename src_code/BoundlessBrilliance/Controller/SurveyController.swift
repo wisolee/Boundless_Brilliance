@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import GoogleAPIClientForREST
 
 class  SurveyController : UIViewController {
     var presentation:PresentationListItemModel? = nil
@@ -285,9 +286,33 @@ class  SurveyController : UIViewController {
         separator.backgroundColor = UIColor.gray
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
+
     
     @objc func submit(){
+        let file = "file.txt" //this is the file. we will write to and read from it
         
+        //date, location, names, chapter, time, number of students,
+        
+        let text = "\(presentation!.date),\(presentation!.location),\(presentation!.names),\(presentation!.chapter),\(presentation!.time),\(NumStudents.text!),\(Experiment.text!),\(StickerDropdown.text!),\(ShirtDropdown.text!),\(ShirtSizeDropdown.text!),\(transportationDriver.text!),\(mileageOrCost.text!),\(AnecdoteView.text!)" //just a text
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            
+            //writing
+            do {
+                try text.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {/* error handling here */}
+            
+            //reading
+            do {
+                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
+                print("Here are the contents: \(text2)")
+            }
+            catch {/* error handling here */}
+        }
     }
     
+
 }
