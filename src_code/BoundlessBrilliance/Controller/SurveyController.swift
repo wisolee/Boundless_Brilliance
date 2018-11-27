@@ -314,5 +314,27 @@ class  SurveyController : UIViewController {
         }
     }
     
+//    func sendtoGDrive() {
+//        var fileData: Data? = FileManager.default.contents(atPath: "files/photo.jpg")
+//        
+//        var metadata = GTLRDrive_File()
+//        metadata.name = "photo.jpg"
+//        
+//        var uploadParameters = GTLRUploadParameters(data: fileData!, mimeType: "image/jpeg")
+//        uploadParameters.shouldUploadWithSingleRequest = true
+//        var query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
+//        query.fields = "id"
+//        GTLRDriveService.executeQuery(query, completionHandler: { ticket, file, error in
+//            if error == nil {
+//                if let anIdentifier = file?.identifier {
+//                    print("File ID \(anIdentifier)")
+//                }
+//            } else {
+//                if let anError = error {
+//                    print("An error occurred: \(anError)")
+//                }
+//            }
+//        })
+//    }
 
 }
