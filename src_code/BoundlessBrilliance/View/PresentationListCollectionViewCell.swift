@@ -147,31 +147,32 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         location.text = model.location
         presenterNames.text = model.names
         time.text = model.time
-        date.text = model.date
-        checkDateUpdateNotification(notification: notification)
+        let formattedDate = configureDate(date: model.date)
+        date.text = formattedDate
+//        checkDateUpdateNotification(notification: notification)
     }
     
-    func checkDateUpdateNotification(notification: UILabel){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
-        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
-        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
-        print(presentation!.time[timeIndex...timeIndexEnd])
-        let date = Date()
-        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
-        let presentationDate = dateFormatter.date(from: presentation!.date)
-//        print(currentDate)
-        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
-        let presentationTime = timeFormatter.date(from: timeString)
-        if(currentDate! >= presentationDate!){
-            if(currentTime! >= presentationTime!){
-                notification.text = "!: you can submit feedback on this presentation"
-            }
-        }
-    }
+//    func checkDateUpdateNotification(notification: UILabel){
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let timeFormatter = DateFormatter()
+//        timeFormatter.dateFormat = "HH:mm"
+//        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+//        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
+//        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+//        print(presentation!.time[timeIndex...timeIndexEnd])
+//        let date = Date()
+//        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+//        let presentationDate = dateFormatter.date(from: presentation!.date)
+////        print(currentDate)
+////        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+////        let presentationTime = timeFormatter.date(from: timeString)
+//        if(currentDate! >= presentationDate!){
+////            if(currentTime! >= presentationTime!){
+//                notification.text = "!: you can submit feedback on this presentation"
+////            }
+//        }
+//    }
     
     func configureDate(date: String) -> String{
         let placeHolderDate = date
