@@ -44,6 +44,9 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleAPIClientForREST/Core (1.2.1):
     - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Drive (1.2.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Sheets (1.2.1):
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
@@ -106,6 +109,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - GoogleAPIClientForREST/Drive
   - GoogleAPIClientForREST/Sheets (~> 1.2.1)
   - GoogleSignIn (~> 4.1.1)
   - SwiftyJSON (~> 4.0)
@@ -156,6 +160,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
 
-PODFILE CHECKSUM: de1a7dda776cc8ea437dccb9f97b962a0a29b866
+PODFILE CHECKSUM: cbfe02f34408108dada3d889090f2b0dda5fcdfb
 
 COCOAPODS: 1.5.3
