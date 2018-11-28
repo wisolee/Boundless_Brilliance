@@ -499,6 +499,10 @@ class PresentationDetailController : UIViewController{
             button.isEnabled = false
         }
     }
+    
+    func detailToast() {
+        self.view.makeToast("Form Submission Complete")
+    }
 
 }
 

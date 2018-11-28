@@ -121,6 +121,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     @objc func logOut(){
         //go back to login
+        presentationItems.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
     
