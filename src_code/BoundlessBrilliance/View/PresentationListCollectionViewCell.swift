@@ -9,6 +9,7 @@
 import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
+    
     var presentation:PresentationListItemModel? = nil
     let arrow = CellArrow()
     //examples from the alerts and pickers app cell file-----------------------------

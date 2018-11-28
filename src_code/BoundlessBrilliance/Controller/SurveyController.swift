@@ -121,17 +121,6 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-//    let AnecdoteTitle: UILabel! = {
-////        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-//        $0.textColor = .black
-//        $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
-//        $0.adjustsFontSizeToFitWidth = true
-//        $0.text = "Please leave any comments on the presentation below"
-//        $0.textAlignment = NSTextAlignment.left
-//        $0.numberOfLines = 1
-//        return $0
-//    }(UILabel())
-    
     let AnecdoteTitle: UILabel! = {
         $0.text = "Please leave any comments below"
         $0.adjustsFontSizeToFitWidth = true
