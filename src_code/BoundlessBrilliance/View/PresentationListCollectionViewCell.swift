@@ -9,7 +9,7 @@
 import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
-    
+    let monthArray: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var presentation:PresentationListItemModel? = nil
     let arrow = CellArrow()
     //examples from the alerts and pickers app cell file-----------------------------
@@ -182,6 +182,13 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         let indexOfSubstring = placeHolderDate.index(placeHolderDate.startIndex, offsetBy: 5)
         var dateWOYear = String(placeHolderDate[indexOfSubstring...])
         dateWOYear = dateWOYear.replacingOccurrences(of: "-", with: "\n")
-        return dateWOYear
+        let monthIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 1)
+        let dayIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 2)
+        let monthIntString = String(dateWOYear[...monthIndex])
+        print("month only: " + String(dateWOYear[...monthIndex]) + "|")
+        let month = Int(monthIntString)
+        print("month int: " + String(month!))
+        let monthString = monthArray[month! - 1]
+        return monthString + String(dateWOYear[dayIndex...])
     }
 }
