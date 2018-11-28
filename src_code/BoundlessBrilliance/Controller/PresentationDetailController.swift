@@ -295,11 +295,11 @@ class PresentationDetailController : UIViewController{
     
 //    end examples from the alerts and pickers app cell file-----------------------------
     
-        @objc func enterSurvey() {
-            let surveyController = SurveyController()
-            surveyController.presentation = presentation
-            super.navigationController?.pushViewController(surveyController, animated: true)
-        }
+    @objc func enterSurvey() {
+        let surveyController = SurveyController()
+        surveyController.presentation = presentation
+        super.navigationController?.pushViewController(surveyController, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

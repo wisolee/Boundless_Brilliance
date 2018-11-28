@@ -55,6 +55,8 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         $0.text = ""
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 1
+        $0.adjustsFontSizeToFitWidth = true
+        $0.font = .systemFont(ofSize: 8)
         return $0
     }(UILabel())
     
@@ -97,15 +99,26 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         let textViewWidth: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * hTextInset
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
-        //create frames for objects
-        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5)), size: CGSize(width: textViewWidth, height: locationSize.height))
-        presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
-        time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
-        arrow.frame = CGRect(origin: CGPoint(x: time.frame.maxX, y: layoutMargins.top), size: CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight))
-//         let notificationY = CGFloat(presenterNames.frame.maxY + (self.bounds.size.height - presenterNames.frame.maxY / 2))
-        notification.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: presenterNames.frame.maxY + vTextInset + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
-//            CGRect(origin: CGPoint(x: presenterNames.center.x, y: notificationY), size: CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight))
-        //not sure what this stuff is for
+        //create frames for inner objects
+        let locationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5))
+        let locationFrameSize = CGSize(width: textViewWidth, height: locationSize.height)
+        location.frame = CGRect(origin: locationFrameOrigin, size: locationFrameSize)
+        
+        let presenterFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset)
+        let presenterFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
+        presenterNames.frame = CGRect(origin: presenterFrameOrigin, size: presenterFrameSize)
+        
+        let timeFrameOrigin = CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top)
+        let timeFrameSize = CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight)
+        time.frame = CGRect(origin: timeFrameOrigin, size: timeFrameSize)
+        
+        let arrowFrameOrigin = CGPoint(x: time.frame.maxX, y: layoutMargins.top)
+        let arrowFrameSize = CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight)
+        arrow.frame = CGRect(origin: arrowFrameOrigin, size: arrowFrameSize)
+        
+        let notificationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: presenterNames.frame.maxY + vTextInset + vTextInset)
+        let notificationFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
+        notification.frame = CGRect(origin: notificationFrameOrigin, size: notificationFrameSize)
         
         style(view: contentView)
     }
@@ -134,7 +147,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         location.text = model.location
         presenterNames.text = model.names
         time.text = model.time
-//        let formattedDate = configureDate(date: model.date)
         date.text = model.date
         checkDateUpdateNotification(notification: notification)
     }
@@ -142,12 +154,22 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     func checkDateUpdateNotification(notification: UILabel){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
+        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+        print(presentation!.time[timeIndex...timeIndexEnd])
         let date = Date()
         let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
         let presentationDate = dateFormatter.date(from: presentation!.date)
-        print(currentDate)
+//        print(currentDate)
+        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentationTime = timeFormatter.date(from: timeString)
         if(currentDate! >= presentationDate!){
-            notification.text = "!"
+            if(currentTime! >= presentationTime!){
+                notification.text = "!: you can submit feedback on this presentation"
+            }
         }
     }
     
