@@ -347,10 +347,15 @@ class  SurveyController : UIViewController {
                     
                     // Upload the file to the path "images/rivers.jpg"
                     let uploadTask = surveyRef.putFile(from: localURL, metadata: nil) { metadata, error in
-                        guard let metadata = metadata else {
+                        guard let metadata = metadata
+                            else {
                             // Uh-oh, an error occurred!
                             return
                         }
+//                        let detail = PresentationDetailController()
+//                        detail.presentation = self.presentation
+//                        detail.detailToast()
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             }
