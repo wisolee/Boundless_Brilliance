@@ -115,15 +115,14 @@ class RegisterController: UIViewController {
     
     @objc func goBack(){
         //go back to login
-        let returnToLoginController = LoginScreenController()
-        self.present(returnToLoginController, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
 // MAIN DISPLAY -------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.hidesBackButton = true
     //NAMING VARIABLES ----------
         
 
@@ -284,7 +283,7 @@ class RegisterController: UIViewController {
                 
                 // After saving all the data successfully, navigate back to login screen
                 let newViewController = LoginScreenController()
-                self.present(newViewController, animated: true)
+                self.navigationController?.pushViewController(newViewController, animated: true)
             }
             
         })
