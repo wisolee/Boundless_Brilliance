@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import GoogleAPIClientForREST
+import Firebase
 
 class  SurveyController : UIViewController {
     var presentation:PresentationListItemModel? = nil
@@ -289,52 +290,57 @@ class  SurveyController : UIViewController {
 
     
     @objc func submit(){
-        let file = "file.txt" //this is the file. we will write to and read from it
+        // Get a reference to the storage service using the default Firebase App
+        let storage = Storage.storage()
+        
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        
+        let download = "download.text"
+
+        // Create a child reference
+        // imagesRef now points to "images"
+        let surveyRef = storageRef.child("surveys/file.txt")
         
         //date, location, names, chapter, time, number of students,
         
-        let text = "\(presentation!.date),\(presentation!.location),\(presentation!.names),\(presentation!.chapter),\(presentation!.time),\(NumStudents.text!),\(Experiment.text!),\(StickerDropdown.text!),\(ShirtDropdown.text!),\(ShirtSizeDropdown.text!),\(transportationDriver.text!),\(mileageOrCost.text!),\(AnecdoteView.text!)" //just a text
+        let text = "\(presentation!.date),\(presentation!.location),\(presentation!.names),\(presentation!.chapter),\(presentation!.time),\(NumStudents.text!),\(Experiment.text!),\(StickerDropdown.text!),\(ShirtDropdown.text!),\(ShirtSizeDropdown.text!),\(transportationDriver.text!),\(mileageOrCost.text!),\(AnecdoteView.text!)\n" //just a text
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            let fileURL = dir.appendingPathComponent(file)
+            // Create local filesystem URL
+            let localURL = dir.appendingPathComponent(download)
             
-            //writing
-            do {
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
+            // Download to the local filesystem
+            let downloadTask = surveyRef.write(toFile: localURL) { url, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                } else {
+                    //writing
+                    do {
+                        let fileHandle = try FileHandle(forWritingTo: localURL)
+                        fileHandle.seekToEndOfFile()
+                        fileHandle.write(text.data(using: .utf8)!)
+                        fileHandle.closeFile()
+                    }
+                    catch {/* error handling here */}
+                    
+                    //reading
+                    do {
+                        let text2 = try String(contentsOf: localURL, encoding: .utf8)
+                        print("Here are the contents: \(text2)")
+                    }
+                    catch {/* error handling here */}
+                    
+                    // Upload the file to the path "images/rivers.jpg"
+                    let uploadTask = surveyRef.putFile(from: localURL, metadata: nil) { metadata, error in
+                        guard let metadata = metadata else {
+                            // Uh-oh, an error occurred!
+                            return
+                        }
+                    }
+                }
             }
-            catch {/* error handling here */}
-            
-            //reading
-            do {
-                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
-                print("Here are the contents: \(text2)")
-            }
-            catch {/* error handling here */}
         }
     }
-    
-//    func sendtoGDrive() {
-//        var fileData: Data? = FileManager.default.contents(atPath: "files/photo.jpg")
-//        
-//        var metadata = GTLRDrive_File()
-//        metadata.name = "photo.jpg"
-//        
-//        var uploadParameters = GTLRUploadParameters(data: fileData!, mimeType: "image/jpeg")
-//        uploadParameters.shouldUploadWithSingleRequest = true
-//        var query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
-//        query.fields = "id"
-//        GTLRDriveService.executeQuery(query, completionHandler: { ticket, file, error in
-//            if error == nil {
-//                if let anIdentifier = file?.identifier {
-//                    print("File ID \(anIdentifier)")
-//                }
-//            } else {
-//                if let anError = error {
-//                    print("An error occurred: \(anError)")
-//                }
-//            }
-//        })
-//    }
-
 }
