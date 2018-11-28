@@ -121,8 +121,30 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
+//    let AnecdoteTitle: UILabel! = {
+////        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+//        $0.textColor = .black
+//        $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
+//        $0.adjustsFontSizeToFitWidth = true
+//        $0.text = "Please leave any comments on the presentation below"
+//        $0.textAlignment = NSTextAlignment.left
+//        $0.numberOfLines = 1
+//        return $0
+//    }(UILabel())
+    
+    let AnecdoteTitle: UILabel! = {
+        $0.text = "Please leave any comments below"
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.textAlignment = NSTextAlignment.left
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UILabel())
+    
     let AnecdoteView: UITextView = {
-        $0.text = "Please add anything about the presentation you'd like to share"
+        $0.text = ""
         $0.textColor = UIColor.black
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor.white
@@ -190,11 +212,14 @@ class  SurveyController : UIViewController {
         inputsView.addSubview(ShirtDropdown)
         inputsView.addSubview(ShirtSizeDropdown)
 
+        inputsView.addSubview(AnecdoteTitle)
+        
         let separator4 = UIView()
         initSeparator(separator: separator4)
         inputsView.addSubview(separator4)
-        setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: ShirtDropdown)
+        setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: AnecdoteTitle)
 
+        
         inputsView.addSubview(AnecdoteView)
 
         let separator5 = UIView()
@@ -236,8 +261,8 @@ class  SurveyController : UIViewController {
         initWideView(target: StickerDropdown, topView: Experiment, container: inputsView)
         initSplitLeftView(target: ShirtDropdown, topView: StickerDropdown, container: inputsView)
         initSplitRightView(target: ShirtSizeDropdown, topView: StickerDropdown, container: inputsView, leftView: ShirtDropdown)
-        
-        AnecdoteView.topAnchor.constraint(equalTo: ShirtSizeDropdown.bottomAnchor, constant: 6).isActive = true
+        initWideView(target: AnecdoteTitle, topView: ShirtDropdown, container: inputsView)
+        AnecdoteView.topAnchor.constraint(equalTo: AnecdoteTitle.bottomAnchor, constant: 6).isActive = true
         AnecdoteView.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 2).isActive = true
         AnecdoteView.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -10).isActive = true
         AnecdoteView.heightAnchor.constraint(equalToConstant: 200).isActive = true
