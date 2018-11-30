@@ -14,7 +14,7 @@ import Firebase
 class  SurveyController : UIViewController {
     
     var presentation:PresentationListItemModel? = nil
-    let ScrollViewHeight = 1500
+    let ScrollViewHeight = 1410
     let INPUT_TOP_PADDING = 4
     let stickerOptions = ["", "yes", "no"]
     let shirtOptions = ["", "yes", "no"]
@@ -169,13 +169,16 @@ class  SurveyController : UIViewController {
         let scrollContainer = surveyView.scrollContainer
         /* Add subviews */
         
-        view.addSubview(surveyPageTitle)
+        let navBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        print("navBarHeight = \(navBarHeight)")
+        
+        //view.addSubview(surveyPageTitle)
         view.addSubview(scrollContainer)
         //scrollContainer.addSubview(surveyPageTitle)
         scrollContainer.addSubview(inputsView)
 
-        initPageHeader(target: surveyPageTitle, topView: view, container: view)
-        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
+        //initPageHeader(target: surveyPageTitle, topView: view, container: view, navBarHeight: navBarHeight)
+        setupInputsView(inputsView: inputsView, scrollView: scrollContainer, navBarHeight: navBarHeight)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
@@ -183,13 +186,13 @@ class  SurveyController : UIViewController {
     }
     
 
-    func setupInputsView(inputsView: UIView,  scrollView: UIScrollView){
+    func setupInputsView(inputsView: UIView, scrollView: UIScrollView, navBarHeight: CGFloat){
         
         
         /* inputsView: need x, y, width, height contraints */
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: surveyPageTitle.bottomAnchor).isActive = true
-        //scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        //scrollView.topAnchor.constraint(equalTo: surveyPageTitle.bottomAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
         scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
@@ -331,9 +334,10 @@ class  SurveyController : UIViewController {
         }
     }
     
-    func initPageHeader(target: UIView, topView: UIView, container: UIView){
-        //target.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
-        target.topAnchor.constraint(equalTo: topView.topAnchor, constant: 90).isActive = true
+    func initPageHeader(target: UIView, topView: UIView, container: UIView, navBarHeight: CGFloat){
+        target.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
+        target.topAnchor.constraint(equalTo: topView.topAnchor, constant: navBarHeight).isActive = true
+        //target.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         target.widthAnchor.constraint(equalTo: container.widthAnchor).isActive = true
         target.heightAnchor.constraint(equalToConstant: 60).isActive = true
         //target.leftAnchor.constraint(equalTo: container.leftAnchor).isActive = true
