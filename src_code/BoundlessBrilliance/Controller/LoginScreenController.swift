@@ -250,6 +250,8 @@ class LoginScreenController: UIViewController {
         let email_tf = UITextField()
         email_tf.placeholder = "Email"
         email_tf.translatesAutoresizingMaskIntoConstraints = false
+        email_tf.autocapitalizationType = .none
+        email_tf.autocorrectionType = .no
         return email_tf
     }()
 
