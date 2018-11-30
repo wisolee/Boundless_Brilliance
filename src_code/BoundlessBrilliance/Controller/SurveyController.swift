@@ -20,17 +20,6 @@ class  SurveyController : UIViewController {
     let shirtOptions = ["", "yes", "no"]
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
-    let surveyPageTitle: UILabel! = {
-        $0.adjustsFontSizeToFitWidth = true
-        $0.textColor = UIColor.white
-        $0.text = "Post-Presentation Survey"
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textAlignment = NSTextAlignment.left
-        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20)
-        return $0
-    }(UILabel())
-    
     let presSection: UILabel! = {
         $0.adjustsFontSizeToFitWidth = true
         $0.textColor = UIColor(r: 0, g: 128, b: 128)
@@ -162,23 +151,17 @@ class  SurveyController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //create variables
+        
+        // Create variables
         let surveyView  = SurveyView()
-        //let pageHeaderView = surveyView.pageHeaderContainer
         let inputsView = surveyView.inputsView
         let scrollContainer = surveyView.scrollContainer
-        /* Add subviews */
         
-        let navBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
-        print("navBarHeight = \(navBarHeight)")
-        
-        //view.addSubview(surveyPageTitle)
+        // Add the scrollContainer to the view and add the inputsview to the scrollContainer
         view.addSubview(scrollContainer)
-        //scrollContainer.addSubview(surveyPageTitle)
         scrollContainer.addSubview(inputsView)
 
-        //initPageHeader(target: surveyPageTitle, topView: view, container: view, navBarHeight: navBarHeight)
-        setupInputsView(inputsView: inputsView, scrollView: scrollContainer, navBarHeight: navBarHeight)
+        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
@@ -186,37 +169,19 @@ class  SurveyController : UIViewController {
     }
     
 
-    func setupInputsView(inputsView: UIView, scrollView: UIScrollView, navBarHeight: CGFloat){
+    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
         
-        
-        /* inputsView: need x, y, width, height contraints */
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //scrollView.topAnchor.constraint(equalTo: surveyPageTitle.bottomAnchor).isActive = true
         scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
         scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        
-        
-        //surveyPageTitle.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        //initPageHeader(target: surveyPageTitle, topView: scrollView, container: scrollView)
-        
-//        /* inputsView: need x, y, width, height contraints */
-//        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-//        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-//        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-//        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-//        inputsView.topAnchor.constraint(equalTo: surveyPageTitle.bottomAnchor, constant: 10).isActive = true
-//        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
+      
         inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
         inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-        // Page Header
-        //inputsView.addSubview(surveyPageTitle)
         
         // Presentation Inputs
         inputsView.addSubview(presSection)
@@ -251,7 +216,6 @@ class  SurveyController : UIViewController {
         inputsView.addSubview(separator4)
         setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: ShirtDropdown)
 
-        
         // Transportation Input Views
         inputsView.addSubview(transportationSection)
         
@@ -283,7 +247,7 @@ class  SurveyController : UIViewController {
         initSeparator(separator: separatorT)
         inputsView.addSubview(separatorT)
         setupSeparator(emailSeparatorView: separatorT, inputsView: inputsView, aboveView: AnecdoteTitle)
-        
+        separatorT.topAnchor.constraint(equalTo: AnecdoteTitle.bottomAnchor, constant: 12).isActive = true
         inputsView.addSubview(AnecdoteView)
 
         let separatorB = UIView()
@@ -306,8 +270,6 @@ class  SurveyController : UIViewController {
         inputsView.addSubview(SubmitButton)
         
         // Format All Input Views
-        //initPageHeader(target: surveyPageTitle, topView: inputsView, container: inputsView)
-        //surveyPageTitle.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
         initWideView(target: presSection, topView: inputsView, container: inputsView)
         presSection.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
         initWideView(target: NumStudents, topView: presSection, container: inputsView)
@@ -332,15 +294,6 @@ class  SurveyController : UIViewController {
         for view in inputsView.subviews {
             contentRect = contentRect.union(view.frame)
         }
-    }
-    
-    func initPageHeader(target: UIView, topView: UIView, container: UIView, navBarHeight: CGFloat){
-        target.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
-        target.topAnchor.constraint(equalTo: topView.topAnchor, constant: navBarHeight).isActive = true
-        //target.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        target.widthAnchor.constraint(equalTo: container.widthAnchor).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        //target.leftAnchor.constraint(equalTo: container.leftAnchor).isActive = true
     }
     
 
@@ -409,7 +362,6 @@ class  SurveyController : UIViewController {
         let download = "download.text"
 
         // Create a child reference
-        // imagesRef now points to "images"
         let surveyRef = storageRef.child("surveys/file.txt")
         
         //date, location, names, chapter, time, number of students,
@@ -424,7 +376,6 @@ class  SurveyController : UIViewController {
             // Download to the local filesystem
             let downloadTask = surveyRef.write(toFile: localURL) { url, error in
                 if let error = error {
-                    // Uh-oh, an error occurred!
                 } else {
                     //writing
                     do {
@@ -446,7 +397,6 @@ class  SurveyController : UIViewController {
                     let uploadTask = surveyRef.putFile(from: localURL, metadata: nil) { metadata, error in
                         guard let metadata = metadata
                             else {
-                            // Uh-oh, an error occurred!
                             return
                         }
 //                        let detail = PresentationDetailController()
