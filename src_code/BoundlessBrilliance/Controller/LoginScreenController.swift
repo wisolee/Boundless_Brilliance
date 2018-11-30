@@ -131,11 +131,11 @@ class LoginScreenController: UIViewController {
                     // only load presentations from the presenter's chapter
                     if  presenterChapter == presentationChapter {
                         print(presentationChapter)
-                        presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                        presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, roomNumber: presentation["RoomNumber"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date, teacherName: presentation["TeacherName"] as! String, teacherEmail: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! String))
                     }
                 } else {
                     // load presentations from all chapters
-                    presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, roomNumber: presentation["RoomNumber"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date, teacherName: presentation["TeacherName"] as! String, teacherEmail: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! String))
                 }
                 presentationNum -= 1
                 print("done retrieving chapter")
