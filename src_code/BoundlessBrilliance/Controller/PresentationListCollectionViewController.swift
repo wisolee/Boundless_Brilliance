@@ -115,8 +115,37 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     func configureNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
     }
+    
+    func configureCollectionView() {
+        self.collectionView?.backgroundColor = UIColor.white
+        view.addSubview(logOutButton)
+        setupLogOutButton()
+    }
+    
+    // subview - returnButton
+    let logOutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.setTitle("Logout", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        // Additional styling
+        button.layer.cornerRadius = 14
+        button.layer.shadowColor = UIColor(r: 0, g: 0, b: 0).cgColor
+        button.layer.shadowOffset = CGSize(width: 1, height: 5)
+        button.layer.shadowRadius = 8
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowPath = UIBezierPath(roundedRect: button.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 14, height: 14)).cgPath
+        
+        // Add action to registerButton
+        button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+        
+        return button
+    }()
     
     @objc func logOut(){
         //go back to login
@@ -124,9 +153,11 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    func configureCollectionView() {
-        self.collectionView?.backgroundColor = UIColor.white
+    func setupLogOutButton(){
+        logOutButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        logOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 12).isActive = true
+        logOutButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        logOutButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     // MARK: - Private methods for presentationData
