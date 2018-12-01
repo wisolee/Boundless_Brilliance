@@ -117,14 +117,9 @@ class LoginScreenController: UIViewController {
             presenterDict = presentation["Presenters"] as? Dictionary
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
             
-            print(parsedPresenterString)
-            
             let date_string : String = presentation["Date"] as! String
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
-            
-            print(formatted_date)
-            print(formatted_time)
             
             var presentationChapter: String!
             retrieveChapter(presenterDict: presenterDict, ref: ref, completion: { message in
@@ -134,12 +129,11 @@ class LoginScreenController: UIViewController {
                 if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
                     // only load presentations from the presenter's chapter
                     if  presenterChapter == presentationChapter {
-                        print(presentationChapter)
-                        presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                        presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                     }
                 } else {
                     // load presentations from all chapters
-                    presentationItems.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
                 }
                 presentationNum -= 1
                 print("done retrieving chapter")
