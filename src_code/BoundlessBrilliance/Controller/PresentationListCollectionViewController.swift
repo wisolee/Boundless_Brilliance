@@ -113,10 +113,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
-        navigationItem.title = "Presentations"
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
     }
     
     @objc func logOut(){
@@ -128,15 +127,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     func configureCollectionView() {
         self.collectionView?.backgroundColor = UIColor.white
-    }
-    
-    func setupPresentationSearchBar() {
-        /* need x, y, width, height contraints */
-        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchController.searchBar.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
-        searchController.searchBar.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
-        searchController.searchBar.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
-        searchController.searchBar.heightAnchor.constraint(equalToConstant: CGFloat(searchBarHeight)).isActive = true
     }
     
     // MARK: - Private methods for presentationData

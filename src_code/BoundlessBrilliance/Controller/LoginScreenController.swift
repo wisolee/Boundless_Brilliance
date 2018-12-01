@@ -114,13 +114,17 @@ class LoginScreenController: UIViewController {
         var presenterDict: Dictionary<String, String>!
         var presentationNum = presentationDict.count
         for presentation in presentationDict.values {
-            presenterDict = presentation["presenters"] as? Dictionary
+            presenterDict = presentation["Presenters"] as? Dictionary
             let parsedPresenterString = parsePresenterDictionary(presenterNames: Array(presenterDict.values))
+            
             print(parsedPresenterString)
             
-            let date_string : String = presentation["date"] as! String
+            let date_string : String = presentation["Date"] as! String
             let formatted_date : String = parseDateTime (datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
+            
+            print(formatted_date)
+            print(formatted_time)
             
             var presentationChapter: String!
             retrieveChapter(presenterDict: presenterDict, ref: ref, completion: { message in
@@ -194,8 +198,7 @@ class LoginScreenController: UIViewController {
         date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
         
         // Create ISO Date object from datetime string
-        let iso_datetime : Date = date_formatter.date(from: datetime)!
-        
+        let iso_datetime : Date! = date_formatter.date(from: datetime)
         // Call functions to correctly parse date and times for start and end of presentation
         let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
         let time_string = parseTime(iso_date: iso_datetime, date_formatter: date_formatter)

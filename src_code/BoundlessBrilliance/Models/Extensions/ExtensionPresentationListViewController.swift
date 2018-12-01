@@ -23,7 +23,7 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.obscuresBackgroundDuringPresentation = false
         
-        searchController.searchBar.placeholder = "Search presentations"
+        searchController.searchBar.placeholder = "Search Presentations"
         definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         
