@@ -94,8 +94,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Customizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //        let padding: CGFloat = 15
-        //        let collectionViewSize = collectionView.frame.size.width - padding
         return CGSize(width: view.frame.width, height: CGFloat(cellHeight))
     }
 
@@ -140,7 +138,6 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         button.layer.shadowRadius = 8
         button.layer.shadowOpacity = 0.5
         button.layer.shadowPath = UIBezierPath(roundedRect: button.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 14, height: 14)).cgPath
-        
         // Add action to registerButton
         button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         
@@ -157,13 +154,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         logOutButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         logOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 12).isActive = true
         logOutButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        logOutButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-    // MARK: - Private methods for presentationData
-    func loadListOfPresentations() {
-//        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
-//        presentationItems.sort { $0.location < $1.location }
+        logOutButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
 }

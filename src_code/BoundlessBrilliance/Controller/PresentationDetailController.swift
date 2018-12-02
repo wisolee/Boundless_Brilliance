@@ -41,8 +41,6 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UITextView())
     
-    //presenter 2
-    
     //grade
     let Grade: UITextView! = {
         $0.textColor = UIColor.black
@@ -96,30 +94,6 @@ class PresentationDetailController : UIViewController{
         $0.isEditable = false
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = NSTextAlignment.right
-        $0.backgroundColor = UIColor.white
-        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return $0
-    }(UITextView())
-    
-    //presenter 1 email
-    let Pres1Email: UITextView! = {
-        $0.textColor = UIColor.black
-        $0.text = "pres1@gmail.com"
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.isEditable = false
-        $0.textAlignment = NSTextAlignment.right
-        $0.backgroundColor = UIColor.white
-        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return $0
-    }(UITextView())
-    
-    //presenter 2 email
-    let Pres2Email: UITextView! = {
-        $0.textColor = UIColor.black
-        $0.text = "pres2@gmail.com"
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.isEditable = false
-        $0.textAlignment = NSTextAlignment.left
         $0.backgroundColor = UIColor.white
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return $0
@@ -323,7 +297,6 @@ class PresentationDetailController : UIViewController{
     let inputInfo: UILabel = {
         $0.text = ""
         $0.textAlignment = NSTextAlignment.center
-//        $0.isEditable = false
         $0.numberOfLines = 3
         $0.textColor = UIColor.gray
         $0.resignFirstResponder()
@@ -332,7 +305,6 @@ class PresentationDetailController : UIViewController{
         $0.font = .systemFont(ofSize: 13)
         return $0
     }(UILabel())
-    
     
 //    end examples from the alerts and pickers app cell file-----------------------------
     
@@ -355,10 +327,10 @@ class PresentationDetailController : UIViewController{
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         Time.text = presentation?.time
-//        Teacher.text = presentation?.teacherName
-//        TeacherEmail.text = presentation?.teacherEmail
-//        Grade.text = presentation?.grade
-//        RoomNum.text = presentation?.roomNumber
+        Teacher.text = presentation?.teacher_name
+        TeacherEmail.text = presentation?.teacher_email
+        Grade.text = presentation?.grade.stringValue
+        RoomNum.text = presentation?.room_number.stringValue
         parseNames(names: (presentation?.names)!)
         checkDateUpdateButton(button: leaveInputButton)
         setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
@@ -369,8 +341,6 @@ class PresentationDetailController : UIViewController{
     }
     
 
-    
-    
     func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
         
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -429,7 +399,6 @@ class PresentationDetailController : UIViewController{
         
         inputsView.addSubview(NamesFieldTitle)
         inputsView.addSubview(NamesField)
-//        inputsView.addSubview(Pres1Email)
         inputsView.addSubview(NamesField1)
         inputsView.addSubview(NamesField2)
         
@@ -458,10 +427,8 @@ class PresentationDetailController : UIViewController{
         TestTextField.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
 
         initSmallLeftView(target: LocFieldTitle, topView: TestTextField, container: inputsView)
-//        LocFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/3).isActive = true
         
         initLargeRightView(target: LocField, topView: TestTextField, container: inputsView, leftView: LocFieldTitle)
-//        LocField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 2/3).isActive = true
         
         initSplitLeftView(target: TimeTitle, topView: LocFieldTitle, container: inputsView)
         initSplitRightView(target: Time, topView: LocFieldTitle, container: inputsView, leftView: TimeTitle)
@@ -489,13 +456,7 @@ class PresentationDetailController : UIViewController{
         
         initWideView(target: leaveInputButton, topView: OutreachCoordinatorEmail, container: inputsView)
         
-        
-        inputInfo.topAnchor.constraint(equalTo: leaveInputButton.bottomAnchor, constant: 6).isActive = true
-        inputInfo.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -5).isActive = true
-        inputInfo.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        inputInfo.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
-
-
+        initTallLabel(target: inputInfo, topView: leaveInputButton, container: inputsView)
     }
     
     func setScrollViewSize(inputsView: UIScrollView){
@@ -504,6 +465,13 @@ class PresentationDetailController : UIViewController{
     
     // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
+    
+    func initTallLabel(target: UIView, topView: UIView, container: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    }
     
     func initWideView(target: UIView, topView: UIView, container: UIView){
         target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true

@@ -167,7 +167,6 @@ class  SurveyController : UIViewController {
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }
-    
 
     func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
         

@@ -29,11 +29,7 @@ class LoginScreenController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
-        
-        // Add action to LoginButton
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-
-        
         return button
     }()
     
@@ -128,12 +124,15 @@ class LoginScreenController: UIViewController {
                 /* create presentationItem with necessary fields */
                 if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
                     // only load presentations from the presenter's chapter
+                    //print(presentation["Location"] as! String)
+                    print(presentation)
                     if  presenterChapter == presentationChapter {
-                        presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                        presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, room_number: presentation["RoomNumber"] as! NSNumber, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date, teacher_name: presentation["TeacherName"] as! String, teacher_email: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! NSNumber))
                     }
                 } else {
                     // load presentations from all chapters
-                    presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date))
+                    print(presentation)
+                    presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, room_number: presentation["RoomNumber"] as! NSNumber, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date, teacher_name: presentation["TeacherName"] as! String, teacher_email: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! NSNumber))
                 }
                 presentationNum -= 1
                 print("done retrieving chapter")
@@ -275,15 +274,12 @@ class LoginScreenController: UIViewController {
         view.addSubview(inputsView)
         view.addSubview(loginButton)
         view.addSubview(registerButton)
-//        view.addSubview(profileImageView)
         
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         setUpProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
         setUpInputsView(inputsView: inputsView, emailTextField: emailTextField, emailSeparatorView: emailSeparatorView, passwordTextField: passwordTextField, passwordSeparatorView: passwordSeparatorView)
         setUpLoginButton(loginButton: loginButton, inputsView: inputsView)
         setUpRegisterButton(registerButton: registerButton, inputsView: inputsView, loginButton: loginButton)
-        
-        
     }
     
     func setUpProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
