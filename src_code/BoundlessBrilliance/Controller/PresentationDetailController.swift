@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
@@ -271,7 +272,20 @@ class PresentationDetailController : UIViewController{
     let NamesField: UITextView = {
         $0.isEditable = false
         $0.textAlignment = NSTextAlignment.right
-        $0.text = "Presenters: "
+        $0.text = ""
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // subview - nameTextField
+    let NamesField2: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.text = ""
         $0.resignFirstResponder()
         $0.textColor = UIColor.black
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -293,6 +307,19 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UIButton())
     
+    let inputInfo: UITextView = {
+        $0.text = ""
+        $0.textAlignment = NSTextAlignment.center
+        $0.isEditable = false
+        $0.textColor = UIColor.gray
+        $0.resignFirstResponder()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    
 //    end examples from the alerts and pickers app cell file-----------------------------
     
     @objc func enterSurvey() {
@@ -305,26 +332,51 @@ class PresentationDetailController : UIViewController{
         super.viewDidLoad()
         //create variables
         let presDetailView  = PresentationDetailView()
+        let scrollContainer = presDetailView.scrollContainer
         let inputsView = presDetailView.inputsView
         /* Add subviews */
-        view.addSubview(inputsView)
+        view.addSubview(scrollContainer)
+        scrollContainer.addSubview(inputsView)
+        
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         Time.text = presentation?.time
+        Teacher.text = presentation?.teacherName
+        TeacherEmail.text = presentation?.teacherEmail
+        Grade.text = presentation?.grade
+        RoomNum.text = presentation?.roomNumber
+        parseNames(names: (presentation?.names)!)
         checkDateUpdateButton(button: leaveInputButton)
-        setupInputsView(inputsView: inputsView)
+        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }
     
-    func setupInputsView(inputsView: UIScrollView){
+
+    
+    
+    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+        
         /* inputsView: need x, y, width, height contraints */
-        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
+//        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+//        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
         
         inputsView.addSubview(TestTextField)
         inputsView.addSubview(LocFieldTitle)
@@ -370,7 +422,8 @@ class PresentationDetailController : UIViewController{
         
         inputsView.addSubview(NamesFieldTitle)
         inputsView.addSubview(NamesField)
-        inputsView.addSubview(Pres1Email)
+//        inputsView.addSubview(Pres1Email)
+        inputsView.addSubview(NamesField2)
         
         let separator7 = UIView()
         initSeparator(separator: separator7)
@@ -387,6 +440,7 @@ class PresentationDetailController : UIViewController{
         setupSeparator(emailSeparatorView: separator8, inputsView: inputsView, aboveView: OutreachCoordinatorEmail)
        
         inputsView.addSubview(leaveInputButton)
+        inputsView.addSubview(inputInfo)
         
         let bottomBorder = CALayer ()
         bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
@@ -417,15 +471,18 @@ class PresentationDetailController : UIViewController{
         
         initSplitLeftView(target: NamesFieldTitle, topView: GradeLabel, container: inputsView)
         initSplitRightView(target: NamesField, topView: GradeLabel, container: inputsView, leftView: NamesFieldTitle)
+        initSplitRightView(target: NamesField2, topView: GradeLabel, container: inputsView, leftView: NamesFieldTitle)
         
-        initSplitLeftView(target: OCTitle, topView: NamesFieldTitle, container: inputsView)
-        initSplitRightView(target: OutreachCoordinator, topView: NamesFieldTitle, container: inputsView, leftView: OCTitle)
+        initSplitLeftView(target: OCTitle, topView: NamesField2, container: inputsView)
+        initSplitRightView(target: OutreachCoordinator, topView: NamesField2, container: inputsView, leftView: OCTitle)
         
         initWideView(target: OutreachCoordinatorEmail, topView: OCTitle, container: inputsView)
         
         initWideView(target: leaveInputButton, topView: OutreachCoordinatorEmail, container: inputsView)
         
-        setScrollViewSize(inputsView: inputsView)
+        initWideView(target: inputInfo, topView: leaveInputButton, container: inputsView)
+        inputInfo.heightAnchor.constraint(equalToConstant: 75).isActive = true
+//        setScrollViewSize(inputsView: inputsView)
     }
     
     func setScrollViewSize(inputsView: UIScrollView){
@@ -456,7 +513,7 @@ class PresentationDetailController : UIViewController{
         target.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
+    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -464,7 +521,7 @@ class PresentationDetailController : UIViewController{
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
-    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -472,7 +529,7 @@ class PresentationDetailController : UIViewController{
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -485,18 +542,42 @@ class PresentationDetailController : UIViewController{
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    func setInfoText(){
+        inputInfo.text = "This button isn't available because the presentation hasn't passed yet. Come back when it's over and you'll be able to leave feedback right from this app!"
+    }
+    
+    func parseNames(names: String){
+        let comma = names.index(of: ",")
+        let name1 = String(names[names.startIndex...comma!])
+        let name2 = String(names[comma!...names.endIndex])
+        NamesField.text = name1
+        NamesField2.text = name2
+    }
+    
     func checkDateUpdateButton(button: UIButton){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = Date()
-//        let calendar = Calendar.current
-//        let hour = Calendar.component(.hour, from: date)
-//        let minute = Calendar.component(.minute, from: date)
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
+        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentationTime = timeFormatter.date(from: timeString)
         let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
         let presentationDate = dateFormatter.date(from: presentation!.date)
-        if(presentationDate! >= currentDate!){
+        if(presentationDate! > currentDate!){
             button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
             button.isEnabled = false
+            setInfoText()
+        }
+        else{
+            if(presentationTime! >= currentTime!){
+                button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+                button.isEnabled = false
+                setInfoText()
+            }
         }
     }
     

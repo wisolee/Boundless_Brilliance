@@ -156,24 +156,25 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     func checkDateUpdateNotification(notification: UILabel){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let timeFormatter = DateFormatter()
-//        timeFormatter.dateFormat = "HH:mm"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
         let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
         let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
-//        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
         print(presentation!.time[timeIndex...timeIndexEnd])
         let date = Date()
         let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
         let presentationDate = dateFormatter.date(from: presentation!.date)
 //        print(currentDate)
-//        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
-//        let presentationTime = timeFormatter.date(from: timeString)
+        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentationTime = timeFormatter.date(from: timeString)
         if(presentationDate! >= currentDate!){
-//            if(currentTime! >= presentationTime!){
             notification.text = ""
         }
         else{
-            notification.text = "!: you can submit feedback on this presentation"
+            if(currentTime! >= presentationTime!){
+                notification.text = "!: you can submit feedback on this presentation"
+            }
         }
     }
     
