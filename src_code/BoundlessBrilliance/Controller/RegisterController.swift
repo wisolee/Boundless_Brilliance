@@ -12,21 +12,21 @@ import Toast_Swift
 
 class RegisterController: UIViewController {
     
-    // Spinner options for chapterTextField
+    // Spinner options for chapter_text_field
     //TODO: in the future, we should pull chapter names from the database in case there are new chapters
     let chapters = ["", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
-    let memberTypes = ["", "Presenter", "Outreach Coordinator", "Management"]
+    let member_types = ["", "Presenter", "Outreach Coordinator", "Management"]
     
-    // subview - nameTextField
-    let nameTextField: UITextField = {
+    // subview - name_text_field
+    let name_text_field: UITextField = {
         let name_tf = UITextField()
         name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
         return name_tf
     }()
     
-    // subview - emailTextField
-    let emailTextField: UITextField = {
+    // subview - email_text_field
+    let email_text_field: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email"
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +35,8 @@ class RegisterController: UIViewController {
         return tf
     }()
     
-    // subview - passwordTextField
-    let passwordTextField: UITextField = {
+    // subview - password_text_field
+    let password_text_field: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Password"
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -46,24 +46,24 @@ class RegisterController: UIViewController {
         return tf
     }()
     
-    // subview - chapterTextField
-    let chapterTextField: UITextField! = {
+    // subview - chapter_text_field
+    let chapter_text_field: UITextField! = {
         let tf = UITextField()
         tf.placeholder = "Chapter"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
-    // subview - chapterTextField
-    let memberTypeTextField: UITextField! = {
+    // subview - chapter_text_field
+    let member_type_text_field: UITextField! = {
         let tf = UITextField()
         tf.placeholder = "Member Type"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
-    // subview - registerButton
-    let registerButton: UIButton = {
+    // subview - register_button
+    let register_button: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
         button.setTitle("Register", for: .normal)
@@ -73,33 +73,33 @@ class RegisterController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
-        // Add action to registerButton
+        // Add action to register_button
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         
         return button
     }()
     
-    // registerButton action -- Send data to Firebase
+    // register_button action -- Send data to Firebase
     @objc func handleRegister() {
         
         // Ensure email and password are valid values
         // Note: It seems that this doesn't function as intended: toast will not be fired if the entire form is empty, which seems like is what is supposed to happen...?
-        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let chapter = chapterTextField.text, let memberType = memberTypeTextField.text
+        guard let name = name_text_field.text, let email = email_text_field.text, let password = password_text_field.text, let chapter = chapter_text_field.text, let member_type = member_type_text_field.text
             else {
                 self.view.makeToast("Form input is not valid.")
                 return
         }
         
         // Create a new user with info from form if form inputs pass all validation checks
-        if inputsAreValid(name: name, email: email, password: password, chapter: chapter, memberType: memberType) {
-            createUser(name: name, email: email, password: password, chapter: chapter, memberType: memberType)
+        if inputsAreValid(name: name, email: email, password: password, chapter: chapter, member_type: member_type) {
+            createUser(name: name, email: email, password: password, chapter: chapter, member_type: member_type)
         } else {
             return
         }
     }
     
-    // subview - returnButton
-    let returnButton: UIButton = {
+    // subview - return_button
+    let return_button: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
         button.setTitle("Return to Login", for: .normal)
@@ -109,7 +109,7 @@ class RegisterController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
-        // Add action to registerButton
+        // Add action to register_button
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         return button
@@ -128,56 +128,56 @@ class RegisterController: UIViewController {
     //NAMING VARIABLES ----------
         
 
-        //Get a reference to the RegisterView UIView
-        let registerView = RegisterView()
+        //Get a reference to the register_view UIView
+        let register_view = RegisterView()
         
         
-        //Get the variables from the registerView
-        let profileImageView = registerView.profileImageView
-        let inputsView = registerView.inputsView
+        //Get the variables from the register_view
+        let profile_image_view = register_view.profile_image_view
+        let inputs_view = register_view.inputs_view
         
-        //Still getting variables from registerView: these will be added as subviews to the inputsView: registerView > inputsView > these variables
+        //Still getting variables from register_view: these will be added as subviews to the inputs_view: register_view > inputs_view > these variables
 
-        let nameSeparatorView = registerView.nameSeparatorView
-        let emailSeparatorView = registerView.emailSeparatorView
-        let passwordSeparatorView = registerView.passwordSeparatorView
-        let chapterSeparatorView = registerView.chapterSeparatorView
-        chapterTextField?.loadChapterOptions(spinnerOptions: chapters)
-        memberTypeTextField?.loadMemberTypeOptions(spinnerOptions: memberTypes)
+        let name_separator_view = register_view.name_separator_view
+        let emailSeparatorView = register_view.email_separator_view
+        let passwordSeparatorView = register_view.password_separator_view
+        let chapterSeparatorView = register_view.chapter_separator_view
+        chapter_text_field?.loadChapterOptions(spinnerOptions: chapters)
+        member_type_text_field?.loadMemberTypeOptions(spinnerOptions: member_types)
         
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255);
         
     //ADDING THE SUBVIEWS TO THE MAIN VIEW-------
         
         /* Add subviews to the main vuew*/
-        view.addSubview(profileImageView)
-        view.addSubview(inputsView)
-        view.addSubview(registerButton)
-        view.addSubview(profileImageView)
-        view.addSubview(returnButton)
+        view.addSubview(profile_image_view)
+        view.addSubview(inputs_view)
+        view.addSubview(register_button)
+        view.addSubview(profile_image_view)
+        view.addSubview(return_button)
         
         /* Add additional input views to inputView*/
-        inputsView.addSubview(nameTextField)
-        inputsView.addSubview(nameSeparatorView)
-        inputsView.addSubview(emailTextField)
-        inputsView.addSubview(emailSeparatorView)
-        inputsView.addSubview(passwordTextField)
-        inputsView.addSubview(passwordSeparatorView)
+        inputs_view.addSubview(name_text_field)
+        inputs_view.addSubview(name_separator_view)
+        inputs_view.addSubview(email_text_field)
+        inputs_view.addSubview(emailSeparatorView)
+        inputs_view.addSubview(password_text_field)
+        inputs_view.addSubview(passwordSeparatorView)
         
-        inputsView.addSubview(chapterTextField!)
-        inputsView.addSubview(chapterSeparatorView)
-        inputsView.addSubview(memberTypeTextField!)
+        inputs_view.addSubview(chapter_text_field!)
+        inputs_view.addSubview(chapterSeparatorView)
+        inputs_view.addSubview(member_type_text_field!)
         
     //FORMAT VIEWS-----------------
         
         //Pass the views we just made to the set up functions; requires the view we are setting up plus the view above it for anchoring
-        setupProfileImageView(profileImageView: profileImageView, inputsView: inputsView)
-        setUpInputsView(inputsView: inputsView, nameSeparatorView: nameSeparatorView,
+        setupProfileImageView(profile_image_view: profile_image_view, inputs_view: inputs_view)
+        setUpInputsView(inputs_view: inputs_view, name_separator_view: name_separator_view,
                                 emailSeparatorView: emailSeparatorView,
                                 passwordSeparatorView: passwordSeparatorView,
                                 chapterSeparatorView: chapterSeparatorView)
-        setupRegisterButton(inputsView: inputsView)
-        setupReturnButton(inputsView: inputsView)
+        setupRegisterButton(inputs_view: inputs_view)
+        setupReturnButton(inputs_view: inputs_view)
         
         
     }
@@ -194,14 +194,14 @@ class RegisterController: UIViewController {
     
     // inputsAreValid
     // Returns true if all inputs are valid
-    func inputsAreValid (name: String, email: String, password: String, chapter: String, memberType: String) -> Bool {
+    func inputsAreValid (name: String, email: String, password: String, chapter: String, member_type: String) -> Bool {
         print ("inputsAreValid() entered")
         
         if (nameNotEntered(name: name) ||
             invalidEmailFormat(email: email) ||
             passwordTooShort(password: password) ||
             chapterNotSelected(chapter: chapter) ||
-            memberTypeNotSelected(memberType: memberType)) {
+            memberTypeNotSelected(member_type: member_type)) {
             
             return false
         }
@@ -220,13 +220,13 @@ class RegisterController: UIViewController {
     }
     
     func invalidEmailFormat (email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let email_reg_ex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let email_test = NSPredicate(format:"SELF MATCHES %@", email_reg_ex)
         
-        let validEmail = emailTest.evaluate(with: email)
+        let valid_email = email_test.evaluate(with: email)
         
-        if !validEmail {
+        if !valid_email {
             self.view.makeToast("Please enter a valid email.")
             return true
         }
@@ -249,8 +249,8 @@ class RegisterController: UIViewController {
         return false
     }
     
-    func memberTypeNotSelected (memberType: String) -> Bool {
-        if memberType == "" {
+    func memberTypeNotSelected (member_type: String) -> Bool {
+        if member_type == "" {
             self.view.makeToast("Please choose a member type.")
             return true
         }
@@ -262,7 +262,7 @@ class RegisterController: UIViewController {
     // USER CREATION---------------------------------------------------------------------------------
     
     // If input validations are all good, attempt to create a user
-    func createUser (name: String, email: String, password: String, chapter: String, memberType: String) {
+    func createUser (name: String, email: String, password: String, chapter: String, member_type: String) {
         // Register User
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
@@ -274,39 +274,40 @@ class RegisterController: UIViewController {
                 
                 
                 ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-                let userID = Auth.auth().currentUser!.uid
+                let user_ID = Auth.auth().currentUser!.uid
                 
                 // Save user to users table
-                self.putIntoUsersTable(ref: ref, userID: userID, name: name, email: email, chapter: chapter, memberType: memberType)
+                self.putIntoUsersTable(ref: ref, user_ID: user_ID, name: name, email: email, chapter: chapter, member_type: member_type)
                 
                 // Save user to chapters table
-                self.putIntoChaptersTable(ref: ref, userID: userID, name: name, chapter: chapter)
+                self.putIntoChaptersTable(ref: ref, user_ID: user_ID, name: name, chapter: chapter)
                 
                 
                 // After saving all the data successfully, navigate back to login screen
+
                 self.navigationController?.popViewController(animated: true)
             }
             
         })
     }
     
-    func putIntoUsersTable (ref: DatabaseReference, userID: String, name: String, email: String, chapter: String, memberType: String) {
-        let userRef = ref.child("users").child(userID)
-        let userFields = ["name" : name,
+    func putIntoUsersTable (ref: DatabaseReference, user_ID: String, name: String, email: String, chapter: String, member_type: String) {
+        let user_ref = ref.child("users").child(user_ID)
+        let user_fields = ["name" : name,
                           "email" : email,
                           "chapter" : chapter,
-                          "memberType" : memberType]
+                          "member_type" : member_type]
         
-        updateTable(ref: userRef, value: userFields)
+        updateTable(ref: user_ref, value: user_fields)
         
     }
     
-    func putIntoChaptersTable (ref: DatabaseReference, userID: String, name: String, chapter: String) {
+    func putIntoChaptersTable (ref: DatabaseReference, user_ID: String, name: String, chapter: String) {
         //Now save the user under the appropriate chapter table
-        let chapterRef = ref.child("chapters").child(chapter)
-        let member = [userID : name]
+        let chapter_ref = ref.child("chapters").child(chapter)
+        let member = [user_ID : name]
         
-        updateTable(ref: chapterRef, value: member)
+        updateTable(ref: chapter_ref, value: member)
     }
     
     func updateTable (ref: DatabaseReference, value: Dictionary <String, String>) {
@@ -323,94 +324,94 @@ class RegisterController: UIViewController {
     
     // SETTING UP VIEWS---------------------------------------------------------------------------------
     
-    func setupProfileImageView(profileImageView: UIImageView, inputsView: UIView) {
+    func setupProfileImageView(profile_image_view: UIImageView, inputs_view: UIView) {
         /* need x, y, width, height contraints */
-        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: inputsView.topAnchor, constant: -50).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
+        profile_image_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profile_image_view.bottomAnchor.constraint(equalTo: inputs_view.topAnchor, constant: -50).isActive = true
+        profile_image_view.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        profile_image_view.heightAnchor.constraint(equalToConstant: 125).isActive = true
     
     }
     
 
-    func setUpInputsView(inputsView: UIView, nameSeparatorView: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView, chapterSeparatorView: UIView) {
+    func setUpInputsView(inputs_view: UIView, name_separator_view: UIView, emailSeparatorView: UIView, passwordSeparatorView: UIView, chapterSeparatorView: UIView) {
         
-        /* inputsView: need x, y, width, height contraints */
-        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        /* inputs_view: need x, y, width, height contraints */
+        inputs_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputs_view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputs_view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        inputs_view.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         
-        // nameTextField: need x, y, width, height contraints
-        nameTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
-        nameTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        // name_text_field: need x, y, width, height contraints
+        name_text_field.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 12).isActive = true
+        name_text_field.topAnchor.constraint(equalTo: inputs_view.topAnchor).isActive = true
+        name_text_field.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        name_text_field.heightAnchor.constraint(equalTo: inputs_view.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
-        // nameSeparatorView: need x, y, width, height contraints
-        nameSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        nameSeparatorView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
-        nameSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        nameSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        // name_separator_view: need x, y, width, height contraints
+        name_separator_view.leftAnchor.constraint(equalTo: inputs_view.leftAnchor).isActive = true
+        name_separator_view.topAnchor.constraint(equalTo: name_text_field.bottomAnchor).isActive = true
+        name_separator_view.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        name_separator_view.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        // emailTextField: need x, y, width, height contraints
-        emailTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        // email_text_field: need x, y, width, height contraints
+        email_text_field.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 12).isActive = true
+        email_text_field.topAnchor.constraint(equalTo: name_text_field.bottomAnchor).isActive = true
+        email_text_field.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        email_text_field.heightAnchor.constraint(equalTo: inputs_view.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // emailSeparatorView: need x, y, width, height contraints
-        emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
-        emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputs_view.leftAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: email_text_field.bottomAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        // passwordTextField: need x, y, width, height contraints
-        passwordTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
-        passwordTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        // password_text_field: need x, y, width, height contraints
+        password_text_field.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 12).isActive = true
+        password_text_field.topAnchor.constraint(equalTo: email_text_field.bottomAnchor).isActive = true
+        password_text_field.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        password_text_field.heightAnchor.constraint(equalTo: inputs_view.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // passwordSeparatorView need x, y, width, height contraints
-        passwordSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        passwordSeparatorView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        passwordSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        passwordSeparatorView.leftAnchor.constraint(equalTo: inputs_view.leftAnchor).isActive = true
+        passwordSeparatorView.topAnchor.constraint(equalTo: password_text_field.bottomAnchor).isActive = true
+        passwordSeparatorView.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
         passwordSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        // chapterTextField need x, y, width, height contraints
-        chapterTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        chapterTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        chapterTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        chapterTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        // chapter_text_field need x, y, width, height contraints
+        chapter_text_field.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 12).isActive = true
+        chapter_text_field.topAnchor.constraint(equalTo: password_text_field.bottomAnchor).isActive = true
+        chapter_text_field.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        chapter_text_field.heightAnchor.constraint(equalTo: inputs_view.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
         // chapterSeparatorView need x, y, width, height contraints
-        chapterSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        chapterSeparatorView.topAnchor.constraint(equalTo: chapterTextField.bottomAnchor).isActive = true
-        chapterSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        chapterSeparatorView.leftAnchor.constraint(equalTo: inputs_view.leftAnchor).isActive = true
+        chapterSeparatorView.topAnchor.constraint(equalTo: chapter_text_field.bottomAnchor).isActive = true
+        chapterSeparatorView.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
         chapterSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        // memberTypeTextField need x, y, width, height constraints
-        memberTypeTextField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        memberTypeTextField.topAnchor.constraint(equalTo:chapterTextField.bottomAnchor).isActive = true
-        memberTypeTextField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        memberTypeTextField.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
+        // member_type_text_field need x, y, width, height constraints
+        member_type_text_field.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 12).isActive = true
+        member_type_text_field.topAnchor.constraint(equalTo:chapter_text_field.bottomAnchor).isActive = true
+        member_type_text_field.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        member_type_text_field.heightAnchor.constraint(equalTo: inputs_view.heightAnchor, multiplier: 1/5).isActive = true // 1/4 of entire height
         
     }
     
-    func setupRegisterButton(inputsView: UIView) {
+    func setupRegisterButton(inputs_view: UIView) {
         /* need x, y, width, height contraints */
-        registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        registerButton.topAnchor.constraint(equalTo: inputsView.bottomAnchor, constant: 12).isActive = true
-        registerButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        register_button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        register_button.topAnchor.constraint(equalTo: inputs_view.bottomAnchor, constant: 12).isActive = true
+        register_button.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        register_button.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    func setupReturnButton(inputsView: UIView){
-        returnButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        returnButton.topAnchor.constraint(equalTo: registerButton.bottomAnchor, constant: 12).isActive = true
-        returnButton.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        returnButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    func setupReturnButton(inputs_view: UIView){
+        return_button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        return_button.topAnchor.constraint(equalTo: register_button.bottomAnchor, constant: 12).isActive = true
+        return_button.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
+        return_button.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
 

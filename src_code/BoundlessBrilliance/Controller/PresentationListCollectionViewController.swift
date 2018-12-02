@@ -15,6 +15,7 @@ private let searchBarHeight = 50
 private let cellHeight = 100
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
     // We keep track of the pending work item as a property
     private var pendingRequestWorkItem: DispatchWorkItem?
     var isSearching: Bool = false
@@ -41,7 +42,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         let date = Date()
         let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
         var index: Int = 0
-        for presentation in presentationItems {
+        for presentation in presentation_items {
             let presentationDate = dateFormatter.date(from: presentation.date)
             if (presentationDate! >= currentDate!){
                 self.collectionView.scrollToItem(at:IndexPath(item: index, section: 0), at: .top, animated: false)
@@ -72,9 +73,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // #warning Incomplete implementation, return the number of items
         isSearching = isFiltering()
         if isSearching {
-            return filteredPresentationItems.count
+            return filtered_presentation_items.count
         } else {
-            return presentationItems.count
+            return presentation_items.count
         }
     }
 
@@ -84,9 +85,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Configure the cell
         isSearching = isFiltering()
         if isSearching {
-            cell.configure(with: filteredPresentationItems[indexPath.row])
+            cell.configure(with: filtered_presentation_items[indexPath.row])
         } else {
-            cell.configure(with: presentationItems[indexPath.row])
+            cell.configure(with: presentation_items[indexPath.row])
         }
         
         return cell
@@ -103,10 +104,10 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 //    https://learnappmaking.com/pass-data-between-view-controllers-swift-how-to/
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //do stuff here
-        //use presentationItems[indexPath.row] to get the presentation Item
+        //use presentation_items[indexPath.row] to get the presentation Item
         //pass the presentation item to a new view and segue
         let detailController = PresentationDetailController()
-        detailController.presentation = presentationItems[indexPath.row]
+        detailController.presentation = presentation_items[indexPath.row]
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
@@ -149,7 +150,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     @objc func logOut(){
         //go back to login
-        presentationItems.removeAll()
+        presentation_items.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -162,8 +163,8 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // MARK: - Private methods for presentationData
     func loadListOfPresentations() {
-//        presentationItems.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
-//        presentationItems.sort { $0.location < $1.location }
+//        presentation_items.append(PresentationListItemModel(location: "Los Angeles", names: "John", chapter: "Azusa Pacific University", time: "12:00pm", date: "10/10/18"))
+//        presentation_items.sort { $0.location < $1.location }
     }
     
 }
