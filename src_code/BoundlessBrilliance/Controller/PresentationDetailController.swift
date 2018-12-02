@@ -272,6 +272,19 @@ class PresentationDetailController : UIViewController{
     let NamesField: UITextView = {
         $0.isEditable = false
         $0.textAlignment = NSTextAlignment.right
+        $0.text = "Presenters:"
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // subview - nameTextField
+    let NamesField1: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
         $0.text = ""
         $0.resignFirstResponder()
         $0.textColor = UIColor.black
@@ -341,10 +354,10 @@ class PresentationDetailController : UIViewController{
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         Time.text = presentation?.time
-        Teacher.text = presentation?.teacherName
-        TeacherEmail.text = presentation?.teacherEmail
-        Grade.text = presentation?.grade
-        RoomNum.text = presentation?.roomNumber
+//        Teacher.text = presentation?.teacherName
+//        TeacherEmail.text = presentation?.teacherEmail
+//        Grade.text = presentation?.grade
+//        RoomNum.text = presentation?.roomNumber
         parseNames(names: (presentation?.names)!)
         checkDateUpdateButton(button: leaveInputButton)
         setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
@@ -370,13 +383,6 @@ class PresentationDetailController : UIViewController{
         inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-        
-        /* inputsView: need x, y, width, height contraints */
-//        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-//        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
         
         inputsView.addSubview(TestTextField)
         inputsView.addSubview(LocFieldTitle)
@@ -423,12 +429,13 @@ class PresentationDetailController : UIViewController{
         inputsView.addSubview(NamesFieldTitle)
         inputsView.addSubview(NamesField)
 //        inputsView.addSubview(Pres1Email)
+        inputsView.addSubview(NamesField1)
         inputsView.addSubview(NamesField2)
         
         let separator7 = UIView()
         initSeparator(separator: separator7)
         inputsView.addSubview(separator7)
-        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: NamesFieldTitle)
+        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: NamesField2)
         
         inputsView.addSubview(OCTitle)
         inputsView.addSubview(OutreachCoordinator)
@@ -471,7 +478,8 @@ class PresentationDetailController : UIViewController{
         
         initSplitLeftView(target: NamesFieldTitle, topView: GradeLabel, container: inputsView)
         initSplitRightView(target: NamesField, topView: GradeLabel, container: inputsView, leftView: NamesFieldTitle)
-        initSplitRightView(target: NamesField2, topView: GradeLabel, container: inputsView, leftView: NamesFieldTitle)
+//        initSplitRightView(target: NamesField1, topView: GradeLabel, container: inputsView, leftView: Names)
+        initSplitRightView(target: NamesField2, topView: NamesField, container: inputsView, leftView: NamesFieldTitle)
         
         initSplitLeftView(target: OCTitle, topView: NamesField2, container: inputsView)
         initSplitRightView(target: OutreachCoordinator, topView: NamesField2, container: inputsView, leftView: OCTitle)
@@ -548,8 +556,9 @@ class PresentationDetailController : UIViewController{
     
     func parseNames(names: String){
         let comma = names.index(of: ",")
-        let name1 = String(names[names.startIndex...comma!])
-        let name2 = String(names[comma!...names.endIndex])
+        let name1 = String(names[names.startIndex..<comma!])
+        let afterComma = names.index(comma!, offsetBy: 1)
+        let name2 = String(names[afterComma..<names.endIndex])
         NamesField.text = name1
         NamesField2.text = name2
     }
