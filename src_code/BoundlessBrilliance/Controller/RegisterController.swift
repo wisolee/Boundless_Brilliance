@@ -30,6 +30,8 @@ class RegisterController: UIViewController {
         let tf = UITextField()
         tf.placeholder = "Email"
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     
@@ -282,8 +284,8 @@ class RegisterController: UIViewController {
                 
                 
                 // After saving all the data successfully, navigate back to login screen
-                let new_view_controller = LoginScreenController()
-                self.present(new_view_controller, animated: true)
+
+                self.navigationController?.popViewController(animated: true)
             }
             
         })

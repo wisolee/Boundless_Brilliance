@@ -120,13 +120,11 @@ class LoginScreenController: UIViewController {
         var presenter_dict: Dictionary<String, String>!
         var presentation_num = presentation_dict.count
         for presentation in presentation_dict.values {
-            presenter_dict = presentation["presenters"] as? Dictionary
+            presenter_dict = presentation["Presenters"] as? Dictionary
             let parsed_presenter_string = parsePresenterDictionary(presenter_names: Array(presenter_dict.values))
-            
-            let date_string : String = presentation["date"] as! String
+            let date_string : String = presentation["Date"] as! String
             let formatted_date : String = parseDateTime(datetime : date_string).0
             let formatted_time: String = parseDateTime(datetime : date_string).1
-            
             var presentation_chapter: String!
             retrieveChapter(presenter_dict: presenter_dict, ref: ref, completion: { message in
                 // callback from completion handler
@@ -135,11 +133,12 @@ class LoginScreenController: UIViewController {
                 if (presenter_member_type == "Presenter" || presenter_member_type == "Outreach Coordinator") {
                     // only load presentations from the presenter's chapter
                     if  presenter_chapter == presentation_chapter {
-                        presentation_items.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsed_presenter_string, chapter: presentation_chapter, time: formatted_time, date: formatted_date))
+                        presentation_items.append(PresentationListItemModel(location: presentation["Location"] as! String, room_number: presentation["RoomNumber"] as! NSNumber, names: parsed_presenter_string, chapter: presentation_chapter, time: formatted_time, date: formatted_date, teacher_name: presentation["TeacherName"] as! String, teacher_email: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! NSNumber))
+//                        presentationItems.append(PresentationListItemModel(location: presentation["Location"] as! String, room_number: presentation["RoomNumber"] as! NSNumber, names: parsedPresenterString, chapter: presentationChapter, time: formatted_time, date: formatted_date, teacher_name: presentation["TeacherName"] as! String, teacher_email: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! NSNumber))
                     }
                 } else {
                     // load presentations from all chapters
-                    presentation_items.append(PresentationListItemModel(location: presentation["location"] as! String, names: parsed_presenter_string, chapter: presentation_chapter, time: formatted_time, date: formatted_date))
+                    presentation_items.append(PresentationListItemModel(location: presentation["Location"] as! String, room_number: presentation["RoomNumber"] as! NSNumber, names: parsed_presenter_string, chapter: presentation_chapter, time: formatted_time, date: formatted_date, teacher_name: presentation["TeacherName"] as! String, teacher_email: presentation["TeacherEmail"] as! String, grade: presentation["Grade"] as! NSNumber))
                 }
                 presentation_num -= 1
                 if(presentation_num == 0){
@@ -196,8 +195,7 @@ class LoginScreenController: UIViewController {
         date_formatter.dateFormat = "yyyyMMdd'T'HHmmss"
         
         // Create ISO Date object from datetime string
-        let iso_datetime : Date = date_formatter.date(from: datetime)!
-        
+        let iso_datetime : Date! = date_formatter.date(from: datetime)
         // Call functions to correctly parse date and times for start and end of presentation
         let date_string = parseDate(iso_date: iso_datetime, date_formatter: date_formatter)
         let time_string = parseTime(iso_date: iso_datetime, date_formatter: date_formatter)
@@ -250,6 +248,8 @@ class LoginScreenController: UIViewController {
         let email_tf = UITextField()
         email_tf.placeholder = "Email"
         email_tf.translatesAutoresizingMaskIntoConstraints = false
+        email_tf.autocapitalizationType = .none
+        email_tf.autocorrectionType = .no
         return email_tf
     }()
 
@@ -279,22 +279,15 @@ class LoginScreenController: UIViewController {
 //        view.addSubview(profile_image_view)
         
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
-        setUpprofile_image_view(profile_image_view: profile_image_view, inputs_view: inputs_view)
-        setUpinputs_view(inputs_view: inputs_view, email_text_field: email_text_field, email_separator_view: email_separator_view, password_text_field: password_text_field, password_separator_view: password_separator_view)
+        setUpProfileImageView(profile_image_view: profile_image_view, inputs_view: inputs_view)
+        setUpInputsView(inputs_view: inputs_view, email_text_field: email_text_field, email_separator_view: email_separator_view, password_text_field: password_text_field, password_separator_view: password_separator_view)
         setUpLoginButton(login_button: login_button, inputs_view: inputs_view)
         setUpRegisterButton(register_button: register_button, inputs_view: inputs_view, login_button: login_button)
         
         
     }
-    
-    // Customize navigationBar
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.barTintColor = UIColor.white
-//        self.navigationController?.navigationBar.tintColor = UIColor.white
-//    }
-    
-    func setUpprofile_image_view(profile_image_view: UIImageView, inputs_view: UIView) {
+
+    func setUpProfileImageView(profile_image_view: UIImageView, inputs_view: UIView) {
         /* need x, y, width, height contraints */
         profile_image_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profile_image_view.bottomAnchor.constraint(equalTo: inputs_view.topAnchor, constant: -50).isActive = true
@@ -302,7 +295,7 @@ class LoginScreenController: UIViewController {
         profile_image_view.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
-    func setUpinputs_view(inputs_view: UIView, email_text_field: UITextField,
+    func setUpInputsView(inputs_view: UIView, email_text_field: UITextField,
                         email_separator_view: UIView,
                         password_text_field: UITextField,
                         password_separator_view: UIView) {

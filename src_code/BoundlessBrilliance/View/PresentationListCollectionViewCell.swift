@@ -9,7 +9,10 @@
 import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
+
+    let monthArray: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var presentation: PresentationListItemModel? = nil
+
     let arrow = CellArrow()
     //examples from the alerts and pickers app cell file-----------------------------
     public lazy var date: UILabel = {
@@ -50,6 +53,16 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         return $0
     }(UILabel())
     
+    public lazy var notification: UILabel = {
+        $0.textColor = .red
+        $0.text = ""
+        $0.textAlignment = NSTextAlignment.center
+        $0.numberOfLines = 1
+        $0.adjustsFontSizeToFitWidth = true
+        $0.font = .systemFont(ofSize: 9)
+        return $0
+    }(UILabel())
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -68,6 +81,7 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         addSubview(time)
         addSubview(location)
         addSubview(presenterNames)
+        addSubview(notification)
         
     }
     
@@ -88,12 +102,26 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         let textViewWidth: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * hTextInset
         let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
         let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
-        //create frames for objects
-        location.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 8)), size: CGSize(width: textViewWidth, height: locationSize.height))
-        presenterNames.frame = CGRect(origin: CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset), size: CGSize(width: textViewWidth, height: presenterNamesSize.height))
-        time.frame = CGRect(origin: CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top), size: CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight))
-        arrow.frame = CGRect(origin: CGPoint(x: time.frame.maxX, y: layoutMargins.top), size: CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight))
-        //not sure what this stuff is for
+        //create frames for inner objects
+        let locationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5))
+        let locationFrameSize = CGSize(width: textViewWidth, height: locationSize.height)
+        location.frame = CGRect(origin: locationFrameOrigin, size: locationFrameSize)
+        
+        let presenterFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset)
+        let presenterFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
+        presenterNames.frame = CGRect(origin: presenterFrameOrigin, size: presenterFrameSize)
+        
+        let timeFrameOrigin = CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top)
+        let timeFrameSize = CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight)
+        time.frame = CGRect(origin: timeFrameOrigin, size: timeFrameSize)
+        
+        let arrowFrameOrigin = CGPoint(x: time.frame.maxX, y: layoutMargins.top)
+        let arrowFrameSize = CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight)
+        arrow.frame = CGRect(origin: arrowFrameOrigin, size: arrowFrameSize)
+        
+        let notificationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: presenterNames.frame.maxY + vTextInset + vTextInset)
+        let notificationFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
+        notification.frame = CGRect(origin: notificationFrameOrigin, size: notificationFrameSize)
         
         style(view: contentView)
     }
@@ -117,12 +145,53 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     }
     
     // Called in PresentationListViewController when configuring custom view cells
-    public func configure(with model: PresentationListItemModel) {
-        
+    public func configure(with model: PresentationListItemModel) {        
         presentation = model
         location.text = model.location
         presenterNames.text = model.names
         time.text = model.time
-        date.text = model.date
+        let formattedDate = configureDate(date: model.date)
+        date.text = formattedDate
+        checkDateUpdateNotification(notification: notification)
+    }
+    
+    func checkDateUpdateNotification(notification: UILabel){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
+        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+        print(presentation!.time[timeIndex...timeIndexEnd])
+        let date = Date()
+        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        let presentationDate = dateFormatter.date(from: presentation!.date)
+//        print(currentDate)
+        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentationTime = timeFormatter.date(from: timeString)
+        if(presentationDate! >= currentDate!){
+            notification.text = ""
+        }
+        else{
+            if(currentTime! >= presentationTime!){
+                notification.text = "!: you can submit feedback on this presentation"
+            }
+        }
+    }
+    
+    func configureDate(date: String) -> String{
+        let placeHolderDate = date
+        let indexOfSubstring = placeHolderDate.index(placeHolderDate.startIndex, offsetBy: 5)
+        var dateWOYear = String(placeHolderDate[indexOfSubstring...])
+        dateWOYear = dateWOYear.replacingOccurrences(of: "-", with: "\n")
+        let monthIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 1)
+        let dayIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 2)
+        let monthIntString = String(dateWOYear[...monthIndex])
+        print("month only: " + String(dateWOYear[...monthIndex]) + "|")
+        let month = Int(monthIntString)
+        print("month int: " + String(month!))
+        let monthString = monthArray[month! - 1]
+        return monthString + String(dateWOYear[dayIndex...])
     }
 }

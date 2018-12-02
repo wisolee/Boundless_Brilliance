@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
@@ -87,8 +88,6 @@ class PresentationDetailController : UIViewController{
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return $0
     }(UITextView())
-    
-    
     
     //teacher email
     let TeacherEmail: UITextView! = {
@@ -273,7 +272,7 @@ class PresentationDetailController : UIViewController{
     let NamesField: UITextView = {
         $0.isEditable = false
         $0.textAlignment = NSTextAlignment.right
-        $0.text = "Presenters: "
+        $0.text = "Presenters:"
         $0.resignFirstResponder()
         $0.textColor = UIColor.black
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -282,51 +281,109 @@ class PresentationDetailController : UIViewController{
         return $0
     }(UITextView())
     
-        public lazy var leaveInputButton: UIButton = {
-            $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-            $0.setTitle("Post-pres Survey", for: .normal)
-            // must set up this property otherwise, the specified anchors will not work
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setTitleColor(UIColor.white, for: .normal)
-            $0.titleLabel?.adjustsFontSizeToFitWidth = true
-            $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-            $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
-            return $0
-        }(UIButton())
+    // subview - nameTextField
+    let NamesField1: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.text = ""
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // subview - nameTextField
+    let NamesField2: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.text = ""
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    public lazy var leaveInputButton: UIButton = {
+        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        $0.setTitle("Post-pres Survey", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.titleLabel?.adjustsFontSizeToFitWidth = true
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.layer.cornerRadius = 5
+        $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    
+    let inputInfo: UILabel = {
+        $0.text = ""
+        $0.textAlignment = NSTextAlignment.center
+//        $0.isEditable = false
+        $0.numberOfLines = 3
+        $0.textColor = UIColor.gray
+        $0.resignFirstResponder()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: 13)
+        return $0
+    }(UILabel())
+    
     
 //    end examples from the alerts and pickers app cell file-----------------------------
     
-        @objc func enterSurvey() {
-            let surveyController = SurveyController()
-            surveyController.presentation = presentation
-            super.navigationController?.pushViewController(surveyController, animated: true)
-        }
+    @objc func enterSurvey() {
+        let surveyController = SurveyController()
+        surveyController.presentation = presentation
+        super.navigationController?.pushViewController(surveyController, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //create variables
         let presDetailView  = PresentationDetailView()
+        let scrollContainer = presDetailView.scrollContainer
         let inputsView = presDetailView.inputsView
         /* Add subviews */
-        view.addSubview(inputsView)
+        view.addSubview(scrollContainer)
+        scrollContainer.addSubview(inputsView)
+        
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
         Time.text = presentation?.time
-        
-        setupInputsView(inputsView: inputsView)
+//        Teacher.text = presentation?.teacherName
+//        TeacherEmail.text = presentation?.teacherEmail
+//        Grade.text = presentation?.grade
+//        RoomNum.text = presentation?.roomNumber
+        parseNames(names: (presentation?.names)!)
+        checkDateUpdateButton(button: leaveInputButton)
+        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
         StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
         ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
         ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }
     
-    func setupInputsView(inputsView: UIScrollView){
-        /* inputsView: need x, y, width, height contraints */
-        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
+
+    
+    
+    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
         inputsView.addSubview(TestTextField)
         inputsView.addSubview(LocFieldTitle)
@@ -370,15 +427,16 @@ class PresentationDetailController : UIViewController{
         inputsView.addSubview(separator5)
         setupSeparator(emailSeparatorView: separator5, inputsView: inputsView, aboveView: Grade)
         
-        
         inputsView.addSubview(NamesFieldTitle)
         inputsView.addSubview(NamesField)
-        inputsView.addSubview(Pres1Email)
+//        inputsView.addSubview(Pres1Email)
+        inputsView.addSubview(NamesField1)
+        inputsView.addSubview(NamesField2)
         
         let separator7 = UIView()
         initSeparator(separator: separator7)
         inputsView.addSubview(separator7)
-        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: NamesFieldTitle)
+        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: NamesField2)
         
         inputsView.addSubview(OCTitle)
         inputsView.addSubview(OutreachCoordinator)
@@ -390,6 +448,7 @@ class PresentationDetailController : UIViewController{
         setupSeparator(emailSeparatorView: separator8, inputsView: inputsView, aboveView: OutreachCoordinatorEmail)
        
         inputsView.addSubview(leaveInputButton)
+        inputsView.addSubview(inputInfo)
         
         let bottomBorder = CALayer ()
         bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
@@ -398,11 +457,11 @@ class PresentationDetailController : UIViewController{
         initWideView(target: TestTextField, topView: inputsView, container: inputsView)
         TestTextField.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
 
-        initSplitLeftView(target: LocFieldTitle, topView: TestTextField, container: inputsView)
-        LocFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/3).isActive = true
+        initSmallLeftView(target: LocFieldTitle, topView: TestTextField, container: inputsView)
+//        LocFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/3).isActive = true
         
-        initSplitRightView(target: LocField, topView: TestTextField, container: inputsView, leftView: LocFieldTitle)
-        LocField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 2/3).isActive = true
+        initLargeRightView(target: LocField, topView: TestTextField, container: inputsView, leftView: LocFieldTitle)
+//        LocField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 2/3).isActive = true
         
         initSplitLeftView(target: TimeTitle, topView: LocFieldTitle, container: inputsView)
         initSplitRightView(target: Time, topView: LocFieldTitle, container: inputsView, leftView: TimeTitle)
@@ -420,15 +479,23 @@ class PresentationDetailController : UIViewController{
         
         initSplitLeftView(target: NamesFieldTitle, topView: GradeLabel, container: inputsView)
         initSplitRightView(target: NamesField, topView: GradeLabel, container: inputsView, leftView: NamesFieldTitle)
+
+        initSplitRightView(target: NamesField2, topView: NamesField, container: inputsView, leftView: NamesFieldTitle)
         
-        initSplitLeftView(target: OCTitle, topView: NamesFieldTitle, container: inputsView)
-        initSplitRightView(target: OutreachCoordinator, topView: NamesFieldTitle, container: inputsView, leftView: OCTitle)
+        initSplitLeftView(target: OCTitle, topView: NamesField2, container: inputsView)
+        initSplitRightView(target: OutreachCoordinator, topView: NamesField2, container: inputsView, leftView: OCTitle)
         
         initWideView(target: OutreachCoordinatorEmail, topView: OCTitle, container: inputsView)
         
         initWideView(target: leaveInputButton, topView: OutreachCoordinatorEmail, container: inputsView)
         
-        setScrollViewSize(inputsView: inputsView)
+        
+        inputInfo.topAnchor.constraint(equalTo: leaveInputButton.bottomAnchor, constant: 6).isActive = true
+        inputInfo.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -5).isActive = true
+        inputInfo.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        inputInfo.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
+
+
     }
     
     func setScrollViewSize(inputsView: UIScrollView){
@@ -452,6 +519,13 @@ class PresentationDetailController : UIViewController{
         target.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
+    func initSmallLeftView(target: UIView, topView: UIView, container: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
     func initSplitRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView){
         target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
         target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
@@ -459,7 +533,14 @@ class PresentationDetailController : UIViewController{
         target.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
+    func initLargeRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 2/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -467,7 +548,7 @@ class PresentationDetailController : UIViewController{
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
-    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -475,7 +556,7 @@ class PresentationDetailController : UIViewController{
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
         // nameSeparatorView: need x, y, width, height contraints
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
@@ -488,5 +569,49 @@ class PresentationDetailController : UIViewController{
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    func setInfoText(){
+        inputInfo.text = "This button isn't available because the presentation hasn't passed yet. Come back when it's over and you'll be able to leave feedback right from this app!"
+    }
+    
+    func parseNames(names: String){
+        let comma = names.index(of: ",")
+        let name1 = String(names[names.startIndex..<comma!])
+        let afterComma = names.index(comma!, offsetBy: 1)
+        let name2 = String(names[afterComma..<names.endIndex])
+        NamesField.text = name1
+        NamesField2.text = name2
+    }
+    
+    func checkDateUpdateButton(button: UIButton){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
+        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
+        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentationTime = timeFormatter.date(from: timeString)
+        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        let presentationDate = dateFormatter.date(from: presentation!.date)
+        if(presentationDate! > currentDate!){
+            button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+            button.isEnabled = false
+            setInfoText()
+        }
+        else{
+            if(presentationTime! >= currentTime!){
+                button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+                button.isEnabled = false
+                setInfoText()
+            }
+        }
+    }
+    
+    func detailToast() {
+        self.view.makeToast("Form Submission Complete")
+    }
+
 }
 

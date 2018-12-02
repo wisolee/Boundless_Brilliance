@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = "427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com"
         
         // Replace what the story board uses, creating story board manually
         window = UIWindow(frame: UIScreen.main.bounds)
