@@ -35,8 +35,8 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         self.searchController.searchBar.showsScopeBar = true
         self.searchController.searchBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
         // Set Scope Bar Titles
-        if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
-            self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]
+        if (presenter_member_type == "Presenter" || presenter_member_type == "Outreach Coordinator") {
+            self.searchController.searchBar.scopeButtonTitles = [presenter_chapter, presenter_name]
         } else {
             self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
         }
@@ -112,14 +112,14 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String) {
-        filteredPresentationItems = presentationItems.filter({ (item) -> Bool in
+        filtered_presentation_items = presentation_items.filter({ (item) -> Bool in
             let presentationLocation: NSString = item.location as NSString
             let presentationNames: NSString = item.names as NSString
             let presentationTime: NSString = item.time as NSString
             let presentationDate: NSString = item.date as NSString
             
             var categoryMatch: Bool!
-            if (presenterMemberType == "Presenter") {
+            if (presenter_member_type == "Presenter") {
                 categoryMatch = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
             } else {
                 categoryMatch = (scope == "All") || (item.chapter == scope)

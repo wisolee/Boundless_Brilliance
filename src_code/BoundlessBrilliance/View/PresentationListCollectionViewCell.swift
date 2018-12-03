@@ -9,8 +9,10 @@
 import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
+
     let monthArray: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    var presentation:PresentationListItemModel? = nil
+    var presentation: PresentationListItemModel? = nil
+
     let arrow = CellArrow()
     //examples from the alerts and pickers app cell file-----------------------------
     public lazy var date: UILabel = {

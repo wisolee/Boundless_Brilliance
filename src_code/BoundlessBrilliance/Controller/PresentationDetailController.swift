@@ -369,11 +369,10 @@ class PresentationDetailController : UIViewController{
         DateText.text = parseDate(dateText: (presentation?.date)!)
         LocField.text = presentation?.location
         NamesField.text = presentation?.names
-        
-//        Teacher.text = presentation?.teacherName
-//        TeacherEmail.text = presentation?.teacherEmail
-//        Grade.text = presentation?.grade
-//        RoomNum.text = presentation?.roomNumber
+        Teacher.text = presentation?.teacher_name
+        TeacherEmail.text = presentation?.teacher_email
+        Grade.text = presentation?.grade.stringValue
+        RoomNum.text = presentation?.room_number.stringValue
         parseNames(names: (presentation?.names)!)
         checkDateUpdateButton(button: leaveInputButton)
         setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
