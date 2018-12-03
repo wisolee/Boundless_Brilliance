@@ -11,9 +11,13 @@ import Foundation
 struct PresentationListItemModel {
 
     let location: String
+    let room_number: NSNumber
     let names: String
     let chapter: String
     let time: String
     let date: String
-    // Custom Cell to be added
+    let teacher_name: String
+    let teacher_email: String
+    let grade: NSNumber
+    
 }

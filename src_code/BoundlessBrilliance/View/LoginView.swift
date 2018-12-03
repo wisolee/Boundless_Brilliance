@@ -9,71 +9,42 @@
 import Foundation
 import UIKit
 
-class LoginView: UIView{
+class LoginView: UIView {
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    // Initialize logo image
+    let profile_image_view: UIImageView = {
+        let image_view = UIImageView()
+        image_view.image = UIImage(named: "boundlessbrilliance-vert-logo")
+        image_view.translatesAutoresizingMaskIntoConstraints = false
+        image_view.contentMode = .scaleAspectFill
+        return image_view
     }()
     
-    // subview - inputsContainerView
-    let inputsView: UIView = {
+    // Set up container view for input fields
+    let inputs_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
-        // must set up this property otherwise, the specified anchors will not work
+        
+        // Must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         return view
     }()
     
-
-    // subview - nameSeparatorView
-    let emailSeparatorView: UIView = {
+    // Set up email separator view
+    let email_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-
-    // subview - nameSeparatorView
-    let passwordSeparatorView: UIView = {
+    // Set up password separator view
+    let password_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    
-    //     subview - LoginButton
-    let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
-        button.setTitle("Login", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 5
-        return button
-    }()
-    
-    // subview - registerButton
-    let registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 255, g: 255, b: 255)
-        button.setTitle("New to the app? Register here", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        return button
-    }()
-    
-
-
 }

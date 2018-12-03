@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,11 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        
         // Replace what the story board uses, creating story board manually
         window = UIWindow(frame: UIScreen.main.bounds)
         // Launches app directly to login page
         window?.rootViewController = UINavigationController(rootViewController: LoginScreenController())
         window?.makeKeyAndVisible()
+        
+        UITabBar.appearance().barTintColor = UIColor.orange
         
         // Creates top navigation bar
 //        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())

@@ -11,62 +11,53 @@ import Firebase
 
 class RegisterView: UIView {
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "boundlessbrilliance-vert-logo")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    // Displays the logo on the register page
+    let profile_image_view: UIImageView = {
+        let image_view = UIImageView()
+        image_view.image = UIImage(named: "boundlessbrilliance-vert-logo")
+        image_view.translatesAutoresizingMaskIntoConstraints = false
+        image_view.contentMode = .scaleAspectFill
+        return image_view
     }()
     
-    // subview - inputsContainerView
-    let inputsView: UIView = {
+    // Sets up the inputs view for the form to register
+    let inputs_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
-        // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         return view
     }()
     
-    //SUBVIEWS BELOW ARE ADDED AS A SUBVIEW OF inputsView
+    // Subviews below are added as a subview of inputsView
     
-
-    // subview - nameTextField
-    let nameTextField: UITextField = {
-        let name_tf = UITextField()
-        name_tf.placeholder = "Name"
-        name_tf.translatesAutoresizingMaskIntoConstraints = false
-        return name_tf
-    }()
-    
-    // subview - nameSeparatorView
-    let nameSeparatorView: UIView = {
+    // Sets up a separator
+    let name_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    // subview - emailSeparatorView
-    let emailSeparatorView: UIView = {
+    // Sets up the email text field
+    let email_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    // subview - passwordSeparatorView
-    let passwordSeparatorView: UIView = {
+    // Sets up a separator
+    let password_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    // subview - passwordSeparatorView
-    let chapterSeparatorView: UIView = {
+    // Sets up a chapter text field
+    let chapter_separator_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -74,12 +65,14 @@ class RegisterView: UIView {
     }()
 }
 
+// Creates instance for spinner options for chapters
 extension UITextField {
     func loadChapterOptions(spinnerOptions: [String]) {
         self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)
     }
 }
 
+// Creates an instance for spinner options for member types
 extension UITextField {
     func loadMemberTypeOptions(spinnerOptions: [String]) {
         self.inputView = SpinnerView(spinnerOptions: spinnerOptions, spinnerTextField: self)

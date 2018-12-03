@@ -12,654 +12,632 @@ import UIKit
 class PresentationDetailController : UIViewController{
 
     var presentation:PresentationListItemModel? = nil
-    let ScrollViewHeight = 1500
-    let stickerOptions = ["", "yes", "no"]
-    let shirtOptions = ["", "yes", "no"]
-    var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
-    //semester
+    let scroll_view_height = 750
+    let sticker_options = ["", "yes", "no"]
+    let shirt_options = ["", "yes", "no"]
+    var shirt_sizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
-    //elementary school/organization
+    // The title text for Time
+    let time_title: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Time: "
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
+        return $0
+    }(UITextView())
     
-    //date
+    // The actual date that the presentation happens
+    let date_text: UITextView! = {
+        $0.text = "2018-12-30"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 40 : 30)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
+        return $0
+    }(UITextView())
     
-    let TeacherTitle: UITextView! = {
-        let tf = UITextView()
-        
-        tf.textColor = UIColor.black
-        tf.text = "Teacher: "
-        tf.isEditable = false
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.left
-        tf.backgroundColor = UIColor.white
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+    // The actual time in military time
+    let time: UITextView! = {
+        $0.text = "14:00"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
+        return $0
+    }(UITextView())
     
-    //teacher
-    let Teacher: UITextView! = {
-        let tf = UITextView()
-        tf.textColor = UIColor.black
-        tf.text = "Ms. Crabapple"
-        tf.isEditable = false
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.right
-        tf.backgroundColor = UIColor.white
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
+    // The text title for Teachers
+    let teacher_title: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Teacher: "
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    //presenter 2
+    // The actual teacher name
+    let teacher: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Ms. Crabapple"
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    //grade
-    let Grade: UITextView! = {
-        let gf = UITextView()
-        gf.textColor = UIColor.black
-        gf.text = "Grade: 3"
-        gf.isEditable = false
-        gf.translatesAutoresizingMaskIntoConstraints = false
-        gf.textAlignment = NSTextAlignment.center
-        gf.backgroundColor = UIColor.white
-        gf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return gf
-    }()
+    // The teacher's actual email
+    let teacher_email: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "mscrabapple@gmail.com"
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    //number of students
-    let NumStudents: UITextField! = {
-        let ns = UITextField()
-        ns.textColor = UIColor.black
-        ns.text = "# students?"
-        ns.translatesAutoresizingMaskIntoConstraints = false
-        ns.textAlignment = NSTextAlignment.center
-        ns.backgroundColor = UIColor.white
-        ns.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return ns
-    }()
+    // The grade of the class
+    let grade: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "3"
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    let RoomNumTitle: UITextView! = {
-        let rn = UITextView()
-        rn.textColor = UIColor.black
-        rn.text = "Room Number: "
-        rn.isEditable = false
-        rn.translatesAutoresizingMaskIntoConstraints = false
-        rn.textAlignment = NSTextAlignment.left
-        rn.backgroundColor = UIColor.white
-        rn.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return rn
-    }()
+    // The nnmber of students
+    let grade_label: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Grade:"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    //classroom #
-    let RoomNum: UITextView! = {
-        let rn = UITextView()
-        rn.textColor = UIColor.black
-        rn.text = "32"
-        rn.isEditable = false
-        rn.translatesAutoresizingMaskIntoConstraints = false
-        rn.textAlignment = NSTextAlignment.right
-        rn.backgroundColor = UIColor.white
-        rn.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return rn
-    }()
+    // The room number text title
+    let room_num_title: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Room Number: "
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    
-    
-    //teacher email
-    let TeacherEmail: UITextView! = {
-        let te = UITextView()
-        te.textColor = UIColor.black
-        te.text = "mscrabapple@gmail.com"
-        te.isEditable = false
-        te.translatesAutoresizingMaskIntoConstraints = false
-        te.textAlignment = NSTextAlignment.right
-        te.backgroundColor = UIColor.white
-        te.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return te
-    }()
-    
-    //presenter 1 email
-    let Pres1Email: UITextView! = {
-        let p1e = UITextView()
-        p1e.textColor = UIColor.black
-        p1e.text = "pres1@gmail.com"
-        p1e.translatesAutoresizingMaskIntoConstraints = false
-        p1e.isEditable = false
-        p1e.textAlignment = NSTextAlignment.right
-        p1e.backgroundColor = UIColor.white
-        p1e.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return p1e
-    }()
-    
-    //presenter 2 email
-    let Pres2Email: UITextView! = {
-        let p2e = UITextView()
-        p2e.textColor = UIColor.black
-        p2e.text = "pres2@gmail.com"
-        p2e.translatesAutoresizingMaskIntoConstraints = false
-        p2e.isEditable = false
-        p2e.textAlignment = NSTextAlignment.right
-        p2e.backgroundColor = UIColor.white
-        p2e.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return p2e
-    }()
-    
-    //science experiment performed
-    let Experiment: UITextField! = {
-        let exp = UITextField()
-        exp.textColor = UIColor.black
-        exp.text = "Experiment Performed"
-        exp.translatesAutoresizingMaskIntoConstraints = false
-        exp.textAlignment = NSTextAlignment.right
-        exp.backgroundColor = UIColor.white
-        exp.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return exp
-    }()
-    
-    let OCTitle: UITextView! = {
-        let oc = UITextView()
-        oc.textColor = UIColor.black
-        oc.text = "Outreach Coordinator: "
-        oc.translatesAutoresizingMaskIntoConstraints = false
-        oc.isEditable = false
-        oc.textAlignment = NSTextAlignment.left
-        oc.backgroundColor = UIColor.white
-        oc.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return oc
-    }()
-    
-    //outreach coordinator
-    let OutreachCoordinator: UITextView! = {
-        let oc = UITextView()
-        oc.textColor = UIColor.black
-        oc.text = "Audrey Shawley"
-        oc.translatesAutoresizingMaskIntoConstraints = false
-        oc.isEditable = false
-        oc.textAlignment = NSTextAlignment.right
-        oc.backgroundColor = UIColor.white
-        oc.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return oc
-    }()
-    
-    //outreach coordinator email
-    let OutreachCoordinatorEmail: UITextView! = {
-        let oce = UITextView()
-        oce.textColor = UIColor.black
-        oce.text = "OC@gmail.com"
-        oce.translatesAutoresizingMaskIntoConstraints = false
-        oce.isEditable = false
-        oce.textAlignment = NSTextAlignment.right
-        oce.backgroundColor = UIColor.white
-        oce.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return oce
-    }()
-    
-    let TimeTitle: UITextView! = {
-        let t = UITextView()
-        t.textColor = UIColor.black
-        t.text = "Time: "
-        t.translatesAutoresizingMaskIntoConstraints = false
-        t.isEditable = false
-        t.textAlignment = NSTextAlignment.left
-        t.backgroundColor = UIColor.white
-        t.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return t
-    }()
-    
-    //time
-    let Time: UITextView! = {
-        let t = UITextView()
-        t.textColor = UIColor.black
-        t.text = "14:00"
-        t.translatesAutoresizingMaskIntoConstraints = false
-        t.isEditable = false
-        t.textAlignment = NSTextAlignment.right
-        t.backgroundColor = UIColor.white
-        t.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return t
-    }()
-    
-    //transportation
-    
-    
-    //stickers yes/no
-    let StickerDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.textColor = UIColor.black
-        tf.placeholder = "Sticker?"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.center
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
-    
-    // t-shirt yes/no ? size
-    let ShirtDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.textColor = UIColor.black
-        tf.placeholder = "T-Shirt?"
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.textAlignment = NSTextAlignment.center
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-//        tf.borderStyle
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
-    
-    // t-shirt yes/no ? size
-    let ShirtSizeDropdown: UITextField! = {
-        let tf = UITextField()
-        tf.placeholder = "Shirt Size"
-        tf.textAlignment = NSTextAlignment.center
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = UIColor.white
-        tf.borderStyle = UITextField.BorderStyle.line
-        tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return tf
-    }()
-    
-    // subview - nameTextField
-    let TestTextField: UITextView = {
-        let test_tf = UITextView()
-        test_tf.text = "Presentation Details"
-        test_tf.textAlignment = NSTextAlignment.center
-        test_tf.isEditable = false
-        test_tf.textColor = UIColor.white
-        
-        test_tf.resignFirstResponder()
-        test_tf.translatesAutoresizingMaskIntoConstraints = false
-        test_tf.backgroundColor = UIColor.white
-        test_tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return test_tf
-    }()
-    
-    let LocFieldTitle: UITextView! = {
-        let loc_tf = UITextView()
-        loc_tf.text = "Location:"
-        loc_tf.textAlignment = NSTextAlignment.left
-        loc_tf.textColor = UIColor.black
-        loc_tf.isEditable = false
-        loc_tf.resignFirstResponder()
-        loc_tf.translatesAutoresizingMaskIntoConstraints = false
-        loc_tf.backgroundColor = UIColor.white
-        loc_tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return loc_tf
-    }()
-    
-    // subview - nameTextField
-    let LocField: UITextView = {
-        let loc_tf = UITextView()
-        loc_tf.text = "Bayview Elementary"
-        loc_tf.textAlignment = NSTextAlignment.right
-        loc_tf.textColor = UIColor.black
-        loc_tf.isEditable = false
-        loc_tf.resignFirstResponder()
-        loc_tf.translatesAutoresizingMaskIntoConstraints = false
-        loc_tf.backgroundColor = UIColor.white
-        loc_tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return loc_tf
-    }()
+    // The actual classroom number
+    let room_num: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "32"
+        $0.isEditable = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
 
-    let NamesFieldTitle: UITextView = {
-        let names_tf = UITextView()
-        names_tf.isEditable = false
-        names_tf.textAlignment = NSTextAlignment.left
-        names_tf.text = "Boaty McBoatface et. al"
-        names_tf.resignFirstResponder()
-        names_tf.textColor = UIColor.black
-        names_tf.translatesAutoresizingMaskIntoConstraints = false
-        names_tf.backgroundColor = UIColor.white
-        names_tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return names_tf
-    }()
+    // The outreach coordinator text title
+    let oc_title: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Outreach Coordinator: "
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    // subview - nameTextField
-    let NamesField: UITextView = {
-        let names_tf = UITextView()
-        names_tf.isEditable = false
-        names_tf.textAlignment = NSTextAlignment.right
-        names_tf.text = "Presenters: "
-        names_tf.resignFirstResponder()
-        names_tf.textColor = UIColor.black
-        names_tf.translatesAutoresizingMaskIntoConstraints = false
-        names_tf.backgroundColor = UIColor.white
-        names_tf.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return names_tf
-    }()
+    // The actual outreach coordinator
+    let outreach_coordinator: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "Audrey Shawley"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
-    let AnecdoteView: UITextView = {
-        let af_tv = UITextView()
-        af_tv.text = "Any anecdotes to share?"
-        af_tv.textColor = UIColor.black
-        af_tv.translatesAutoresizingMaskIntoConstraints = false
-        af_tv.backgroundColor = UIColor.white
-        af_tv.isEditable = true
-        af_tv.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
-        return af_tv
-    }()
+    // The outreach coordinator email
+    let outreach_coordinator_email: UITextView! = {
+        $0.textColor = UIColor.black
+        $0.text = "OC@gmail.com"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
     
+    // The sticker text title with the spinner for options
+    let sticker_dropdown: UITextField! = {
+        $0.textColor = UIColor.black
+        $0.placeholder = "Sticker?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
+    
+    // The t-shirt text title with the spinner for options
+    let shirt_dropdown: UITextField! = {
+        $0.textColor = UIColor.black
+        $0.placeholder = "T-Shirt?"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.center
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
+    
+    // The t-shirt text title with the spinner for options
+    let shirt_size_dropdown: UITextField! = {
+        $0.placeholder = "Shirt Size"
+        $0.textAlignment = NSTextAlignment.center
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.borderStyle = UITextField.BorderStyle.line
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextField())
+    
+    // The text title for the location
+    let loc_field_title: UITextView! = {
+        $0.text = "Location:"
+        $0.textAlignment = NSTextAlignment.left
+        $0.textColor = UIColor.black
+        $0.isEditable = false
+        $0.resignFirstResponder()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // The actual location of the presentation
+    let loc_field: UITextView = {
+        $0.text = "Bayview Elementary"
+        $0.textAlignment = NSTextAlignment.right
+        $0.textColor = UIColor.black
+        $0.isEditable = false
+        $0.resignFirstResponder()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+
+    // The text title for the presenters
+    let names_field_title: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.text = "Presenters:"
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // The first name of the presenter
+    let names_field_1: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.text = "Presenters:"
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // The second name of the presenter
+    let names_field_2: UITextView = {
+        $0.isEditable = false
+        $0.textAlignment = NSTextAlignment.right
+        $0.text = ""
+        $0.resignFirstResponder()
+        $0.textColor = UIColor.black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
+        return $0
+    }(UITextView())
+    
+    // The put to be able to enter the survey from each presentation detail view
+    public lazy var leave_input_button: UIButton = {
+        $0.backgroundColor = UIColor(r: 0, g: 163, b: 173)
+        $0.setTitle("Feedback", for: .normal)
+        // must set up this property otherwise, the specified anchors will not work
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.titleLabel?.adjustsFontSizeToFitWidth = true
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.layer.cornerRadius = 5
+        $0.addTarget(self, action: #selector(enterSurvey), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    
+    // The block of text displayed if the post-presentation survey is not yet able to be entered
+    let input_info: UILabel = {
+        $0.text = ""
+        $0.textAlignment = NSTextAlignment.center
+        $0.numberOfLines = 3
+        $0.textColor = UIColor.gray
+        $0.resignFirstResponder()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor.white
+        $0.font = .systemFont(ofSize: 13)
+        return $0
+    }(UILabel())
+    
+    
+    // Start of functions
+    
+    // enterSurvey() goes to the next page - the survey
+    @objc func enterSurvey() {
+        let surveyController = SurveyController()
+        surveyController.presentation = presentation
+        super.navigationController?.pushViewController(surveyController, animated: true)
+    }
+    
+    // Main viewDidLoad() function
     override func viewDidLoad() {
         super.viewDidLoad()
-        //create variables
-        let presDetailView  = PresentationDetailView()
-        let inputsView = presDetailView.inputsView
-    
-        /* Add subviews */
-        view.addSubview(inputsView)
-        LocField.text = presentation?.location
-        NamesField.text = presentation?.names
-        setupInputsView(inputsView: inputsView, textField: TestTextField, locField: LocField, namesField: NamesField, anecdoteField: AnecdoteView)
-        StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
-        ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
-        ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
+        
+        // Create variables
+        let pres_detail_view  = PresentationDetailView()
+        let scroll_container = pres_detail_view.scroll_container
+        let inputs_view = pres_detail_view.inputs_view
+        
+        // Adds subviews
+        view.addSubview(scroll_container)
+        scroll_container.addSubview(inputs_view)
+        
+        // Parses the date and time to our intended format
+        time.text = parseTime(timeText: (presentation?.time)!)
+        date_text.text = parseDate(dateText: (presentation?.date)!)
+        
+        // Gets the text for these parts of the presentation object
+        loc_field.text = presentation?.location
+        names_field_1.text = presentation?.names
+        teacher.text = presentation?.teacher_name
+        teacher_email.text = presentation?.teacher_email
+        grade.text = presentation?.grade.stringValue
+        room_num.text = presentation?.room_number.stringValue
+        
+        // Parses the presenter names to display in our inteded format
+        parseNames(names: (presentation?.names)!)
+        
+        // Checks the button to make sure that the date has passed so that the user is able to enter the post-presentation survey
+        checkDateUpdateButton(button: leave_input_button)
+        
+        // Set up InputsView
+        setupInputsView(inputs_view: inputs_view, scroll_view: scroll_container)
+        
+        // Set up the spinners for all the questions that have multiple options
+        sticker_dropdown?.loadStickerShirtOptions(spinnerOptions: sticker_options)
+        shirt_dropdown?.loadStickerShirtOptions(spinnerOptions: shirt_options)
+        shirt_size_dropdown?.loadStickerShirtOptions(spinnerOptions: shirt_sizes)
+        
+        // Sets background color for the screen
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
+    }
+    
+    func setupInputsView(inputs_view: UIView, scroll_view: UIScrollView) {
         
-    }
-    
-    func textViewDidChange(_ textView: UITextView){
-        if(textView == ShirtDropdown){
-            if(textView.text == "yes"){
-                shirtSizes =  ["", "extra-small", "small", "medium", "large", "extra-large"]
-                ShirtSizeDropdown.backgroundColor = UIColor.black
-                ShirtSizeDropdown.textColor = UIColor.black
-            }
-            else if(textView.text == "no"){
-                shirtSizes = [""]
-                ShirtSizeDropdown.allowsEditingTextAttributes = false
-                ShirtSizeDropdown.backgroundColor = UIColor.gray
-                ShirtSizeDropdown.textColor = UIColor.gray
-            }
-        }
-    }
-    
-    
+        // Set up the constraints for the scrollView
+        scroll_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scroll_view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scroll_view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scroll_view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        // Set up the constraints for the inputsView
+        inputs_view.centerXAnchor.constraint(equalTo: scroll_view.centerXAnchor).isActive = true
+        inputs_view.centerYAnchor.constraint(equalTo: scroll_view.centerYAnchor).isActive = true
+        inputs_view.leadingAnchor.constraint(equalTo: scroll_view.leadingAnchor).isActive = true
+        inputs_view.trailingAnchor.constraint(equalTo: scroll_view.trailingAnchor).isActive = true
+        inputs_view.topAnchor.constraint(equalTo: scroll_view.topAnchor).isActive = true
+        inputs_view.bottomAnchor.constraint(equalTo: scroll_view.bottomAnchor).isActive = true
+        
+        // Add subviews for date, time, location
+        inputs_view.addSubview(date_text)
+        inputs_view.addSubview(time)
+        inputs_view.addSubview(loc_field_title)
+        inputs_view.addSubview(loc_field)
+        
+        // Set up the separators on this page
+        let separator_1 = UIView()
+        let separator_2 = UIView()
+        let separator_3 = UIView()
+        let separator_4 = UIView()
+        let separator_5 = UIView()
+        
+        // Separator 1
+        initSeparator(separator: separator_1)
+        inputs_view.addSubview(separator_1)
+        setupSeparator(emailSeparatorView: separator_1, inputsView: inputs_view, aboveView: loc_field_title)
+        
+        // Add subviews for room
+        inputs_view.addSubview(room_num_title)
+        inputs_view.addSubview(room_num)
+        
+        // Separator 2
+        initSeparator(separator: separator_2)
+        inputs_view.addSubview(separator_2)
+        setupSeparator(emailSeparatorView: separator_2, inputsView: inputs_view, aboveView: room_num_title)
+        
+        // Add subviews for teacher
+        inputs_view.addSubview(teacher_title)
+        inputs_view.addSubview(teacher)
+        inputs_view.addSubview(teacher_email)
+        
+        // Separator 3
+        initSeparator(separator: separator_3)
+        inputs_view.addSubview(separator_3)
+        setupSeparator(emailSeparatorView: separator_3, inputsView: inputs_view, aboveView: teacher_email)
 
-    func setupInputsView(inputsView: UIScrollView, textField: UITextView, locField: UITextView, namesField: UITextView, anecdoteField: UITextView){
-        /* inputsView: need x, y, width, height contraints */
-        inputsView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        inputsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        inputsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5).isActive = true
+        // Add subviews for grade
+        inputs_view.addSubview(grade)
+        inputs_view.addSubview(grade_label)
         
-        inputsView.addSubview(textField)
-        inputsView.addSubview(LocFieldTitle)
-        inputsView.addSubview(locField)
+        // Separator 4
+        initSeparator(separator: separator_4)
+        inputs_view.addSubview(separator_4)
+        setupSeparator(emailSeparatorView: separator_4, inputsView: inputs_view, aboveView: grade)
         
-        let separator1 = UIView()
-        initSeparator(separator: separator1)
-        inputsView.addSubview(separator1)
-        setupSeparator(emailSeparatorView: separator1, inputsView: inputsView, aboveView: LocFieldTitle)
+        // Add subviews for presenters
+        inputs_view.addSubview(names_field_title)
+        inputs_view.addSubview(names_field_1)
+        inputs_view.addSubview(names_field_2)
         
-        inputsView.addSubview(TimeTitle)
-        inputsView.addSubview(Time)
+        // Separator 5
+        initSeparator(separator: separator_5)
+        inputs_view.addSubview(separator_5)
+        setupSeparator(emailSeparatorView: separator_5, inputsView: inputs_view, aboveView: names_field_2)
         
-        let separator2 = UIView()
-        initSeparator(separator: separator2)
-        inputsView.addSubview(separator2)
-        setupSeparator(emailSeparatorView: separator2, inputsView: inputsView, aboveView: TimeTitle)
+        // Add subviews for outreach coordinator
+        inputs_view.addSubview(oc_title)
+        inputs_view.addSubview(outreach_coordinator)
+        inputs_view.addSubview(outreach_coordinator_email)
         
-        inputsView.addSubview(RoomNumTitle)
-        inputsView.addSubview(RoomNum) //
+        // Add subviews for button and/or the message about when the survey can be accessed
+        inputs_view.addSubview(leave_input_button)
+        inputs_view.addSubview(input_info)
         
-        let separator3 = UIView()
-        initSeparator(separator: separator3)
-        inputsView.addSubview(separator3)
-        setupSeparator(emailSeparatorView: separator3, inputsView: inputsView, aboveView: RoomNumTitle)
-        
-        inputsView.addSubview(TeacherTitle)
-        inputsView.addSubview(Teacher) //
-        inputsView.addSubview(TeacherEmail) //
-        
-        let separator4 = UIView()
-        initSeparator(separator: separator4)
-        inputsView.addSubview(separator4)
-        setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: TeacherEmail)
-
-        inputsView.addSubview(Grade)
-        inputsView.addSubview(NumStudents)
-        
-        let separator5 = UIView()
-        initSeparator(separator: separator5)
-        inputsView.addSubview(separator5)
-        setupSeparator(emailSeparatorView: separator5, inputsView: inputsView, aboveView: Grade)
-        
-        inputsView.addSubview(Experiment)
-        
-        let separator6 = UIView()
-        initSeparator(separator: separator6)
-        inputsView.addSubview(separator6)
-        setupSeparator(emailSeparatorView: separator6, inputsView: inputsView, aboveView: Experiment)
-        
-        inputsView.addSubview(NamesFieldTitle)
-        inputsView.addSubview(namesField)
-        inputsView.addSubview(Pres1Email)
-        inputsView.addSubview(Pres2Email)
-        
-        let separator7 = UIView()
-        initSeparator(separator: separator7)
-        inputsView.addSubview(separator7)
-        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: Pres2Email)
-        
-        inputsView.addSubview(OCTitle)
-        inputsView.addSubview(OutreachCoordinator)
-        inputsView.addSubview(OutreachCoordinatorEmail)
-        
-        let separator8 = UIView()
-        initSeparator(separator: separator8)
-        inputsView.addSubview(separator8)
-        setupSeparator(emailSeparatorView: separator8, inputsView: inputsView, aboveView: OutreachCoordinatorEmail)
-        
-        inputsView.addSubview(anecdoteField)
-       
-        let separatorLeft = UIView()
-        initSeparator(separator: separatorLeft)
-        inputsView.addSubview(separatorLeft)
-        setupVertLeftSeparator(emailSeparatorView: separatorLeft, inputsView: inputsView, aboveView: OutreachCoordinatorEmail, sideView: anecdoteField)
-        
-        let separatorRight = UIView()
-        initSeparator(separator: separatorRight)
-        inputsView.addSubview(separatorRight)
-        setupVertRightSeparator(emailSeparatorView: separatorRight, inputsView: inputsView, aboveView: OutreachCoordinatorEmail, sideView: anecdoteField, otherSeparator: separator8)
-        
-        let separator9 = UIView()
-        initSeparator(separator: separator9)
-        inputsView.addSubview(separator9)
-        setupSeparator(emailSeparatorView: separator9, inputsView: inputsView, aboveView: anecdoteField)
-        
-        inputsView.addSubview(StickerDropdown)
-        inputsView.addSubview(ShirtDropdown)
-        inputsView.addSubview(ShirtSizeDropdown)
-        
-        let bottomBorder = CALayer ()
-        bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: inputsView.frame.width, height: 1.0)
-        bottomBorder.backgroundColor = UIColor.gray.cgColor
-        
-        textField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
-        textField.topAnchor.constraint(equalTo: inputsView.topAnchor).isActive = true
-        textField.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true // 1/4 of entire height
-        
-        LocFieldTitle.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15).isActive = true
-        LocFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/3).isActive = true
-        LocFieldTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        LocFieldTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        locField.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15).isActive = true
-        locField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 2/3).isActive = true
-        locField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        locField.leftAnchor.constraint(equalTo: LocFieldTitle.rightAnchor).isActive = true
-        
-        TimeTitle.topAnchor.constraint(equalTo: locField.bottomAnchor, constant: 6).isActive = true
-        TimeTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        TimeTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        TimeTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        Time.topAnchor.constraint(equalTo: locField.bottomAnchor, constant: 6).isActive = true
-        Time.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        Time.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        Time.leftAnchor.constraint(equalTo: TimeTitle.rightAnchor).isActive = true
-        
-        RoomNumTitle.topAnchor.constraint(equalTo: Time.bottomAnchor, constant: 6).isActive = true
-        RoomNumTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        RoomNumTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        RoomNumTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        RoomNum.topAnchor.constraint(equalTo: Time.bottomAnchor, constant: 6).isActive = true
-        RoomNum.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        RoomNum.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        RoomNum.leftAnchor.constraint(equalTo: RoomNumTitle.rightAnchor).isActive = true
-       
-        TeacherTitle.topAnchor.constraint(equalTo: RoomNum.bottomAnchor, constant: 6).isActive = true
-        TeacherTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        TeacherTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        TeacherTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        Teacher.topAnchor.constraint(equalTo: RoomNumTitle.bottomAnchor, constant: 6).isActive = true
-        Teacher.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        Teacher.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        Teacher.leftAnchor.constraint(equalTo: TeacherTitle.rightAnchor).isActive = true
-        
-        TeacherEmail.topAnchor.constraint(equalTo: Teacher.bottomAnchor, constant: 6).isActive = true
-        TeacherEmail.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        TeacherEmail.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        NumStudents.topAnchor.constraint(equalTo: TeacherEmail.bottomAnchor, constant: 6).isActive = true
-        NumStudents.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        NumStudents.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        NumStudents.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 15).isActive = true
-        
-        Grade.topAnchor.constraint(equalTo: TeacherEmail.bottomAnchor, constant: 6).isActive = true
-        Grade.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        Grade.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        Grade.leftAnchor.constraint(equalTo: NumStudents.rightAnchor, constant: 15).isActive = true
-        
-        Experiment.topAnchor.constraint(equalTo: Grade.bottomAnchor, constant: 6).isActive = true
-        Experiment.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        Experiment.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        NamesFieldTitle.topAnchor.constraint(equalTo: Experiment.bottomAnchor, constant: 6).isActive = true
-        NamesFieldTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        NamesFieldTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        NamesFieldTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        namesField.topAnchor.constraint(equalTo: Experiment.bottomAnchor, constant: 6).isActive = true
-        namesField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        namesField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        namesField.leftAnchor.constraint(equalTo: NamesFieldTitle.rightAnchor).isActive = true
-        
-        Pres1Email.topAnchor.constraint(equalTo: NamesField.bottomAnchor, constant: 6).isActive = true
-        Pres1Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        Pres1Email.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        Pres2Email.topAnchor.constraint(equalTo: Pres1Email.bottomAnchor).isActive = true
-        Pres2Email.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        Pres2Email.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        OCTitle.topAnchor.constraint(equalTo: Pres2Email.bottomAnchor, constant: 6).isActive = true
-        OCTitle.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        OCTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        OCTitle.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
-        
-        OutreachCoordinator.topAnchor.constraint(equalTo: Pres2Email.bottomAnchor, constant: 6).isActive = true
-        OutreachCoordinator.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2).isActive = true
-        OutreachCoordinator.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        OutreachCoordinator.leftAnchor.constraint(equalTo: OCTitle.rightAnchor).isActive = true
-        
-        OutreachCoordinatorEmail.topAnchor.constraint(equalTo: OutreachCoordinator.bottomAnchor).isActive = true
-        OutreachCoordinatorEmail.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        OutreachCoordinatorEmail.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        anecdoteField.topAnchor.constraint(equalTo: OutreachCoordinatorEmail.bottomAnchor, constant: 6).isActive = true
-        anecdoteField.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 2).isActive = true
-        anecdoteField.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -10).isActive = true
-        anecdoteField.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        drawRect(startx: anecdoteField.frame.minX, starty: anecdoteField.frame.minY, endx: anecdoteField.frame.maxX, endy: anecdoteField.frame.maxY)
-        
-        
-        StickerDropdown.topAnchor.constraint(equalTo: anecdoteField.bottomAnchor, constant: 6).isActive = true
-        StickerDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
-        StickerDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        ShirtDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtDropdown.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
-        ShirtDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        ShirtDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        ShirtSizeDropdown.topAnchor.constraint(equalTo: StickerDropdown.bottomAnchor, constant: 6).isActive = true
-        ShirtSizeDropdown.leftAnchor.constraint(equalTo: ShirtDropdown.rightAnchor, constant: 10).isActive = true
-        ShirtSizeDropdown.widthAnchor.constraint(equalTo: inputsView.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        ShirtSizeDropdown.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        
-        
-        setScrollViewSize(inputsView: inputsView)
+        // Call functions to initialize all the views
+        initWideView(target: date_text, topView: inputs_view, container: inputs_view)
+        date_text.topAnchor.constraint(equalTo: inputs_view.topAnchor, constant: 6).isActive = true
+        initWideView(target: time, topView: date_text, container: inputs_view)
+        time.topAnchor.constraint(equalTo: date_text.bottomAnchor).isActive = true
+        initFirstSmallLeftView(target: loc_field_title, topView: time, container: inputs_view)
+        initFirstLargeRightView(target: loc_field, topView: time, container: inputs_view, leftView: loc_field_title)
+        initSplitLeftView(target: room_num_title, topView: loc_field_title, container: inputs_view)
+        initSplitRightView(target: room_num, topView: loc_field, container: inputs_view, leftView: room_num_title)
+        initSplitLeftView(target: teacher_title, topView: room_num_title, container: inputs_view)
+        initSplitRightView(target: teacher, topView: room_num_title, container: inputs_view, leftView: teacher_title)
+        initSplitRightViewLessTopPadding(target: teacher_email, topView: teacher_title, container: inputs_view, leftView: teacher_title)
+        initSplitLeftView(target: grade_label, topView: teacher_email, container: inputs_view)
+        initSplitRightView(target: grade, topView: teacher_email, container: inputs_view, leftView: grade_label)
+        initSplitLeftView(target: names_field_title, topView: grade_label, container: inputs_view)
+        initSplitRightView(target: names_field_1, topView: grade_label, container: inputs_view, leftView: names_field_title)
+        initSplitRightViewLessTopPadding(target: names_field_2, topView: names_field_1, container: inputs_view, leftView: names_field_title)
+        initSplitLeftView(target: oc_title, topView: names_field_2, container: inputs_view)
+        initSplitRightView(target: outreach_coordinator, topView: names_field_2, container: inputs_view, leftView: oc_title)
+        initSplitRightViewLessTopPadding(target: outreach_coordinator_email, topView: oc_title, container: inputs_view, leftView: outreach_coordinator)
+        initButtonSpacing(target: leave_input_button, topView: outreach_coordinator_email, container: inputs_view)
+    
+        // Defining elements for the message that displays if the date hasn't yet passed for the post-presentation survey
+        input_info.topAnchor.constraint(equalTo: leave_input_button.bottomAnchor, constant: 6).isActive = true
+        input_info.widthAnchor.constraint(equalTo: inputs_view.widthAnchor, constant: -5).isActive = true
+        input_info.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        input_info.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 5).isActive = true
     }
     
+    // Makes the app scrollable
     func setScrollViewSize(inputsView: UIScrollView){
-        var height: CGFloat = 0
-        for view in inputsView.subviews {
-            print("subview height: \(view.frame.size.height)")
-            print("scrollview height: \(height)")
-            
-            height = height + view.bounds.size.height
-        }
-        
-        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(ScrollViewHeight))
+        inputsView.contentSize = CGSize(width: inputsView.frame.width, height: CGFloat(scroll_view_height))
     }
     
     // Make originally black status bar white
     override var preferredStatusBarStyle: UIStatusBarStyle { get { return .lightContent } }
 
-    
-//    rect: CGRect,
-    func drawRect( startx: CGFloat, starty: CGFloat, endx: CGFloat , endy: CGFloat) {
-        let aPath = UIBezierPath()
-        
-        aPath.move(to: CGPoint(x:/*Put starting Location*/startx, y: starty/*Put starting Location*/))
-        
-        aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: starty/*Put Next Location*/))
-        aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: endy/*Put Next Location*/))
-        aPath.addLine(to: CGPoint(x: startx/*Put Next Location*/, y: endy/*Put Next Location*/))
-//        aPath.addLine(to: CGPoint(x: endx/*Put Next Location*/, y: starty/*Put Next Location*/))
-        //Keep using the method addLineToPoint until you get to the one where about to close the path
-        
-        aPath.close()
-        
-        //If you want to stroke it with a red color
-        UIColor.red.set()
-        aPath.stroke()
-        //If you want to fill it as well
-//        aPath.fill()
+    //Initalizes all the views
+
+    func initWideViewLessTopPadding(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
     }
     
-    func setupSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView){
-        // nameSeparatorView: need x, y, width, height contraints
+    func initWideView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    }
+    
+    func initSplitLeftView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initFirstSmallLeftView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 30).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initSmallLeftView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initSplitRightViewLessTopPadding(target: UIView, topView: UIView, container: UIView, leftView: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initSplitRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initFirstLargeRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 30).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 2/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initLargeRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 2/3, constant: -10).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func setupFirstSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView) {
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor, constant: 20).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
+    
+    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
-    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView){
-        // nameSeparatorView: need x, y, width, height contraints
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIScrollView, aboveView: UIView, sideView: UIView, otherSeparator: UIView){
-        // nameSeparatorView: need x, y, width, height contraints
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView, otherSeparator: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func initSeparator(separator: UIView){
-        separator.backgroundColor = UIColor.gray
+    func initButtonSpacing(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 30).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    }
+    
+    func initSeparator(separator: UIView) {
+        separator.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    // Sets up the message that will be displayed if the date hasn't yet passed
+    func setInfoText() {
+        input_info.text = "This button isn't available because the presentation hasn't passed yet. Come back when it's over and you'll be able to leave feedback right from this app!"
+    }
+    
+    // Parses the presenter names for our intended format
+    func parseNames(names: String) {
+        let comma = names.index(of: ",")
+        let name_1 = String(names[names.startIndex..<comma!])
+        let after_comma = names.index(comma!, offsetBy: 1)
+        let name_2 = String(names[after_comma..<names.endIndex])
+        names_field_1.text = name_1
+        names_field_2.text = name_2
+    }
+    
+    // Parses the date so it displays correctly
+    func parseDate(dateText: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date: Date! = dateFormatter.date(from: dateText)
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        let date_string: String = dateFormatter.string(from: date)
+        return date_string
+    }
+    
+    // Parses the time so it displays correctly
+    func parseTime(timeText: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE hh:mm a"
+        let time: Date! = dateFormatter.date(from: timeText)
+        dateFormatter.dateFormat = "EEEE h:mm a"
+        let time_string: String = dateFormatter.string(from: time)
+        return time_string
+    }
+    
+    // Checks the date of the presentation vs the date today to open the survey or not
+    func checkDateUpdateButton(button: UIButton) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let time_index = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let time_index_end = presentation!.time.index(time_index, offsetBy: 5)
+        let time_string = String(presentation!.time[time_index...time_index_end])
+        let current_time = timeFormatter.date(from: timeFormatter.string(from: date))
+        let presentation_time = timeFormatter.date(from: time_string)
+        let current_date = dateFormatter.date(from: dateFormatter.string(from: date))
+        let presentation_date = dateFormatter.date(from: presentation!.date)
+        
+        // If the date is not yet passed, disbable the button and display message
+        if(presentation_date! > current_date!){
+            button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+            button.isEnabled = false
+            setInfoText()
+        } else {
+            if(presentation_time! >= current_time!) {
+                button.backgroundColor = UIColor(r: 128, g: 128, b: 128)
+                button.isEnabled = false
+                setInfoText()
+            }
+        }
+    }
 }
 
