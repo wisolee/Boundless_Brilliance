@@ -25,7 +25,6 @@
 		1F4F20F42177C2270070EAEB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F20F32177C2270070EAEB /* RegisterView.swift */; };
 		5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A8912176E28100B30810 /* LoginScreenController.swift */; };
 		5240706721ACCAB300D1C3B5 /* client_427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5240706621ACCAB300D1C3B5 /* client_427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com.plist */; };
-		52A6EA0421A1D14B00BB3234 /* GoogleSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */; };
 		666732C82179553700C68C0E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666732C72179553700C68C0E /* LoginView.swift */; };
 		66CE92B12199F45C001CEBB3 /* PresentationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B02199F45C001CEBB3 /* PresentationDetailView.swift */; };
 		66CE92B32199F479001CEBB3 /* PresentationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */; };
@@ -78,7 +77,6 @@
 		2E13C09F0B0807B6EE3A3DC7 /* Pods-BoundlessBrilliance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrilliance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrilliance/Pods-BoundlessBrilliance.release.xcconfig"; sourceTree = "<group>"; };
 		5236A8912176E28100B30810 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
 		5240706621ACCAB300D1C3B5 /* client_427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "client_427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com.plist"; sourceTree = "<group>"; };
-		52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetController.swift; sourceTree = "<group>"; };
 		5D74AA04431BA1D38916A8F0 /* Pods-BoundlessBrillianceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoundlessBrillianceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoundlessBrillianceUITests/Pods-BoundlessBrillianceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		63AD1FC6726BC35A8D3485C0 /* Pods_BoundlessBrillianceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoundlessBrillianceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		666732C72179553700C68C0E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				5236A8912176E28100B30810 /* LoginScreenController.swift */,
 				0FE9E092217457E900B96476 /* RegisterController.swift */,
 				66CE92B22199F479001CEBB3 /* PresentationDetailController.swift */,
-				52A6EA0321A1D14B00BB3234 /* GoogleSheetController.swift */,
 				66CE92B821A63F09001CEBB3 /* SurveyController.swift */,
 			);
 			path = Controller;
@@ -536,7 +533,6 @@
 				5236A8922176E28100B30810 /* LoginScreenController.swift in Sources */,
 				0FB3B5D4217C3625000540E1 /* SpinnerView.swift in Sources */,
 				0F0457E7219C9F1300B365DA /* ExtensionUIColor.swift in Sources */,
-				52A6EA0421A1D14B00BB3234 /* GoogleSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
