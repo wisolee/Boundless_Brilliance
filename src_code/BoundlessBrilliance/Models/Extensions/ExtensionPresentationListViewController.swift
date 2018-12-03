@@ -82,10 +82,10 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     
     // Updates search results when search queries are made and/or presentation categories are chosen
     func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchText!, scope: scope)
+        let search_text = searchController.searchBar.text
+        let search_bar = searchController.searchBar
+        let scope = search_bar.scopeButtonTitles![search_bar.selectedScopeButtonIndex]
+        filterContentForSearchText(search_text!, scope: scope)
     }
     
     // MARK: UISearchBar Delegate
@@ -99,8 +99,8 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     
     // Checks if presentations are being filtered by query or presentation category selection
     func isFiltering() -> Bool {
-        let searchBarScopeIsFiltering = search_controller.searchBar.selectedScopeButtonIndex != 0
-        return (search_controller.isActive && !searchBarIsEmpty()) || searchBarScopeIsFiltering
+        let search_bar_scope_is_filtering = search_controller.searchBar.selectedScopeButtonIndex != 0
+        return (search_controller.isActive && !searchBarIsEmpty()) || search_bar_scope_is_filtering
     }
     
     // Checks if search bar contains any text or not
@@ -112,26 +112,26 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
     // Filters presentations by typed in search text and/or presentation category
     func filterContentForSearchText(_ searchText: String, scope: String) {
         filtered_presentation_items = presentation_items.filter({ (item) -> Bool in
-            let presentationLocation: NSString = item.location as NSString
-            let presentationNames: NSString = item.names as NSString
-            let presentationTime: NSString = item.time as NSString
-            let presentationDate: NSString = item.date as NSString
+            let presentation_location: NSString = item.location as NSString
+            let presentation_names: NSString = item.names as NSString
+            let presentation_time: NSString = item.time as NSString
+            let presentation_date: NSString = item.date as NSString
             
-            var categoryMatch: Bool!
+            var category_match: Bool!
             if (presenter_member_type == "Presenter") {
-                categoryMatch = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
+                category_match = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
             } else {
-                categoryMatch = (scope == "All") || (item.chapter == scope)
+                category_match = (scope == "All") || (item.chapter == scope)
             }
             
             if searchBarIsEmpty() {
-                return categoryMatch
+                return category_match
             } else {
-                return categoryMatch
-                    && ((presentationLocation.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationNames.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationTime.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationDate.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
+                return category_match
+                    && ((presentation_location.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_names.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_time.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_date.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
             }
         })
         collectionView.reloadData()

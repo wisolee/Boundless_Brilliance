@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 import Alamofire
 
-private let cellReuseIdentifier = "Cell"
-private let searchBarHeight = 50
-private let cellHeight = 100
+private let cell_reuse_identifier = "Cell"
+private let search_bar_height = 50
+private let cell_height = 100
 
 class PresentationListCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -25,7 +25,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         super.viewDidLoad()
         
         // Register cell classes
-        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        self.collectionView!.register(PresentationListCollectionViewCell.self, forCellWithReuseIdentifier: cell_reuse_identifier)
         
         // Configure presentationListCollectionView
         configureNavigationBar()
@@ -38,14 +38,14 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Scrolls to presentation whose date is or is closest to the current date
     func scrollToToday() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date_formatter = DateFormatter()
+        date_formatter.dateFormat = "yyyy-MM-dd"
         let date = Date()
-        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
+        let current_date = date_formatter.date(from: date_formatter.string(from: date))
         var index: Int = 0
         for presentation in presentation_items {
-            let presentationDate = dateFormatter.date(from: presentation.date)
-            if (presentationDate! >= currentDate!) {
+            let presentation_date = date_formatter.date(from: presentation.date)
+            if (presentation_date! >= current_date!) {
                 self.collectionView.scrollToItem(at:IndexPath(item: index, section: 0), at: .top, animated: false)
                 return
             }
@@ -72,7 +72,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
 
     // Configures cell based off custom cell
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PresentationListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cell_reuse_identifier, for: indexPath) as! PresentationListCollectionViewCell
         
         // Configure the cell
         is_searching = isFiltering()
@@ -86,22 +86,22 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     
     // Customizes layout of cells in collectionview
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: CGFloat(cellHeight))
+        return CGSize(width: view.frame.width, height: CGFloat(cell_height))
     }
 
     // MARK: UICollectionViewDelegate
     
     // Passes the selected presentation item to a detail view and segues
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailController = PresentationDetailController()
+        let detail_controller = PresentationDetailController()
 
         is_searching = isFiltering()
         if is_searching {
-            detailController.presentation = filtered_presentation_items[indexPath.row]
+            detail_controller.presentation = filtered_presentation_items[indexPath.row]
         } else {
-            detailController.presentation = presentation_items[indexPath.row]
+            detail_controller.presentation = presentation_items[indexPath.row]
         }
-        self.navigationController?.pushViewController(detailController, animated: true)
+        self.navigationController?.pushViewController(detail_controller, animated: true)
     }
 
     // MARK: - Private setup methods for UIsubviews
