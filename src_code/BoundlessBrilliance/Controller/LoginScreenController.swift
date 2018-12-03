@@ -23,7 +23,6 @@ var filtered_presentation_items = [PresentationListItemModel]()
 
 class LoginScreenController: UIViewController {
     
-    
     // Show loading alert while data is retrieved
     func startLoadingAlert() {
         let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
@@ -192,7 +191,6 @@ class LoginScreenController: UIViewController {
         
         // Add action to login button
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-        
         return button
     }()
     
