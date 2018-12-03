@@ -20,5 +20,4 @@ struct PresentationListItemModel {
     let teacher_email: String
     let grade: NSNumber
     
-    // Custom Cell to be added
 }

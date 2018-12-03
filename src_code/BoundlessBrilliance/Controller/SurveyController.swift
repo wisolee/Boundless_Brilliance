@@ -11,15 +11,19 @@ import UIKit
 import GoogleAPIClientForREST
 import Firebase
 
-class  SurveyController : UIViewController {
+class  SurveyController: UIViewController {
     
-    var presentation:PresentationListItemModel? = nil
-    let ScrollViewHeight = 1410
-    let INPUT_TOP_PADDING = 4
-    let stickerOptions = ["", "yes", "no"]
-    let shirtOptions = ["", "yes", "no"]
-    var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
+    var presentation: PresentationListItemModel? = nil
+    let input_top_padding: CGFloat = 4
+    let input_height: CGFloat = 40
+    let input_left_padding: CGFloat = 5
+    let input_header_padding: CGFloat = 12
+    let input_section_header_padding: CGFloat = 20
+    let sticker_options = ["", "yes", "no"]
+    let shirt_options = ["", "yes", "no"]
+    var shirt_sizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
+    // Section Header
     let header: UILabel! = {
         $0.adjustsFontSizeToFitWidth = true
         $0.textColor = UIColor(r: 0, g: 163, b: 173)
@@ -31,7 +35,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UILabel())
     
-    let presSection: UILabel! = {
+    // Title of presentation response questions
+    let pres_section: UILabel! = {
         $0.adjustsFontSizeToFitWidth = true
         $0.textColor = UIColor(r: 0, g: 163, b: 173)
         $0.text = "Presentation"
@@ -42,10 +47,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UILabel())
     
-    
-    
-    // number of students
-    let NumStudents: UITextField! = {
+    // Input: Number of students
+    let num_students: UITextField! = {
         $0.textColor = UIColor.black
         $0.placeholder = "How many students were there?"
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -56,8 +59,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    // science experiment performed
-    let Experiment: UITextField! = {
+    // Input: Science experiment performed
+    let experiment: UITextField! = {
         $0.textColor = UIColor.black
         $0.placeholder = "What experiment was performed?"
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,8 +70,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    // stickers yes/no
-    let StickerDropdown: UITextField! = {
+    // Input: Stickers yes/no
+    let sticker_dropdown: UITextField! = {
         $0.textColor = UIColor.black
         $0.placeholder = "Sticker?"
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -78,8 +81,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    // t-shirt yes/no ? size
-    let ShirtDropdown: UITextField! = {
+    // Input: T-shirt yes/no
+    let shirt_dropdown: UITextField! = {
         $0.textColor = UIColor.black
         $0.placeholder = "T-Shirt?"
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +92,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    // t-shirt yes/no ? size
-    let ShirtSizeDropdown: UITextField! = {
+    // Input: T-shirt yes/no ? size
+    let shirt_size_dropdown: UITextField! = {
         $0.placeholder = "Shirt Size"
         $0.textAlignment = NSTextAlignment.left
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +102,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    let transportationSection: UILabel! = {
+    // Title of transportation question section
+    let transportation_section: UILabel! = {
         $0.text = "Transportation"
         $0.adjustsFontSizeToFitWidth = true
         $0.textColor = UIColor(r: 0, g: 163, b: 173)
@@ -110,7 +114,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UILabel())
     
-    let transportationDriver: UITextField! = {
+    // Input: Driver/Rideshare caller
+    let transportation_driver: UITextField! = {
         $0.placeholder = "Driver or caller of rideshare"
         $0.textAlignment = NSTextAlignment.left
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +124,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    let mileageOrCost: UITextField! = {
+    // Input: Mileage
+    let mileage_or_cost: UITextField! = {
         $0.placeholder = "Miles driven or cost of rideshare"
         $0.textAlignment = NSTextAlignment.left
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +134,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextField())
     
-    let AnecdoteTitle: UILabel! = {
+    // Anecdote section header
+    let anecdote_title: UILabel! = {
         $0.text = "Please leave any comments below"
         $0.adjustsFontSizeToFitWidth = true
         $0.textColor = UIColor(r: 0, g: 163, b: 173)
@@ -139,7 +146,8 @@ class  SurveyController : UIViewController {
         return $0
     }(UILabel())
     
-    let AnecdoteView: UITextView = {
+    // Input: Area where user inputs their anecdote
+    let anecdote_view: UITextView = {
         $0.text = ""
         $0.textColor = UIColor.black
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -149,15 +157,14 @@ class  SurveyController : UIViewController {
         return $0
     }(UITextView())
     
-    let SubmitButton: UIButton = {
+    // Button: on click, submits survey responses to Firebase storage
+    let submit_button: UIButton = {
         $0.backgroundColor = UIColor(r: 0, g: 163, b: 173)
         $0.setTitle("Submit", for: .normal)
-        // must set up this property otherwise, the specified anchors will not work
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         $0.layer.cornerRadius = 5
-        // Add action to registerButton
         $0.addTarget(self, action: #selector(submit), for: .touchUpInside)
         return $0
     }(UIButton())
@@ -166,264 +173,282 @@ class  SurveyController : UIViewController {
         super.viewDidLoad()
         
         // Create variables
-        let surveyView  = SurveyView()
-        let inputsView = surveyView.inputsView
-        let scrollContainer = surveyView.scrollContainer
+        let survey_view  = SurveyView()
+        let inputs_view = survey_view.inputs_view
+        let scroll_container = survey_view.scroll_container
         
         // Add the scrollContainer to the view and add the inputsview to the scrollContainer
-        view.addSubview(scrollContainer)
-        scrollContainer.addSubview(inputsView)
+        view.addSubview(scroll_container)
+        scroll_container.addSubview(inputs_view)
 
-        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
-        StickerDropdown?.loadStickerShirtOptions(spinnerOptions: stickerOptions)
-        ShirtDropdown?.loadStickerShirtOptions(spinnerOptions: shirtOptions)
-        ShirtSizeDropdown?.loadStickerShirtOptions(spinnerOptions: shirtSizes)
+        // Add all subview inputs and format them
+        setupInputsView(inputs_view: inputs_view, scroll_view: scroll_container)
+        
+        // Load drop down spinners with data
+        sticker_dropdown?.loadStickerShirtOptions(spinnerOptions: sticker_options)
+        shirt_dropdown?.loadStickerShirtOptions(spinnerOptions: shirt_options)
+        shirt_size_dropdown?.loadStickerShirtOptions(spinnerOptions: shirt_sizes)
+        
+        // Set background of view
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }
     
-
-    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
-        
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    // Formats scroll_view and inputs_view; adds input views to inputs_view
+    func setupInputsView(inputs_view: UIView, scroll_view: UIScrollView) {
+        // Format scroll_view
+        scroll_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scroll_view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scroll_view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scroll_view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
       
-        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        // Format inputs_view
+        inputs_view.centerXAnchor.constraint(equalTo: scroll_view.centerXAnchor).isActive = true
+        inputs_view.centerYAnchor.constraint(equalTo: scroll_view.centerYAnchor).isActive = true
+        inputs_view.leadingAnchor.constraint(equalTo: scroll_view.leadingAnchor).isActive = true
+        inputs_view.trailingAnchor.constraint(equalTo: scroll_view.trailingAnchor).isActive = true
+        inputs_view.topAnchor.constraint(equalTo: scroll_view.topAnchor).isActive = true
+        inputs_view.bottomAnchor.constraint(equalTo: scroll_view.bottomAnchor).isActive = true
         
-        inputsView.addSubview(header)
+        // Add header of the page
+        inputs_view.addSubview(header)
         
-        // Presentation Inputs
-        inputsView.addSubview(presSection)
+        // Adding other input fields; separators follow each section, and they are initialized/formatted
+        
+        // Presentation section header
+        inputs_view.addSubview(pres_section)
+        
         let separator0 = UIView()
         initSeparator(separator: separator0)
-        inputsView.addSubview(separator0)
-        setupSeparator(emailSeparatorView: separator0, inputsView: inputsView, aboveView: presSection)
+        inputs_view.addSubview(separator0)
+        setupSeparator(emailSeparatorView: separator0, inputsView: inputs_view, aboveView: pres_section)
         
+        // Number of students present
+        inputs_view.addSubview(num_students)
         
-        inputsView.addSubview(NumStudents)
         let separator1 = UIView()
         initSeparator(separator: separator1)
-        inputsView.addSubview(separator1)
-        setupSeparator(emailSeparatorView: separator1, inputsView: inputsView, aboveView: NumStudents)
+        inputs_view.addSubview(separator1)
+        setupSeparator(emailSeparatorView: separator1, inputsView: inputs_view, aboveView: num_students)
         
-        inputsView.addSubview(Experiment)
+        // Science experiment performed
+        inputs_view.addSubview(experiment)
+        
         let separator2 = UIView()
         initSeparator(separator: separator2)
-        inputsView.addSubview(separator2)
-        setupSeparator(emailSeparatorView: separator2, inputsView: inputsView, aboveView: Experiment)
+        inputs_view.addSubview(separator2)
+        setupSeparator(emailSeparatorView: separator2, inputsView: inputs_view, aboveView: experiment)
         
-        inputsView.addSubview(StickerDropdown)
+        // Stickers needed?
+        inputs_view.addSubview(sticker_dropdown)
+        
         let separator3 = UIView()
         initSeparator(separator: separator3)
-        inputsView.addSubview(separator3)
-        setupSeparator(emailSeparatorView: separator3, inputsView: inputsView, aboveView: StickerDropdown)
+        inputs_view.addSubview(separator3)
+        setupSeparator(emailSeparatorView: separator3, inputsView: inputs_view, aboveView: sticker_dropdown)
         
-        inputsView.addSubview(ShirtDropdown)
-        inputsView.addSubview(ShirtSizeDropdown)
+        // T-shirts needed and if so, what size
+        inputs_view.addSubview(shirt_dropdown)
+        inputs_view.addSubview(shirt_size_dropdown)
+        
         let separator4 = UIView()
         initSeparator(separator: separator4)
-        inputsView.addSubview(separator4)
-        setupSeparator(emailSeparatorView: separator4, inputsView: inputsView, aboveView: ShirtDropdown)
+        inputs_view.addSubview(separator4)
+        setupSeparator(emailSeparatorView: separator4, inputsView: inputs_view, aboveView: shirt_dropdown)
 
-        // Transportation Input Views
-        inputsView.addSubview(transportationSection)
+        // Transportation section header
+        inputs_view.addSubview(transportation_section)
         
         let separator5 = UIView()
         initSeparator(separator: separator5)
-        inputsView.addSubview(separator5)
-        setupSeparator(emailSeparatorView: separator5, inputsView: inputsView, aboveView: transportationSection)
+        inputs_view.addSubview(separator5)
+        setupSeparator(emailSeparatorView: separator5, inputsView: inputs_view, aboveView: transportation_section)
         
-        inputsView.addSubview(transportationDriver)
+        // Driver
+        inputs_view.addSubview(transportation_driver)
         
         let separator6 = UIView()
         initSeparator(separator: separator6)
-        inputsView.addSubview(separator6)
-        setupSeparator(emailSeparatorView: separator6, inputsView: inputsView, aboveView: transportationDriver)
+        inputs_view.addSubview(separator6)
+        setupSeparator(emailSeparatorView: separator6, inputsView: inputs_view, aboveView: transportation_driver)
         
-        
-        inputsView.addSubview(mileageOrCost)
+        // Mileage/cost
+        inputs_view.addSubview(mileage_or_cost)
         
         let separator7 = UIView()
         initSeparator(separator: separator7)
-        inputsView.addSubview(separator7)
-        setupSeparator(emailSeparatorView: separator7, inputsView: inputsView, aboveView: mileageOrCost)
+        inputs_view.addSubview(separator7)
+        setupSeparator(emailSeparatorView: separator7, inputsView: inputs_view, aboveView: mileage_or_cost)
 
+        // Anecdote section header
+        inputs_view.addSubview(anecdote_title)
         
-        // Anecdote Input Views
-        inputsView.addSubview(AnecdoteTitle)
+        let separator_top = UIView()
+        initSeparator(separator: separator_top)
+        inputs_view.addSubview(separator_top)
+        setupSeparator(emailSeparatorView: separator_top, inputsView: inputs_view, aboveView: anecdote_title)
+        separator_top.topAnchor.constraint(equalTo: anecdote_title.bottomAnchor, constant: 12).isActive = true
         
-        let separatorT = UIView()
-        initSeparator(separator: separatorT)
-        inputsView.addSubview(separatorT)
-        setupSeparator(emailSeparatorView: separatorT, inputsView: inputsView, aboveView: AnecdoteTitle)
-        separatorT.topAnchor.constraint(equalTo: AnecdoteTitle.bottomAnchor, constant: 12).isActive = true
-        inputsView.addSubview(AnecdoteView)
+        // Anecdote input
+        inputs_view.addSubview(anecdote_view)
 
-        let separatorB = UIView()
-        initSeparator(separator: separatorB)
-        inputsView.addSubview(separatorB)
-        setupSeparator(emailSeparatorView: separatorB, inputsView: inputsView, aboveView: AnecdoteView)
+        let separator_bottom = UIView()
+        initSeparator(separator: separator_bottom)
+        inputs_view.addSubview(separator_bottom)
+        setupSeparator(emailSeparatorView: separator_bottom, inputsView: inputs_view, aboveView: anecdote_view)
         
-        let separatorLeft = UIView()
-        initSeparator(separator: separatorLeft)
-        inputsView.addSubview(separatorLeft)
-        setupVertLeftSeparator(emailSeparatorView: separatorLeft, inputsView: inputsView, aboveView: separatorT, sideView: AnecdoteView)
+        let separator_left = UIView()
+        initSeparator(separator: separator_left)
+        inputs_view.addSubview(separator_left)
+        setupVertLeftSeparator(emailSeparatorView: separator_left, inputsView: inputs_view, aboveView: separator_top, sideView: anecdote_view)
         
-        let separatorRight = UIView()
-        initSeparator(separator: separatorRight)
-        inputsView.addSubview(separatorRight)
-        setupVertRightSeparator(emailSeparatorView: separatorRight, inputsView: inputsView, aboveView: separatorT, sideView: AnecdoteView)
-        
+        let separator_right = UIView()
+        initSeparator(separator: separator_right)
+        inputs_view.addSubview(separator_right)
+        setupVertRightSeparator(emailSeparatorView: separator_right, inputsView: inputs_view, aboveView: separator_top, sideView: anecdote_view)
         
         // Submit Button View
-        inputsView.addSubview(SubmitButton)
+        inputs_view.addSubview(submit_button)
         
         // Format All Input Views
-        initHeader(target: header, topView: inputsView, container: inputsView)
-        header.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 12).isActive = true
-        initWideView(target: presSection, topView: header, container: inputsView)
-        initWideView(target: NumStudents, topView: presSection, container: inputsView)
-        initWideView(target: Experiment, topView: NumStudents, container: inputsView)
-        initWideView(target: StickerDropdown, topView: Experiment, container: inputsView)
-        initSplitLeftView(target: ShirtDropdown, topView: StickerDropdown, container: inputsView)
-        initSplitRightView(target: ShirtSizeDropdown, topView: StickerDropdown, container: inputsView, leftView: ShirtDropdown)
-        initSectionHeader(target: transportationSection, topView: ShirtSizeDropdown, container: inputsView)
-        initWideView(target: transportationDriver, topView: transportationSection, container: inputsView)
-        initWideView(target: mileageOrCost, topView: transportationDriver, container: inputsView)
-        initSectionHeader(target: AnecdoteTitle, topView: mileageOrCost, container: inputsView)
-        AnecdoteView.topAnchor.constraint(equalTo: AnecdoteTitle.bottomAnchor, constant: 6).isActive = true
-        AnecdoteView.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 2).isActive = true
-        AnecdoteView.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -10).isActive = true
-        AnecdoteView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        initHeader(target: header, topView: inputs_view, container: inputs_view)
+        
+        // Reset top anchor of header since it is the first element of inputs_view
+        header.topAnchor.constraint(equalTo: inputs_view.topAnchor, constant: 12).isActive = true
+        
+        initWideView(target: pres_section, topView: header, container: inputs_view)
+        initWideView(target: num_students, topView: pres_section, container: inputs_view)
+        initWideView(target: experiment, topView: num_students, container: inputs_view)
+        initWideView(target: sticker_dropdown, topView: experiment, container: inputs_view)
+        initSplitLeftView(target: shirt_dropdown, topView: sticker_dropdown, container: inputs_view)
+        initSplitRightView(target: shirt_size_dropdown, topView: sticker_dropdown, container: inputs_view, leftView: shirt_dropdown)
+        initSectionHeader(target: transportation_section, topView: shirt_size_dropdown, container: inputs_view)
+        initWideView(target: transportation_driver, topView: transportation_section, container: inputs_view)
+        initWideView(target: mileage_or_cost, topView: transportation_driver, container: inputs_view)
+        initSectionHeader(target: anecdote_title, topView: mileage_or_cost, container: inputs_view)
+        
+        // Set up anecdote input section
+        anecdote_view.topAnchor.constraint(equalTo: anecdote_title.bottomAnchor, constant: 6).isActive = true
+        anecdote_view.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 2).isActive = true
+        anecdote_view.widthAnchor.constraint(equalTo: inputs_view.widthAnchor, constant: -10).isActive = true
+        anecdote_view.heightAnchor.constraint(equalToConstant: 200).isActive = true
        
-        initSectionHeader(target: SubmitButton, topView: AnecdoteView, container: inputsView)
-        SubmitButton.bottomAnchor.constraint(equalTo: inputsView.bottomAnchor).isActive = true
+        initSectionHeader(target: submit_button, topView: anecdote_view, container: inputs_view)
+        submit_button.bottomAnchor.constraint(equalTo: inputs_view.bottomAnchor).isActive = true
         
         var contentRect = CGRect.zero
         
-        for view in inputsView.subviews {
+        for view in inputs_view.subviews {
             contentRect = contentRect.union(view.frame)
         }
     }
     
-    func initHeader(target: UIView, topView: UIView, container: UIView){
-        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 12).isActive = true
-        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    func initHeader(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: input_header_padding).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: (input_left_padding * -1)).isActive = true
+        target.heightAnchor.constraint(equalToConstant: input_height).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: input_left_padding).isActive = true
     }
 
-    func initWideView(target: UIView, topView: UIView, container: UIView){
-        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: CGFloat(INPUT_TOP_PADDING)).isActive = true
-        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    func initWideView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: input_top_padding).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: (input_left_padding * -1)).isActive = true
+        target.heightAnchor.constraint(equalToConstant: input_height).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: input_left_padding).isActive = true
     }
     
-    func initSectionHeader(target: UIView, topView: UIView, container: UIView){
-        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20).isActive = true
-        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    func initSectionHeader(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: input_section_header_padding).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: (input_left_padding * -1)).isActive = true
+        target.heightAnchor.constraint(equalToConstant: input_height).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: input_left_padding).isActive = true
     }
     
-    func initSplitLeftView(target: UIView, topView: UIView, container: UIView){
-        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
-        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    func initSplitLeftView(target: UIView, topView: UIView, container: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: input_top_padding).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: input_left_padding).isActive = true
         target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.heightAnchor.constraint(equalToConstant: input_height).isActive = true
     }
     
-    func initSplitRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView){
-        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
-        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: 10).isActive = true
+    func initSplitRightView(target: UIView, topView: UIView, container: UIView, leftView: UIView) {
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: input_top_padding).isActive = true
+        target.leftAnchor.constraint(equalTo: leftView.rightAnchor, constant: (input_left_padding * 2)).isActive = true
         target.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 1/2, constant: -10).isActive = true
-        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.heightAnchor.constraint(equalToConstant: input_height).isActive = true
     }
 
-    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView){
+    func setupSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
-    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
+    func setupVertLeftSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView){
+    func setupVertRightSeparator(emailSeparatorView: UIView, inputsView: UIView, aboveView: UIView, sideView: UIView) {
         emailSeparatorView.leftAnchor.constraint(equalTo: sideView.rightAnchor, constant: 7).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: aboveView.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalTo: sideView.heightAnchor, constant: 6).isActive = true
     }
     
-    func initSeparator(separator: UIView){
+    func initSeparator(separator: UIView) {
         separator.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    
-    @objc func submit(){
-        // Get a reference to the storage service using the default Firebase App
+    // When a user hits the submit button, app will attempt to download the csv file stored in Firebase storage to the app's internal storage, append a csv-formatted text string to the file, and then reupload it, replacing the old file.
+    @objc func submit() {
+        // Get a reference to the Firebase storage service
         let storage = Storage.storage()
         
         // Create a storage reference from our storage service
-        let storageRef = storage.reference()
+        let storage_ref = storage.reference()
         
+        // Create a reference to where the file will be downloaded locally
         let download = "download.text"
 
-        // Create a child reference
-        let surveyRef = storageRef.child("surveys/file.txt")
+        // Create a reference to the file in Firebase/storage/surveys
+        let survey_ref = storage_ref.child("surveys/file.txt")
         
-        //date, location, names, chapter, time, number of students,
+        // String containing the information to be stored in the csv
+        let text = "\(presentation!.date),\(presentation!.location),\(presentation!.names),\(presentation!.chapter),\(presentation!.time),\(num_students.text!),\(experiment.text!),\(sticker_dropdown.text!),\(shirt_dropdown.text!),\(shirt_size_dropdown.text!),\(transportation_driver.text!),\(mileage_or_cost.text!),\(anecdote_view.text!)\n"
         
-        let text = "\(presentation!.date),\(presentation!.location),\(presentation!.names),\(presentation!.chapter),\(presentation!.time),\(NumStudents.text!),\(Experiment.text!),\(StickerDropdown.text!),\(ShirtDropdown.text!),\(ShirtSizeDropdown.text!),\(transportationDriver.text!),\(mileageOrCost.text!),\(AnecdoteView.text!)\n" //just a text
-        
+        // If internal app storage is accessible, temporarily write file from Firebase to storage
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             // Create local filesystem URL
             let localURL = dir.appendingPathComponent(download)
             
-            // Download to the local filesystem
-            let downloadTask = surveyRef.write(toFile: localURL) { url, error in
-                if let error = error {
+            // Attempt to download to the local filesystem
+            _ = survey_ref.write(toFile: localURL) { url, error in
+                if error != nil {
                 } else {
-                    //writing
+                    // Write text string to the downloaded file
                     do {
-                        let fileHandle = try FileHandle(forWritingTo: localURL)
-                        fileHandle.seekToEndOfFile()
-                        fileHandle.write(text.data(using: .utf8)!)
-                        fileHandle.closeFile()
+                        let file_handle = try FileHandle(forWritingTo: localURL)
+                        file_handle.seekToEndOfFile()
+                        file_handle.write(text.data(using: .utf8)!)
+                        file_handle.closeFile()
                     }
-                    catch {/* error handling here */}
-                    
-                    //reading
-                    do {
-                        let text2 = try String(contentsOf: localURL, encoding: .utf8)
-                        print("Here are the contents: \(text2)")
+                    catch {
+                        self.view.makeToast("There seemed to be an error while submitting your response. Please try again later.")
                     }
-                    catch {/* error handling here */}
                     
-                    // Upload the file to the path "images/rivers.jpg"
-                    let uploadTask = surveyRef.putFile(from: localURL, metadata: nil) { metadata, error in
-                        guard let metadata = metadata
+                    // Reupload the file to Firebase storage
+                    _ = survey_ref.putFile(from: localURL, metadata: nil) { metadata, error in
+                        guard metadata != nil
                             else {
                             return
                         }
-//                        let detail = PresentationDetailController()
-//                        detail.presentation = self.presentation
-//                        detail.detailToast()
+                        
+                        // Return back to previous view
                         self.navigationController?.popViewController(animated: true)
                     }
                 }

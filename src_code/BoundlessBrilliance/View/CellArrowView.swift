@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class CellArrow: UIView {
+    
+    // Draws the arrow on the presentation list view
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         if let context = UIGraphicsGetCurrentContext() {
