@@ -259,7 +259,6 @@ class PresentationDetailController : UIViewController{
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         return $0
     }(UITextView())
-
     
     // The second name of the presenter
     let names_field_2: UITextView = {
@@ -316,13 +315,13 @@ class PresentationDetailController : UIViewController{
         super.viewDidLoad()
         
         // Create variables
-        let presDetailView  = PresentationDetailView()
-        let scrollContainer = presDetailView.scroll_container
-        let inputsView = presDetailView.inputs_view
+        let pres_detail_view  = PresentationDetailView()
+        let scroll_container = pres_detail_view.scroll_container
+        let inputs_view = pres_detail_view.inputs_view
         
         // Adds subviews
-        view.addSubview(scrollContainer)
-        scrollContainer.addSubview(inputsView)
+        view.addSubview(scroll_container)
+        scroll_container.addSubview(inputs_view)
         
         // Parses the date and time to our intended format
         time.text = parseTime(timeText: (presentation?.time)!)
@@ -343,7 +342,7 @@ class PresentationDetailController : UIViewController{
         checkDateUpdateButton(button: leave_input_button)
         
         // Set up InputsView
-        setupInputsView(inputsView: inputsView, scrollView: scrollContainer)
+        setupInputsView(inputs_view: inputs_view, scroll_view: scroll_container)
         
         // Set up the spinners for all the questions that have multiple options
         sticker_dropdown?.loadStickerShirtOptions(spinnerOptions: sticker_options)
@@ -354,28 +353,27 @@ class PresentationDetailController : UIViewController{
         view.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }
     
-    
-    func setupInputsView(inputsView: UIView, scrollView: UIScrollView){
+    func setupInputsView(inputs_view: UIView, scroll_view: UIScrollView) {
         
         // Set up the constraints for the scrollView
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
-        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        scroll_view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scroll_view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scroll_view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1, constant: -24).isActive = true
+        scroll_view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         // Set up the constraints for the inputsView
-        inputsView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        inputsView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        inputsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        inputs_view.centerXAnchor.constraint(equalTo: scroll_view.centerXAnchor).isActive = true
+        inputs_view.centerYAnchor.constraint(equalTo: scroll_view.centerYAnchor).isActive = true
+        inputs_view.leadingAnchor.constraint(equalTo: scroll_view.leadingAnchor).isActive = true
+        inputs_view.trailingAnchor.constraint(equalTo: scroll_view.trailingAnchor).isActive = true
+        inputs_view.topAnchor.constraint(equalTo: scroll_view.topAnchor).isActive = true
+        inputs_view.bottomAnchor.constraint(equalTo: scroll_view.bottomAnchor).isActive = true
         
         // Add subviews for date, time, location
-        inputsView.addSubview(date_text)
-        inputsView.addSubview(time)
-        inputsView.addSubview(loc_field_title)
-        inputsView.addSubview(loc_field)
+        inputs_view.addSubview(date_text)
+        inputs_view.addSubview(time)
+        inputs_view.addSubview(loc_field_title)
+        inputs_view.addSubview(loc_field)
         
         // Set up the separators on this page
         let separator_1 = UIView()
@@ -386,83 +384,83 @@ class PresentationDetailController : UIViewController{
         
         // Separator 1
         initSeparator(separator: separator_1)
-        inputsView.addSubview(separator_1)
-        setupSeparator(emailSeparatorView: separator_1, inputsView: inputsView, aboveView: loc_field_title)
+        inputs_view.addSubview(separator_1)
+        setupSeparator(emailSeparatorView: separator_1, inputsView: inputs_view, aboveView: loc_field_title)
         
         // Add subviews for room
-        inputsView.addSubview(room_num_title)
-        inputsView.addSubview(room_num)
+        inputs_view.addSubview(room_num_title)
+        inputs_view.addSubview(room_num)
         
         // Separator 2
         initSeparator(separator: separator_2)
-        inputsView.addSubview(separator_2)
-        setupSeparator(emailSeparatorView: separator_2, inputsView: inputsView, aboveView: room_num_title)
+        inputs_view.addSubview(separator_2)
+        setupSeparator(emailSeparatorView: separator_2, inputsView: inputs_view, aboveView: room_num_title)
         
         // Add subviews for teacher
-        inputsView.addSubview(teacher_title)
-        inputsView.addSubview(teacher)
-        inputsView.addSubview(teacher_email)
+        inputs_view.addSubview(teacher_title)
+        inputs_view.addSubview(teacher)
+        inputs_view.addSubview(teacher_email)
         
         // Separator 3
         initSeparator(separator: separator_3)
-        inputsView.addSubview(separator_3)
-        setupSeparator(emailSeparatorView: separator_3, inputsView: inputsView, aboveView: teacher_email)
+        inputs_view.addSubview(separator_3)
+        setupSeparator(emailSeparatorView: separator_3, inputsView: inputs_view, aboveView: teacher_email)
 
         // Add subviews for grade
-        inputsView.addSubview(grade)
-        inputsView.addSubview(grade_label)
+        inputs_view.addSubview(grade)
+        inputs_view.addSubview(grade_label)
         
         // Separator 4
         initSeparator(separator: separator_4)
-        inputsView.addSubview(separator_4)
-        setupSeparator(emailSeparatorView: separator_4, inputsView: inputsView, aboveView: grade)
+        inputs_view.addSubview(separator_4)
+        setupSeparator(emailSeparatorView: separator_4, inputsView: inputs_view, aboveView: grade)
         
         // Add subviews for presenters
-        inputsView.addSubview(names_field_title)
-        inputsView.addSubview(names_field_1)
-        inputsView.addSubview(names_field_2)
+        inputs_view.addSubview(names_field_title)
+        inputs_view.addSubview(names_field_1)
+        inputs_view.addSubview(names_field_2)
         
         // Separator 5
         initSeparator(separator: separator_5)
-        inputsView.addSubview(separator_5)
-        setupSeparator(emailSeparatorView: separator_5, inputsView: inputsView, aboveView: names_field_2)
+        inputs_view.addSubview(separator_5)
+        setupSeparator(emailSeparatorView: separator_5, inputsView: inputs_view, aboveView: names_field_2)
         
         // Add subviews for outreach coordinator
-        inputsView.addSubview(oc_title)
-        inputsView.addSubview(outreach_coordinator)
-        inputsView.addSubview(outreach_coordinator_email)
+        inputs_view.addSubview(oc_title)
+        inputs_view.addSubview(outreach_coordinator)
+        inputs_view.addSubview(outreach_coordinator_email)
         
         // Add subviews for button and/or the message about when the survey can be accessed
-        inputsView.addSubview(leave_input_button)
-        inputsView.addSubview(input_info)
+        inputs_view.addSubview(leave_input_button)
+        inputs_view.addSubview(input_info)
         
         // Call functions to initialize all the views
-        initWideView(target: date_text, topView: inputsView, container: inputsView)
-        date_text.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
-        initWideView(target: time, topView: date_text, container: inputsView)
+        initWideView(target: date_text, topView: inputs_view, container: inputs_view)
+        date_text.topAnchor.constraint(equalTo: inputs_view.topAnchor, constant: 6).isActive = true
+        initWideView(target: time, topView: date_text, container: inputs_view)
         time.topAnchor.constraint(equalTo: date_text.bottomAnchor).isActive = true
-        initFirstSmallLeftView(target: loc_field_title, topView: time, container: inputsView)
-        initFirstLargeRightView(target: loc_field, topView: time, container: inputsView, leftView: loc_field_title)
-        initSplitLeftView(target: room_num_title, topView: loc_field_title, container: inputsView)
-        initSplitRightView(target: room_num, topView: loc_field, container: inputsView, leftView: room_num_title)
-        initSplitLeftView(target: teacher_title, topView: room_num_title, container: inputsView)
-        initSplitRightView(target: teacher, topView: room_num_title, container: inputsView, leftView: teacher_title)
-        initSplitRightViewLessTopPadding(target: teacher_email, topView: teacher_title, container: inputsView, leftView: teacher_title)
-        initSplitLeftView(target: grade_label, topView: teacher_email, container: inputsView)
-        initSplitRightView(target: grade, topView: teacher_email, container: inputsView, leftView: grade_label)
-        initSplitLeftView(target: names_field_title, topView: grade_label, container: inputsView)
-        initSplitRightView(target: names_field_1, topView: grade_label, container: inputsView, leftView: names_field_title)
-        initSplitRightViewLessTopPadding(target: names_field_2, topView: names_field_1, container: inputsView, leftView: names_field_title)
-        initSplitLeftView(target: oc_title, topView: names_field_2, container: inputsView)
-        initSplitRightView(target: outreach_coordinator, topView: names_field_2, container: inputsView, leftView: oc_title)
-        initSplitRightViewLessTopPadding(target: outreach_coordinator_email, topView: oc_title, container: inputsView, leftView: outreach_coordinator)
-        initButtonSpacing(target: leave_input_button, topView: outreach_coordinator_email, container: inputsView)
+        initFirstSmallLeftView(target: loc_field_title, topView: time, container: inputs_view)
+        initFirstLargeRightView(target: loc_field, topView: time, container: inputs_view, leftView: loc_field_title)
+        initSplitLeftView(target: room_num_title, topView: loc_field_title, container: inputs_view)
+        initSplitRightView(target: room_num, topView: loc_field, container: inputs_view, leftView: room_num_title)
+        initSplitLeftView(target: teacher_title, topView: room_num_title, container: inputs_view)
+        initSplitRightView(target: teacher, topView: room_num_title, container: inputs_view, leftView: teacher_title)
+        initSplitRightViewLessTopPadding(target: teacher_email, topView: teacher_title, container: inputs_view, leftView: teacher_title)
+        initSplitLeftView(target: grade_label, topView: teacher_email, container: inputs_view)
+        initSplitRightView(target: grade, topView: teacher_email, container: inputs_view, leftView: grade_label)
+        initSplitLeftView(target: names_field_title, topView: grade_label, container: inputs_view)
+        initSplitRightView(target: names_field_1, topView: grade_label, container: inputs_view, leftView: names_field_title)
+        initSplitRightViewLessTopPadding(target: names_field_2, topView: names_field_1, container: inputs_view, leftView: names_field_title)
+        initSplitLeftView(target: oc_title, topView: names_field_2, container: inputs_view)
+        initSplitRightView(target: outreach_coordinator, topView: names_field_2, container: inputs_view, leftView: oc_title)
+        initSplitRightViewLessTopPadding(target: outreach_coordinator_email, topView: oc_title, container: inputs_view, leftView: outreach_coordinator)
+        initButtonSpacing(target: leave_input_button, topView: outreach_coordinator_email, container: inputs_view)
     
         // Defining elements for the message that displays if the date hasn't yet passed for the post-presentation survey
         input_info.topAnchor.constraint(equalTo: leave_input_button.bottomAnchor, constant: 6).isActive = true
-        input_info.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -5).isActive = true
+        input_info.widthAnchor.constraint(equalTo: inputs_view.widthAnchor, constant: -5).isActive = true
         input_info.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        input_info.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 5).isActive = true
+        input_info.leftAnchor.constraint(equalTo: inputs_view.leftAnchor, constant: 5).isActive = true
     }
     
     // Makes the app scrollable

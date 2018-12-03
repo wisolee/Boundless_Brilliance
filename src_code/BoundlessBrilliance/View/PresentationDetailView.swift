@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PresentationDetailView : UIView {
+class PresentationDetailView: UIView {
     
     // Enables the scrolling on this page
     let scroll_container: UIScrollView = {
