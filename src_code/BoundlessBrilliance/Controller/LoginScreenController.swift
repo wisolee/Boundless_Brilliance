@@ -69,7 +69,7 @@ class LoginScreenController: UIViewController {
     }
     
     // Loads data into presentation list
-    func loadDataIntoArray(presentation_dict: [String : Dictionary<String, Any>], ref: DatabaseReference) {
+    func loadDataIntoArray(presentation_dict: [String: Dictionary<String, Any>], ref: DatabaseReference) {
         var presenter_dict: Dictionary<String, String>!
         var presentation_num = presentation_dict.count
         
@@ -77,9 +77,9 @@ class LoginScreenController: UIViewController {
         for presentation in presentation_dict.values {
             presenter_dict = presentation["Presenters"] as? Dictionary
             let parsed_presenter_string = parsePresenterDictionary(presenter_names: Array(presenter_dict.values))
-            let date_string : String = presentation["Date"] as! String
-            let formatted_date : String = parseDateTime(datetime : date_string).0
-            let formatted_time: String = parseDateTime(datetime : date_string).1
+            let date_string: String = presentation["Date"] as! String
+            let formatted_date: String = parseDateTime(datetime: date_string).0
+            let formatted_time: String = parseDateTime(datetime: date_string).1
             var presentation_chapter: String!
             
             retrieveChapter(presenter_dict: presenter_dict, ref: ref, completion: { message in
@@ -118,7 +118,7 @@ class LoginScreenController: UIViewController {
                 else {
                     completion("")
                     return
-            }
+                }
             presentation_chapter = chapter as? String
             completion(presentation_chapter)
         }) { (error) in

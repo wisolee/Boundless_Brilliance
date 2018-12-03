@@ -80,7 +80,6 @@ class RegisterController: UIViewController {
     
     // Register button action -- Create user and send to Firebase
     @objc func handleRegister() {
-        
         // Ensures email and password are valid values
         guard let name = name_text_field.text, let email = email_text_field.text, let password = password_text_field.text, let chapter = chapter_text_field.text, let member_type = member_type_text_field.text
             else {
@@ -114,7 +113,7 @@ class RegisterController: UIViewController {
     }()
     
     // Navigate back to login page
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -171,7 +170,7 @@ class RegisterController: UIViewController {
     }
     
     // Returns true if all inputs are valid
-    func inputsAreValid (name: String, email: String, password: String, chapter: String, member_type: String) -> Bool {
+    func inputsAreValid(name: String, email: String, password: String, chapter: String, member_type: String) -> Bool {
         if (nameNotEntered(name: name) ||
             invalidEmailFormat(email: email) ||
             passwordTooShort(password: password) ||
@@ -183,7 +182,7 @@ class RegisterController: UIViewController {
     }
     
     // Checks for valid name field entry
-    func nameNotEntered (name: String) -> Bool {
+    func nameNotEntered(name: String) -> Bool {
         if name == "" {
             self.view.makeToast("Please enter a name.")
             return true
@@ -192,7 +191,7 @@ class RegisterController: UIViewController {
     }
     
     // Checks for valid email field entry
-    func invalidEmailFormat (email: String) -> Bool {
+    func invalidEmailFormat(email: String) -> Bool {
         let email_reg_ex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let email_test = NSPredicate(format:"SELF MATCHES %@", email_reg_ex)
         let valid_email = email_test.evaluate(with: email)
@@ -205,7 +204,7 @@ class RegisterController: UIViewController {
     }
     
     // Checks for valid password field entry
-    func passwordTooShort (password: String) -> Bool {
+    func passwordTooShort(password: String) -> Bool {
         if password.count < 7 {
             self.view.makeToast("Password too short")
             return true
@@ -214,7 +213,7 @@ class RegisterController: UIViewController {
     }
     
     // Checks for valid chapter field entry
-    func chapterNotSelected (chapter: String) -> Bool {
+    func chapterNotSelected(chapter: String) -> Bool {
         if chapter == "" {
             self.view.makeToast("Please choose a chapter.")
             return true
@@ -223,7 +222,7 @@ class RegisterController: UIViewController {
     }
     
     // Checks for valid member field entry
-    func memberTypeNotSelected (member_type: String) -> Bool {
+    func memberTypeNotSelected(member_type: String) -> Bool {
         if member_type == "" {
             self.view.makeToast("Please choose a member type.")
             return true
@@ -232,7 +231,7 @@ class RegisterController: UIViewController {
     }
     
     // If input validations are passed, attempt to create a user
-    func createUser (name: String, email: String, password: String, chapter: String, member_type: String) {
+    func createUser(name: String, email: String, password: String, chapter: String, member_type: String) {
         // Register User
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
@@ -257,7 +256,7 @@ class RegisterController: UIViewController {
     }
     
     // Add user to users table in Firebase
-    func putIntoUsersTable (ref: DatabaseReference, user_ID: String, name: String, email: String, chapter: String, member_type: String) {
+    func putIntoUsersTable(ref: DatabaseReference, user_ID: String, name: String, email: String, chapter: String, member_type: String) {
         let user_ref = ref.child("users").child(user_ID)
         let user_fields = ["name" : name,
                           "email" : email,
@@ -268,7 +267,7 @@ class RegisterController: UIViewController {
     }
     
     // Add user to chapters table in Firebase
-    func putIntoChaptersTable (ref: DatabaseReference, user_ID: String, name: String, chapter: String) {
+    func putIntoChaptersTable(ref: DatabaseReference, user_ID: String, name: String, chapter: String) {
         let chapter_ref = ref.child("chapters").child(chapter)
         let member = [user_ID : name]
         
@@ -276,7 +275,7 @@ class RegisterController: UIViewController {
     }
     
     // Update Firebase data table
-    func updateTable (ref: DatabaseReference, value: Dictionary <String, String>) {
+    func updateTable(ref: DatabaseReference, value: Dictionary <String, String>) {
         ref.updateChildValues(value) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
@@ -366,7 +365,7 @@ class RegisterController: UIViewController {
     }
     
     // Set up constraints for return button
-    func setupReturnButton(inputs_view: UIView){
+    func setupReturnButton(inputs_view: UIView) {
         return_button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         return_button.topAnchor.constraint(equalTo: register_button.bottomAnchor, constant: 12).isActive = true
         return_button.widthAnchor.constraint(equalTo: inputs_view.widthAnchor).isActive = true
