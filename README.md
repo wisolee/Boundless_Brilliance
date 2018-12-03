@@ -17,3 +17,4 @@ This is an internal scheduling iOS mobile app coded in Swift created for Boundle
 *Firebase
 
 *This project was created for the course 115: Introduction to Software Engineering in the Fall 2018 Quarter at UCSC.*
+
