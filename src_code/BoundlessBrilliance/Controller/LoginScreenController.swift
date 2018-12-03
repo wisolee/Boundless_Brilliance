@@ -23,60 +23,6 @@ var filtered_presentation_items = [PresentationListItemModel]()
 
 class LoginScreenController: UIViewController {
     
-    // Login button initialization
-    let login_button: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 163, b: 173)
-        button.setTitle("Login", for: .normal)
-        
-        // Must set up this property, otherwise the specified anchors will not work
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 5
-        
-        // Add action to login button
-        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-
-        return button
-    }()
-    
-    // Action for login button -- checks user authentication
-    @objc func handleLogin() {
-        guard let email = email_text_field.text, let password = password_text_field.text
-            else {
-                print("Form input is not valid")
-                return
-        }
-        
-        // Set view controller for next page
-        let presentation_view_controller = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                // User login failed, print error message
-                self.view.makeToast("User not found or incorrect password.")
-                print("User or password not found")
-                print(error as Any)
-                return
-            } else {
-                // User login successful
-                print("Successfully authenticated user")
-                print(user as Any)
-                
-                // Show loading alert and start loading data
-                self.startLoadingAlert()
-                self.loadData()
-                
-                firebase_group.notify(queue: .main) {
-                    // When Firebase requests are complete, dismiss alert
-                    // and move to presentation collection view screen
-                    presentation_items.sort { $0.date < $1.date }
-                    self.dismiss(animated: false, completion: nil)
-                    self.navigationController?.pushViewController(presentation_view_controller, animated: true)
-                }
-            }
-        }
-    }
     
     // Show loading alert while data is retrieved
     func startLoadingAlert() {
@@ -230,6 +176,61 @@ class LoginScreenController: UIViewController {
         date_formatter.dateFormat = "EEE hh:mm a"
         let time_string = date_formatter.string(from: iso_date)
         return time_string
+    }
+    
+    // Login button initialization
+    let login_button: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(r: 0, g: 163, b: 173)
+        button.setTitle("Login", for: .normal)
+        
+        // Must set up this property, otherwise the specified anchors will not work
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 5
+        
+        // Add action to login button
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    // Action for login button -- checks user authentication
+    @objc func handleLogin() {
+        guard let email = email_text_field.text, let password = password_text_field.text
+            else {
+                print("Form input is not valid")
+                return
+        }
+        
+        // Set view controller for next page
+        let presentation_view_controller = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                // User login failed, print error message
+                self.view.makeToast("User not found or incorrect password.")
+                print("User or password not found")
+                print(error as Any)
+                return
+            } else {
+                // User login successful
+                print("Successfully authenticated user")
+                print(user as Any)
+                
+                // Show loading alert and start loading data
+                self.startLoadingAlert()
+                self.loadData()
+                
+                firebase_group.notify(queue: .main) {
+                    // When Firebase requests are complete, dismiss alert
+                    // and move to presentation collection view screen
+                    presentation_items.sort { $0.date < $1.date }
+                    self.dismiss(animated: false, completion: nil)
+                    self.navigationController?.pushViewController(presentation_view_controller, animated: true)
+                }
+            }
+        }
     }
     
     // Register button initialization
