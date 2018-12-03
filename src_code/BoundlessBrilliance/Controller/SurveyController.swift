@@ -217,67 +217,67 @@ class  SurveyController: UIViewController {
         // Presentation section header
         inputs_view.addSubview(pres_section)
         
-        let separator0 = UIView()
-        initSeparator(separator: separator0)
-        inputs_view.addSubview(separator0)
-        setupSeparator(emailSeparatorView: separator0, inputsView: inputs_view, aboveView: pres_section)
+        let separator_0 = UIView()
+        initSeparator(separator: separator_0)
+        inputs_view.addSubview(separator_0)
+        setupSeparator(emailSeparatorView: separator_0, inputsView: inputs_view, aboveView: pres_section)
         
         // Number of students present
         inputs_view.addSubview(num_students)
         
-        let separator1 = UIView()
-        initSeparator(separator: separator1)
-        inputs_view.addSubview(separator1)
-        setupSeparator(emailSeparatorView: separator1, inputsView: inputs_view, aboveView: num_students)
+        let separator_1 = UIView()
+        initSeparator(separator: separator_1)
+        inputs_view.addSubview(separator_1)
+        setupSeparator(emailSeparatorView: separator_1, inputsView: inputs_view, aboveView: num_students)
         
         // Science experiment performed
         inputs_view.addSubview(experiment)
         
-        let separator2 = UIView()
-        initSeparator(separator: separator2)
-        inputs_view.addSubview(separator2)
-        setupSeparator(emailSeparatorView: separator2, inputsView: inputs_view, aboveView: experiment)
+        let separator_2 = UIView()
+        initSeparator(separator: separator_2)
+        inputs_view.addSubview(separator_2)
+        setupSeparator(emailSeparatorView: separator_2, inputsView: inputs_view, aboveView: experiment)
         
         // Stickers needed?
         inputs_view.addSubview(sticker_dropdown)
         
-        let separator3 = UIView()
-        initSeparator(separator: separator3)
-        inputs_view.addSubview(separator3)
-        setupSeparator(emailSeparatorView: separator3, inputsView: inputs_view, aboveView: sticker_dropdown)
+        let separator_3 = UIView()
+        initSeparator(separator: separator_3)
+        inputs_view.addSubview(separator_3)
+        setupSeparator(emailSeparatorView: separator_3, inputsView: inputs_view, aboveView: sticker_dropdown)
         
         // T-shirts needed and if so, what size
         inputs_view.addSubview(shirt_dropdown)
         inputs_view.addSubview(shirt_size_dropdown)
         
-        let separator4 = UIView()
-        initSeparator(separator: separator4)
-        inputs_view.addSubview(separator4)
-        setupSeparator(emailSeparatorView: separator4, inputsView: inputs_view, aboveView: shirt_dropdown)
+        let separator_4 = UIView()
+        initSeparator(separator: separator_4)
+        inputs_view.addSubview(separator_4)
+        setupSeparator(emailSeparatorView: separator_4, inputsView: inputs_view, aboveView: shirt_dropdown)
 
         // Transportation section header
         inputs_view.addSubview(transportation_section)
         
-        let separator5 = UIView()
-        initSeparator(separator: separator5)
-        inputs_view.addSubview(separator5)
-        setupSeparator(emailSeparatorView: separator5, inputsView: inputs_view, aboveView: transportation_section)
+        let separator_5 = UIView()
+        initSeparator(separator: separator_5)
+        inputs_view.addSubview(separator_5)
+        setupSeparator(emailSeparatorView: separator_5, inputsView: inputs_view, aboveView: transportation_section)
         
         // Driver
         inputs_view.addSubview(transportation_driver)
         
-        let separator6 = UIView()
-        initSeparator(separator: separator6)
-        inputs_view.addSubview(separator6)
-        setupSeparator(emailSeparatorView: separator6, inputsView: inputs_view, aboveView: transportation_driver)
+        let separator_6 = UIView()
+        initSeparator(separator: separator_6)
+        inputs_view.addSubview(separator_6)
+        setupSeparator(emailSeparatorView: separator_6, inputsView: inputs_view, aboveView: transportation_driver)
         
         // Mileage/cost
         inputs_view.addSubview(mileage_or_cost)
         
-        let separator7 = UIView()
-        initSeparator(separator: separator7)
-        inputs_view.addSubview(separator7)
-        setupSeparator(emailSeparatorView: separator7, inputsView: inputs_view, aboveView: mileage_or_cost)
+        let separator_7 = UIView()
+        initSeparator(separator: separator_7)
+        inputs_view.addSubview(separator_7)
+        setupSeparator(emailSeparatorView: separator_7, inputsView: inputs_view, aboveView: mileage_or_cost)
 
         // Anecdote section header
         inputs_view.addSubview(anecdote_title)
