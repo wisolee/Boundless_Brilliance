@@ -107,7 +107,13 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         //use presentation_items[indexPath.row] to get the presentation Item
         //pass the presentation item to a new view and segue
         let detailController = PresentationDetailController()
-        detailController.presentation = presentation_items[indexPath.row]
+
+        isSearching = isFiltering()
+        if isSearching {
+            detailController.presentation = filtered_presentation_items[indexPath.row]
+        } else {
+            detailController.presentation = presentation_items[indexPath.row]
+        }
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
@@ -115,8 +121,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
         navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
+        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 163, b: 173)
+        navigationController?.navigationBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
+       
     }
     
     func configureCollectionView() {
@@ -128,7 +135,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // subview - returnButton
     let logOutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 0, g: 163, b: 173)
         button.setTitle("Logout", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false

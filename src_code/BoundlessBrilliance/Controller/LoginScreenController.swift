@@ -22,7 +22,7 @@ class LoginScreenController: UIViewController {
     //     subview - login_button
     let login_button: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 0, g: 163, b: 173)
         button.setTitle("Login", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -223,7 +223,7 @@ class LoginScreenController: UIViewController {
         button.setTitle("New to the app? Register here", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor(r: 0, g: 128, b: 128), for: .normal)
+        button.setTitleColor(UIColor(r: 0, g: 163, b: 173), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 5
         
