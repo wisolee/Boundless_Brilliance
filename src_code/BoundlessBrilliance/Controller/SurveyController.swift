@@ -405,6 +405,10 @@ class  SurveyController: UIViewController {
 
     // When a user hits the submit button, app will attempt to download the csv file stored in Firebase storage to the app's internal storage, append a csv-formatted text string to the file, and then reupload it, replacing the old file.
     @objc func submit() {
+        // Disable and gray out submit button after it has been clicked
+        submit_button.isEnabled = false
+        submit_button.backgroundColor = UIColor.gray
+        
         // Get a reference to the Firebase storage service
         let storage = Storage.storage()
         
