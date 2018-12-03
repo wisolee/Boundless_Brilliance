@@ -11,131 +11,129 @@ import Firebase
 
 extension PresentationListCollectionViewController: UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
     
-    // MARK: - configure SearchController
+    // MARK: Configure SearchController
+    
+    // Configures search_controller with desired settings
     func configureSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
+        // Create search_controller only for presentationListView
+        self.search_controller = UISearchController(searchResultsController: nil)
         
-        self.searchController.searchResultsUpdater = self
-        self.searchController.delegate = self
-        self.searchController.searchBar.delegate = self
+        // Set the delegates
+        self.search_controller.searchResultsUpdater = self
+        self.search_controller.delegate = self
+        self.search_controller.searchBar.delegate = self
         
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.dimsBackgroundDuringPresentation = true
-        self.searchController.obscuresBackgroundDuringPresentation = false
+        // search_controller visual tweaks
+        self.search_controller.hidesNavigationBarDuringPresentation = false
+        self.search_controller.dimsBackgroundDuringPresentation = true
+        self.search_controller.obscuresBackgroundDuringPresentation = false
         
-        searchController.searchBar.placeholder = "Search Presentations"
+        self.search_controller.searchBar.placeholder = "Search Presentations"
         definesPresentationContext = true
-        searchController.searchBar.sizeToFit()
+        self.search_controller.searchBar.sizeToFit()
         
-        searchController.searchBar.becomeFirstResponder()
+        self.search_controller.searchBar.becomeFirstResponder()
         
-        self.navigationItem.titleView = searchController.searchBar
+        // Place searchBar at titleView position of navigationBar
+        self.navigationItem.titleView = search_controller.searchBar
         
         // Setup Scope Bar
-        self.searchController.searchBar.showsScopeBar = true
-        self.searchController.searchBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
+        self.search_controller.searchBar.showsScopeBar = true
+        self.search_controller.searchBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
+        
         // Set Scope Bar Titles
         if (presenter_member_type == "Presenter" || presenter_member_type == "Outreach Coordinator") {
-            self.searchController.searchBar.scopeButtonTitles = [presenter_chapter, presenter_name]
+            self.search_controller.searchBar.scopeButtonTitles = [presenter_chapter, presenter_name]
         } else {
-            self.searchController.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
+            self.search_controller.searchBar.scopeButtonTitles = ["All", "Azusa Pacific University", "Los Angeles Trade Tech College", "Occidental College"]
         }
-        
-        
-//        var ref: DatabaseReference!
-//        ref = Database.database().reference(fromURL: "https://boundless-brilliance-22fa0.firebaseio.com/")
-//        let userID = Auth.auth().currentUser!.uid
-//        
-//        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user field(s)
-//            let value = snapshot.value as? NSDictionary
-//            let name = value?["name"] as? String ?? ""
-//            let chapter = value?["chapter"] as? String ?? ""
-//            let memberType = value?["memberType"] as? String ?? ""
-//            
-//            presenterName = name
-//            presenterChapter = chapter
-//            presenterMemberType = memberType
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
     }
     
     // MARK: Search Bar
+    
+    // Sets is_searching to false and clears current query
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
+        is_searching = false
         self.dismiss(animated: true, completion: nil)
     }
     
+    // Sets is_searching to true and reloads page as query is being typed
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearching = true
+        is_searching = true
         collectionView.reloadData()
     }
     
+    // Sets is_searching to false and reloads page when search bar is clicked
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
+        is_searching = false
         collectionView.reloadData()
     }
     
+    // Tells the delgate wether or not the bookmark button was tapped
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        if !isSearching {
-            isSearching = true
+        if !is_searching {
+            is_searching = true
             collectionView.reloadData()
         }
-        
-        searchController.searchBar.resignFirstResponder()
+        search_controller.searchBar.resignFirstResponder()
     }
     
-    // MARK: - UISearchResultsUpdating Delegate
+    // MARK: UISearchResultsUpdating Delegate
+    
+    // Updates search results when search queries are made and/or presentation categories are chosen
     func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchText!, scope: scope)
+        let search_text = searchController.searchBar.text
+        let search_bar = searchController.searchBar
+        let scope = search_bar.scopeButtonTitles![search_bar.selectedScopeButtonIndex]
+        filterContentForSearchText(search_text!, scope: scope)
     }
     
-    // MARK: - UISearchBar Delegate
+    // MARK: UISearchBar Delegate
+    
+    // Allows search bar to utilize custom filtering function
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
     
     // MARK: Private Instance Methods
+    
+    // Checks if presentations are being filtered by query or presentation category selection
     func isFiltering() -> Bool {
-        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        //return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
-        return (searchController.isActive && !searchBarIsEmpty()) || searchBarScopeIsFiltering
+        let search_bar_scope_is_filtering = search_controller.searchBar.selectedScopeButtonIndex != 0
+        return (search_controller.isActive && !searchBarIsEmpty()) || search_bar_scope_is_filtering
     }
     
+    // Checks if search bar contains any text or not
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
-        return searchController.searchBar.text?.isEmpty ?? true
+        return search_controller.searchBar.text?.isEmpty ?? true
     }
     
+    // Filters presentations by typed in search text and/or presentation category
     func filterContentForSearchText(_ searchText: String, scope: String) {
         filtered_presentation_items = presentation_items.filter({ (item) -> Bool in
-            let presentationLocation: NSString = item.location as NSString
-            let presentationNames: NSString = item.names as NSString
-            let presentationTime: NSString = item.time as NSString
-            let presentationDate: NSString = item.date as NSString
+            let presentation_location: NSString = item.location as NSString
+            let presentation_names: NSString = item.names as NSString
+            let presentation_time: NSString = item.time as NSString
+            let presentation_date: NSString = item.date as NSString
             
-            var categoryMatch: Bool!
+            var category_match: Bool!
             if (presenter_member_type == "Presenter") {
-                categoryMatch = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
+                category_match = ((item.names).range(of: scope, options: .caseInsensitive) != nil) || (item.chapter == scope)
             } else {
-                categoryMatch = (scope == "All") || (item.chapter == scope)
+                category_match = (scope == "All") || (item.chapter == scope)
             }
             
             if searchBarIsEmpty() {
-                return categoryMatch
+                return category_match
             } else {
-                return categoryMatch
-                    && ((presentationLocation.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationNames.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationTime.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
-                        || (presentationDate.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
+                return category_match
+                    && ((presentation_location.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_names.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_time.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+                        || (presentation_date.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound)
             }
         })
         collectionView.reloadData()
     }
-    
 }

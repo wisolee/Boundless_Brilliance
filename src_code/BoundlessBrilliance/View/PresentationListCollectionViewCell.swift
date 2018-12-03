@@ -10,16 +10,18 @@ import UIKit
 
 class PresentationListCollectionViewCell: UICollectionViewCell {
 
-    let monthArray: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let month_array: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var presentation: PresentationListItemModel? = nil
-
+    
+    // MARK: subviews used in cell
+    // Referenced examples from alerts-and-pickers (https://github.com/dillidon/alerts-and-pickers)
+    
     let arrow = CellArrow()
-    //examples from the alerts and pickers app cell file-----------------------------
+    
     public lazy var date: UILabel = {
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 0
         $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
-        $0.text = "Nov\n02"
         return $0
     }(UILabel())
     
@@ -27,7 +29,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 0
         $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
-        $0.text = "3:00"
         return $0
     }(UILabel())
     
@@ -36,18 +37,16 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         $0.textColor = .black
         $0.font = UIFont(name: "MeeraInimai-Regular", size: UIFont.labelFontSize)
         $0.adjustsFontSizeToFitWidth = true
-        $0.text = "Valley Oak Elementary"
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 1
         return $0
     }(UILabel())
     
-    fileprivate let textView = UIView()
+    fileprivate let text_view = UIView()
     
-    public lazy var presenterNames: UILabel = {
+    public lazy var presenter_names: UILabel = {
         $0.font = .systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 13)
         $0.textColor = .gray
-        $0.text = "Dweezel the Dragon"
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 1
         return $0
@@ -55,7 +54,6 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
     
     public lazy var notification: UILabel = {
         $0.textColor = .red
-        $0.text = ""
         $0.textAlignment = NSTextAlignment.center
         $0.numberOfLines = 1
         $0.adjustsFontSizeToFitWidth = true
@@ -63,69 +61,79 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         return $0
     }(UILabel())
     
+    // MARK: Designated Initializers
+    
+    // Implementation for required cell init
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
+    // Override default cell init with custom cell init
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
     
-    fileprivate func setup(){
+    // MARK: Private Instance Methods
+    
+    // Configure custom cell with desired settings
+    fileprivate func setup() {
         backgroundColor = UIColor.white
         addSubview(arrow)
         arrow.backgroundColor = UIColor.white
         addSubview(date)
         addSubview(time)
         addSubview(location)
-        addSubview(presenterNames)
+        addSubview(presenter_names)
         addSubview(notification)
-        
     }
     
+    // Override default layout with custom layout
     override public func layoutSubviews() {
         super.layoutSubviews()
         layout()
     }
     
-    //layout function from alerts and pickers
-    func layout(){
-        //set constants for constraints
-        let timeWidthRelativeToDate = CGFloat(0.75)
-        let vTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
-        let hTextInset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 12 : 8
-        let dateViewHeight: CGFloat = self.bounds.size.height - (layoutMargins.top + layoutMargins.bottom)
-        date.frame = CGRect(x: layoutMargins.left + 3, y: layoutMargins.top, width: 0.8 * dateViewHeight, height: dateViewHeight)
-        //more constants
-        let textViewWidth: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * hTextInset
-        let locationSize = location.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
-        let presenterNamesSize = presenterNames.sizeThatFits(CGSize(width: textViewWidth, height: self.bounds.size.height))
-        //create frames for inner objects
-        let locationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5))
-        let locationFrameSize = CGSize(width: textViewWidth, height: locationSize.height)
-        location.frame = CGRect(origin: locationFrameOrigin, size: locationFrameSize)
+    // Layout function from alerts and pickers
+    func layout() {
+        // Set constants for constraints
+        let time_width_relative_to_date = CGFloat(0.75)
+        let v_text_inset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        let h_text_inset: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 12 : 8
+        let date_view_height: CGFloat = self.bounds.size.height - (layoutMargins.top + layoutMargins.bottom)
+        date.frame = CGRect(x: layoutMargins.left + 3, y: layoutMargins.top, width: 0.8 * date_view_height, height: date_view_height)
         
-        let presenterFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + vTextInset)
-        let presenterFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
-        presenterNames.frame = CGRect(origin: presenterFrameOrigin, size: presenterFrameSize)
+        // More constants
+        let text_view_width: CGFloat = self.bounds.size.width - 1.75 * date.frame.maxX - 4 * h_text_inset
+        let location_size = location.sizeThatFits(CGSize(width: text_view_width, height: self.bounds.size.height))
+        let presenter_names_size = presenter_names.sizeThatFits(CGSize(width: text_view_width, height: self.bounds.size.height))
         
-        let timeFrameOrigin = CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top)
-        let timeFrameSize = CGSize(width: timeWidthRelativeToDate * dateViewHeight, height: dateViewHeight)
-        time.frame = CGRect(origin: timeFrameOrigin, size: timeFrameSize)
+        // Create frames for inner objects
+        let location_frame_origin = CGPoint(x: date.frame.maxX + 4, y:  (self.bounds.size.height / 5))
+        let location_frame_size = CGSize(width: text_view_width, height: location_size.height)
+        location.frame = CGRect(origin: location_frame_origin, size: location_frame_size)
         
-        let arrowFrameOrigin = CGPoint(x: time.frame.maxX, y: layoutMargins.top)
-        let arrowFrameSize = CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: dateViewHeight)
-        arrow.frame = CGRect(origin: arrowFrameOrigin, size: arrowFrameSize)
+        let presenter_frame_origin = CGPoint(x: date.frame.maxX + 4, y: location.frame.maxY + v_text_inset)
+        let presenter_frame_size = CGSize(width: text_view_width, height: presenter_names_size.height)
+        presenter_names.frame = CGRect(origin: presenter_frame_origin, size: presenter_frame_size)
         
-        let notificationFrameOrigin = CGPoint(x: date.frame.maxX + 4, y: presenterNames.frame.maxY + vTextInset + vTextInset)
-        let notificationFrameSize = CGSize(width: textViewWidth, height: presenterNamesSize.height)
-        notification.frame = CGRect(origin: notificationFrameOrigin, size: notificationFrameSize)
+        let time_frame_origin = CGPoint(x: location.frame.maxX + 6, y: layoutMargins.top)
+        let time_frame_size = CGSize(width: time_width_relative_to_date * date_view_height, height: date_view_height)
+        time.frame = CGRect(origin: time_frame_origin, size: time_frame_size)
+        
+        let arrow_frame_origin = CGPoint(x: time.frame.maxX, y: layoutMargins.top)
+        let arrow_frame_size = CGSize(width: self.frame.maxX - time.frame.maxX - 6, height: date_view_height)
+        arrow.frame = CGRect(origin: arrow_frame_origin, size: arrow_frame_size)
+        
+        let notification_frame_origin = CGPoint(x: date.frame.maxX + 4, y: presenter_names.frame.maxY + v_text_inset + v_text_inset)
+        let notification_frame_size = CGSize(width: text_view_width, height: presenter_names_size.height)
+        notification.frame = CGRect(origin: notification_frame_origin, size: notification_frame_size)
         
         style(view: contentView)
     }
     
+    // Styles the cell
     func style(view: UIView) {
         view.clipsToBounds = false
         view.backgroundColor = .white
@@ -139,59 +147,55 @@ class PresentationListCollectionViewCell: UICollectionViewCell {
         view.layer.rasterizationScale = UIScreen.main.scale
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initilization Code
-    }
-    
     // Called in PresentationListViewController when configuring custom view cells
     public func configure(with model: PresentationListItemModel) {        
         presentation = model
         location.text = model.location
-        presenterNames.text = model.names
+        presenter_names.text = model.names
         time.text = model.time
-        let formattedDate = configureDate(date: model.date)
-        date.text = formattedDate
+        let formatted_date = configureDate(date: model.date)
+        date.text = formatted_date
         checkDateUpdateNotification(notification: notification)
     }
     
-    func checkDateUpdateNotification(notification: UILabel){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        let timeIndex = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
-        let timeIndexEnd = presentation!.time.index(timeIndex, offsetBy: 5)
-        let timeString = String(presentation!.time[timeIndex...timeIndexEnd])
-        print(presentation!.time[timeIndex...timeIndexEnd])
+    // Notifies user if feedback can be submitted for a presentation
+    func checkDateUpdateNotification(notification: UILabel) {
+        let date_formatter = DateFormatter()
+        date_formatter.dateFormat = "yyyy-MM-dd"
+        let time_formatter = DateFormatter()
+        time_formatter.dateFormat = "HH:mm"
+        
+        let time_index = presentation!.time.index(presentation!.time.startIndex, offsetBy: 3)
+        let time_index_end = presentation!.time.index(time_index, offsetBy: 5)
+        let time_string = String(presentation!.time[time_index...time_index_end])
+        
         let date = Date()
-        let currentDate = dateFormatter.date(from: dateFormatter.string(from: date))
-        let presentationDate = dateFormatter.date(from: presentation!.date)
-//        print(currentDate)
-        let currentTime = timeFormatter.date(from: timeFormatter.string(from: date))
-        let presentationTime = timeFormatter.date(from: timeString)
-        if(presentationDate! >= currentDate!){
+        
+        let current_date = date_formatter.date(from: date_formatter.string(from: date))
+        let presentation_date = date_formatter.date(from: presentation!.date)
+        let current_time = time_formatter.date(from: time_formatter.string(from: date))
+        let presentation_time = time_formatter.date(from: time_string)
+        
+        if(presentation_date! >= current_date!) {
             notification.text = ""
-        }
-        else{
-            if(currentTime! >= presentationTime!){
+        } else {
+            if (current_time! >= presentation_time!) {
                 notification.text = "!: you can submit feedback on this presentation"
             }
         }
     }
     
-    func configureDate(date: String) -> String{
-        let placeHolderDate = date
-        let indexOfSubstring = placeHolderDate.index(placeHolderDate.startIndex, offsetBy: 5)
-        var dateWOYear = String(placeHolderDate[indexOfSubstring...])
-        dateWOYear = dateWOYear.replacingOccurrences(of: "-", with: "\n")
-        let monthIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 1)
-        let dayIndex = dateWOYear.index(dateWOYear.startIndex, offsetBy: 2)
-        let monthIntString = String(dateWOYear[...monthIndex])
-        print("month only: " + String(dateWOYear[...monthIndex]) + "|")
-        let month = Int(monthIntString)
-        print("month int: " + String(month!))
-        let monthString = monthArray[month! - 1]
-        return monthString + String(dateWOYear[dayIndex...])
+    // Configure data with desired settings
+    func configureDate(date: String) -> String {
+        let place_holder_date = date
+        let index_of_substring = place_holder_date.index(place_holder_date.startIndex, offsetBy: 5)
+        var date_wo_year = String(place_holder_date[index_of_substring...])
+        date_wo_year = date_wo_year.replacingOccurrences(of: "-", with: "\n")
+        let month_index = date_wo_year.index(date_wo_year.startIndex, offsetBy: 1)
+        let day_index = date_wo_year.index(date_wo_year.startIndex, offsetBy: 2)
+        let month_int_string = String(date_wo_year[...month_index])
+        let month = Int(month_int_string)
+        let month_string = month_array[month! - 1]
+        return month_string + String(date_wo_year[day_index...])
     }
 }
