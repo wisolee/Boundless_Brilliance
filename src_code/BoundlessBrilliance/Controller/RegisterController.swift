@@ -261,7 +261,7 @@ class RegisterController: UIViewController {
         let user_fields = ["name" : name,
                           "email" : email,
                           "chapter" : chapter,
-                          "member_type" : member_type]
+                          "memberType" : member_type]
         
         updateTable(ref: user_ref, value: user_fields)
     }
