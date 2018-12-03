@@ -335,10 +335,10 @@ class  SurveyController: UIViewController {
         initSectionHeader(target: submit_button, topView: anecdote_view, container: inputs_view)
         submit_button.bottomAnchor.constraint(equalTo: inputs_view.bottomAnchor).isActive = true
         
-        var contentRect = CGRect.zero
+        var content_rect = CGRect.zero
         
         for view in inputs_view.subviews {
-            contentRect = contentRect.union(view.frame)
+            content_rect = content_rect.union(view.frame)
         }
     }
     
@@ -424,15 +424,15 @@ class  SurveyController: UIViewController {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             // Create local filesystem URL
-            let localURL = dir.appendingPathComponent(download)
+            let local_URL = dir.appendingPathComponent(download)
             
             // Attempt to download to the local filesystem
-            _ = survey_ref.write(toFile: localURL) { url, error in
+            _ = survey_ref.write(toFile: local_URL) { url, error in
                 if error != nil {
                 } else {
                     // Write text string to the downloaded file
                     do {
-                        let file_handle = try FileHandle(forWritingTo: localURL)
+                        let file_handle = try FileHandle(forWritingTo: local_URL)
                         file_handle.seekToEndOfFile()
                         file_handle.write(text.data(using: .utf8)!)
                         file_handle.closeFile()
@@ -442,7 +442,7 @@ class  SurveyController: UIViewController {
                     }
                     
                     // Reupload the file to Firebase storage
-                    _ = survey_ref.putFile(from: localURL, metadata: nil) { metadata, error in
+                    _ = survey_ref.putFile(from: local_URL, metadata: nil) { metadata, error in
                         guard metadata != nil
                             else {
                             return
