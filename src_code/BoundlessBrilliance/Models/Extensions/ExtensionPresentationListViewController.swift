@@ -33,6 +33,7 @@ extension PresentationListCollectionViewController: UISearchControllerDelegate, 
         
         // Setup Scope Bar
         self.searchController.searchBar.showsScopeBar = true
+        self.searchController.searchBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
         // Set Scope Bar Titles
         if (presenterMemberType == "Presenter" || presenterMemberType == "Outreach Coordinator") {
             self.searchController.searchBar.scopeButtonTitles = [presenterChapter, presenterName]

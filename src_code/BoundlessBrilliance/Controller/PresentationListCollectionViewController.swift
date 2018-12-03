@@ -84,6 +84,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         // Configure the cell
         isSearching = isFiltering()
         if isSearching {
+            print("Using Filtered Date")
             cell.configure(with: filteredPresentationItems[indexPath.row])
         } else {
             cell.configure(with: presentationItems[indexPath.row])
@@ -106,7 +107,12 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
         //use presentationItems[indexPath.row] to get the presentation Item
         //pass the presentation item to a new view and segue
         let detailController = PresentationDetailController()
-        detailController.presentation = presentationItems[indexPath.row]
+        isSearching = isFiltering()
+        if isSearching {
+            detailController.presentation = filteredPresentationItems[indexPath.row]
+        } else {
+            detailController.presentation = presentationItems[indexPath.row]
+        }
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }
@@ -114,8 +120,9 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // MARK: - Private setup methods for UIsubviews
     func configureNavigationBar() {
         navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 128, b: 128)
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
+        navigationController?.navigationBar.tintColor = UIColor(r: 0, g: 163, b: 173)
+        navigationController?.navigationBar.barTintColor = UIColor(r: 220, g: 220, b: 220)
+       
     }
     
     func configureCollectionView() {
@@ -127,7 +134,7 @@ class PresentationListCollectionViewController: UICollectionViewController, UICo
     // subview - returnButton
     let logOutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        button.backgroundColor = UIColor(r: 0, g: 163, b: 173)
         button.setTitle("Logout", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         button.translatesAutoresizingMaskIntoConstraints = false

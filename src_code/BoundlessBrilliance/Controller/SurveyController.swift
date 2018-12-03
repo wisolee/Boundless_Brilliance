@@ -20,9 +20,20 @@ class  SurveyController : UIViewController {
     let shirtOptions = ["", "yes", "no"]
     var shirtSizes = ["", "extra-small", "small", "medium", "large", "extra-large"]
     
+    let header: UILabel! = {
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
+        $0.text = "Feedback Survey"
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = NSTextAlignment.left
+        $0.backgroundColor = UIColor.white
+        $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 40 : 30)
+        return $0
+    }(UILabel())
+    
     let presSection: UILabel! = {
         $0.adjustsFontSizeToFitWidth = true
-        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
         $0.text = "Presentation"
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = NSTextAlignment.left
@@ -30,6 +41,8 @@ class  SurveyController : UIViewController {
         $0.font = .boldSystemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 15)
         return $0
     }(UILabel())
+    
+    
     
     // number of students
     let NumStudents: UITextField! = {
@@ -89,7 +102,7 @@ class  SurveyController : UIViewController {
     let transportationSection: UILabel! = {
         $0.text = "Transportation"
         $0.adjustsFontSizeToFitWidth = true
-        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
         $0.textAlignment = NSTextAlignment.left
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor.white
@@ -118,7 +131,7 @@ class  SurveyController : UIViewController {
     let AnecdoteTitle: UILabel! = {
         $0.text = "Please leave any comments below"
         $0.adjustsFontSizeToFitWidth = true
-        $0.textColor = UIColor(r: 0, g: 128, b: 128)
+        $0.textColor = UIColor(r: 0, g: 163, b: 173)
         $0.textAlignment = NSTextAlignment.left
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor.white
@@ -137,7 +150,7 @@ class  SurveyController : UIViewController {
     }(UITextView())
     
     let SubmitButton: UIButton = {
-        $0.backgroundColor = UIColor(r: 0, g: 128, b: 128)
+        $0.backgroundColor = UIColor(r: 0, g: 163, b: 173)
         $0.setTitle("Submit", for: .normal)
         // must set up this property otherwise, the specified anchors will not work
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -182,6 +195,8 @@ class  SurveyController : UIViewController {
         inputsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         inputsView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         inputsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+        inputsView.addSubview(header)
         
         // Presentation Inputs
         inputsView.addSubview(presSection)
@@ -270,8 +285,9 @@ class  SurveyController : UIViewController {
         inputsView.addSubview(SubmitButton)
         
         // Format All Input Views
-        initWideView(target: presSection, topView: inputsView, container: inputsView)
-        presSection.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 6).isActive = true
+        initHeader(target: header, topView: inputsView, container: inputsView)
+        header.topAnchor.constraint(equalTo: inputsView.topAnchor, constant: 12).isActive = true
+        initWideView(target: presSection, topView: header, container: inputsView)
         initWideView(target: NumStudents, topView: presSection, container: inputsView)
         initWideView(target: Experiment, topView: NumStudents, container: inputsView)
         initWideView(target: StickerDropdown, topView: Experiment, container: inputsView)
@@ -296,6 +312,12 @@ class  SurveyController : UIViewController {
         }
     }
     
+    func initHeader(target: UIView, topView: UIView, container: UIView){
+        target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 12).isActive = true
+        target.widthAnchor.constraint(equalTo: container.widthAnchor, constant: -5).isActive = true
+        target.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        target.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    }
 
     func initWideView(target: UIView, topView: UIView, container: UIView){
         target.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: CGFloat(INPUT_TOP_PADDING)).isActive = true
@@ -347,7 +369,7 @@ class  SurveyController : UIViewController {
     }
     
     func initSeparator(separator: UIView){
-        separator.backgroundColor = UIColor.lightGray
+        separator.backgroundColor = UIColor(r: 220, g: 220, b: 220)
         separator.translatesAutoresizingMaskIntoConstraints = false
     }
 

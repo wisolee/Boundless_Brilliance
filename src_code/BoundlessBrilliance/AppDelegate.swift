@@ -20,13 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        GIDSignIn.sharedInstance().clientID = "427410343383-vketdmoka27pipmj3929dh7q4ig2kiqn.apps.googleusercontent.com"
         
         // Replace what the story board uses, creating story board manually
         window = UIWindow(frame: UIScreen.main.bounds)
         // Launches app directly to login page
         window?.rootViewController = UINavigationController(rootViewController: LoginScreenController())
         window?.makeKeyAndVisible()
+        
+        UITabBar.appearance().barTintColor = UIColor.orange
         
         // Creates top navigation bar
 //        let presentationListVC = PresentationListCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
