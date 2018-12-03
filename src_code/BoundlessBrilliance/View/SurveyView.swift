@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SurveyView : UIView{
+class SurveyView : UIView {
     
     // Allows content to be scrollable
     let scroll_container: UIScrollView = {
