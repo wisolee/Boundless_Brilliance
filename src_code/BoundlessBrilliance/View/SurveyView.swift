@@ -9,28 +9,23 @@
 import Foundation
 import UIKit
 
-class SurveyView : UIView{
+class SurveyView : UIView {
     
-    // subview - inputsContainerView
-    let scrollContainer: UIScrollView = {
+    // Allows content to be scrollable
+    let scroll_container: UIScrollView = {
         let view = UIScrollView()
         view.backgroundColor = UIColor.white
-        // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         return view
     }()
     
-    // subview - inputsContainerView
-    let inputsView: UIView = {
+    // Will be added to scroll_container; will contain all the input fields
+    let inputs_view: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
-        // must set up this property otherwise, the specified anchors will not work
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         return view
     }()
-
 }
