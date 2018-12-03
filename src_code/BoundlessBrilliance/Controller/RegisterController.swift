@@ -21,6 +21,7 @@ class RegisterController: UIViewController {
         let name_tf = UITextField()
         name_tf.placeholder = "Name"
         name_tf.translatesAutoresizingMaskIntoConstraints = false
+        name_tf.autocorrectionType = .no
         return name_tf
     }()
     
